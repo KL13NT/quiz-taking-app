@@ -9,7 +9,7 @@ This tiny program was an assignment in FCI-CU@2019. This is a single-user multip
 - Error handling
 - Ability to see all scores and score statistics
 
-## You have absolutely every right to use the code in this repo as your own but preferably with a mention of our names. We're glad if this helps you in any possible way.  
+#### You have absolutely every right to use the code in this repo as your own but it would be more helpful to understand the concepts involved and why we did certain things in certain ways instead of just copying. 
 
 ## Contributing
 Any addition or improvement is welcome. We're by no means experts at C++ and have probably made a few mistakes here and there. Just open an issue to discuss whatever you're trying to achieve and then open a PR whenever you please. 
