@@ -7,7 +7,7 @@
 #include <algorithm> //random_shuffle
 #include <random>
 #include <chrono>
-
+#include <unordered_set>
 
 /*
 	INITIALISATIONS
@@ -330,11 +330,11 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 // Displays a question followed by its answers
 void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 	DisplayQuestion(CurrentQuestion, QuestionIndex);
-	
+
 	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
 	std::string Labels[] = {"[a] ", "[b] ", "[c] ", "[d] "};
 	ShuffleAnswers(Answers);
-	
+
 	for(int i = 0; i < 4; i++){
 		std::string AnswerWithLabel;
 
@@ -343,7 +343,7 @@ void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 			AnswerWithLabel += Labels[i] + Answers[i];
 		}
 		else AnswerWithLabel += Labels[i] + Answers[i];
-		
+
 		std::cout << IndentString(AnswerWithLabel, 1);
 	}
 
@@ -390,12 +390,12 @@ std::string IndentString(std::string sentence, int indent) {
 
 void GetFileNameFromUser(){
 	std::string FileName = GetUserString("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
-	
+
 	std::ifstream File;
 	File.open(FileName);
 	if(File.is_open()){
 		File.close();
-		
+
 		std::cout << "\nFile found, loading questions\n";
 		ReadFromFile(FileName);
 	}
@@ -406,7 +406,7 @@ void GetFileNameFromUser(){
 void ReadFromFile(std::string FileName) {
 	std::ifstream File;
 	File.open(FileName);
-	
+
 	if (File.is_open()) {
 		int Counter = 0; //max 4
 		int LoadedQuestionsCount = 0;
@@ -429,12 +429,12 @@ void ReadFromFile(std::string FileName) {
 				case 3: NewQuestion.Choice3 = Line; break; //Correct
 				case 4: NewQuestion.Choice4 = Line; break; //Correct
 			}
-			
+
 			++Counter;
 		}
 
 		File.close();
-		
+
 		std::cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
 	}
 
@@ -500,12 +500,37 @@ void AdminMenu() {
 }
 
 
+void Shuffle(std::vector<int> (&RandomlyGeneratedIntegers)){
+	std::vector<int> NewIntegers(POOL_QUESTIONS_COUNT);
+	int Limit = POOL_QUESTIONS_COUNT;
+	srand(time(NULL));
+
+	for(int i = 0; i < Limit; i++){
+		int RandomInteger = rand() % Limit;
+		bool isDuplicate = false;
+		for(int x = 0; x < Limit; x ++){
+			if(NewIntegers[x] == RandomlyGeneratedIntegers[RandomInteger]){
+				isDuplicate = true;
+				break;
+			}
+		}
+
+		if(isDuplicate == false) {
+			NewIntegers.push_back(RandomlyGeneratedIntegers[RandomInteger]);
+		}
+		else i--;
+	}
+
+	for(int i = 0; i < Limit; i ++){
+		RandomlyGeneratedIntegers[i] = NewIntegers[i];
+	}
+}
+
+
 // Shuffles question pool
 void ShuffleQuestionPool(){
+	Shuffle(RandomlyGeneratedQuestions);
 	std::vector<Question> NewPool;
-		
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(RandomlyGeneratedQuestions.begin(), RandomlyGeneratedQuestions.end(),  std::default_random_engine(seed));
 
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) NewPool.push_back(QuestionPool[RandomlyGeneratedQuestions[i]]); // Copies pool away randomly
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
@@ -517,7 +542,7 @@ void ShuffleQuestionPool(){
 // Shuffles answers
 void ShuffleAnswers(std::vector<std::string> (&Answers)){
 	std::vector<std::string> NewAnswers;
-	
+
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(RandomlyGeneratedAnswers.begin(), RandomlyGeneratedAnswers.end(),  std::default_random_engine(seed));
 
