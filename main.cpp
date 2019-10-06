@@ -404,6 +404,7 @@ void ReadFromFile(std::string FileName) {
 			
 			++Counter;
 		}
+		File.close();
 		std::cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
 	}
 
