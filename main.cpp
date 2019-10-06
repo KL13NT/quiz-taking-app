@@ -60,7 +60,7 @@ void AddQuestion(); //!TESTED
 void DisplayAllQuestions(); //!TESTED
 void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex); //!TESTED
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex); //!TESTED
-void ReadFromFile(); //!TESTED
+void ReadFromFile(std::string FileName); //!TESTED
 void ShuffleAnswers(std::vector<std::string> (&Answers));
 void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]); //!AWAITING
 void ShuffleQuestionPool();
@@ -371,10 +371,15 @@ std::string IndentString(std::string sentence, int indent) {
 }
 
 
+void GetFileNameFromUser(){
+	ReadFromFile(GetUserString("Enter the name of the file you wish to load from"));
+}
+
 // Reads questions from files and adds them to the question pool
-void ReadFromFile() {
+void ReadFromFile(std::string FileName) {
 	std::ifstream File;
-	File.open("exam_questions.txt");
+	File.open(FileName);
+	
 	if (File.is_open()) {
 		int Counter = 0; //max 4
 		int LoadedQuestionsCount = 0;
@@ -397,6 +402,7 @@ void ReadFromFile() {
 				case 3: NewQuestion.Choice3 = Line; break; //Correct
 				case 4: NewQuestion.Choice4 = Line; break; //Correct
 			}
+			
 			++Counter;
 		}
 		std::cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
@@ -517,7 +523,7 @@ void DisplayScores(){
 
 
 int main() {
-	ReadFromFile();
+	ReadFromFile("exam_questions.txt");
 
 	// Generates random integers
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) RandomlyGeneratedQuestions.push_back(i);
