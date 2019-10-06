@@ -66,6 +66,7 @@ void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]);
 void ShuffleQuestionPool();
 void DisplayStatistics();
 void DisplayScores();
+void GetFileNameFromUser();
 Profile GenerateReport(std::string Name); //!AWAITING
 // Quiz UpdateQuizState(Quiz CurrentQuiz, int CorrectAnswersCount = NULL, int WrongAnswersCount = NULL); //!AWAITING
 
@@ -284,7 +285,7 @@ void QuestionsMenuHandler() {
 	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
 	std::string UserChoice = GetUserString("Your choice");
 
-	if (UserChoice == "b") MainMenu();
+	if (UserChoice == "b") return MainMenu();
 	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ' && UserChoice[2]) {
 		char IndexOfQuestionAsChar = UserChoice[2];
 		int IndexOfQuestion = IndexOfQuestionAsChar - '0';
@@ -294,19 +295,17 @@ void QuestionsMenuHandler() {
 			std::vector<Question>::iterator it = QuestionPool.begin();
 			std::advance(it, IndexOfQuestion);
 			QuestionPool.erase(it);
-            POOL_QUESTIONS_COUNT -= 1;
-			MainMenu();
+			POOL_QUESTIONS_COUNT -= 1;
+			return MainMenu();
 		}
 		else {
 			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-			QuestionsMenuHandler();
-			return;
+			return QuestionsMenuHandler();
 		}
 	}
 	else {
 		std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-		QuestionsMenuHandler();
-		return;
+		return QuestionsMenuHandler();
 	}
 }
 
@@ -372,7 +371,7 @@ std::string IndentString(std::string sentence, int indent) {
 
 
 void GetFileNameFromUser(){
-	ReadFromFile(GetUserString("Enter the name of the file you wish to load from"));
+	ReadFromFile(GetUserString("Place the file in the same folder as this program exe\nEnter the name of the file you wish to load from"));
 }
 
 // Reads questions from files and adds them to the question pool
@@ -424,28 +423,22 @@ void MainMenu() {
 
 	switch (GetUserInt("Your choice")) {
 	case 1:
-		AdminMenu();
-		break;
+		return AdminMenu();
 	case 2:
 		UpdateUserName();
-		MainMenu();
-		break;
+		return MainMenu();
 	case 3:
 		StartNewQuiz();
-		MainMenu();
-		break;
+		return MainMenu();
 	case 4:
-		DisplayStatistics();
-		break;
+		return DisplayStatistics();
 	case 5:
-		DisplayScores();
-		break;
+		return DisplayScores();
 	case 6:
-		// Exit();
-		break;
+		return;
 	default:
 		std::cout << "We didn't quite understand that, try again, perhaps?\n";
-		MainMenu();
+		return MainMenu();
 	}
 }
 
@@ -460,20 +453,17 @@ void AdminMenu() {
 
 	switch (GetUserInt("Your choice")) {
 	case 1:
-		QuestionsMenu();
-		break;
+		return QuestionsMenu();
 	case 2:
-		AddQuestion();
-		break;
+		return AddQuestion();
 	case 3:
-		ReadFromFile();
-		break;
+		GetFileNameFromUser();
+		return AdminMenu();
 	case 4:
-		MainMenu();
-		break;
+		return MainMenu();
 	default:
 		std::cout << "We didn't quite understand that, try again, perhaps?\n";
-		AdminMenu();
+		return AdminMenu();
 	}
 	//TODO: Take user input and push it through a switch
 }
