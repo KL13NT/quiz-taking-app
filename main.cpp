@@ -285,7 +285,7 @@ void QuestionsMenuHandler() {
     char IndexOfQuestionAsChar = UserChoice[2];
     int IndexOfQuestion = IndexOfQuestionAsChar - '0';
     if (IndexOfQuestion <= POOL_QUESTIONS_COUNT) {
-      std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion].QuestionTitle << "\n\n";
+      std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].QuestionTitle << "\n\n";
 
       std::vector<Question>::iterator it = QuestionPool.begin();
       std::advance(it, IndexOfQuestion);
@@ -324,7 +324,7 @@ void QuestionsMenu() {
 
 // Displays a single question as part of a list
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
-  std::cout << "[" << QuestionIndex << "] " << CurrentQuestion.QuestionTitle << "?\n";
+  std::cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.QuestionTitle << "?\n";
 }
 
 // Displays a question followed by its answers
