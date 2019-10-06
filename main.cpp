@@ -4,10 +4,9 @@
 #include <numeric> //accumulate
 #include <string>
 #include <vector>
-#include <algorithm> //random_shuffle
-#include <random>
-#include <chrono>
-#include <unordered_set>
+#include <algorithm> //shuffle
+#include <random>	//default_random_engine
+#include <chrono> //system_clock
 
 /*
 	INITIALISATIONS
@@ -22,8 +21,6 @@ struct Question {
   std::string Choice2;
   std::string Choice3;
   std::string Choice4;
-  int QuestionID;
-  // std::string Choices[4] = {CorrectChoice, Choice2, Choice3, Choice4};
 };
 
 struct Profile {
@@ -41,15 +38,12 @@ std::vector<int>RandomlyGeneratedAnswers; // filled in main before program start
 std::vector<int>RandomlyGeneratedQuestions; // filled in main
 
 
-
 std::string GetUserString(); //!TESTED
 std::string GetUserInt(); //!TESTED
 std::string IndentString(std::string sentence, int indent); //!TESTED
-int GenerateRandomInteger(int limit); //!TESTED
-bool CheckDuplicateQuestion(Question CurrentQuizQuestions[], Question CurrentQuestion); //!TESTED
+char GetUserChar(std::string Additional = "  ");
 bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer); //!TESTED
 bool CheckCurrentQuestionPoolSize(int ExpectedSize); //!TESTED
-bool ArrayIncludes(std::string Searchables[], std::string Searchable, int ArraySize); //!TESTED
 bool RandomiseAndPrintAnswers(Question CurrentQuestion); //!AWAITING
 void MainMenu(); //!TESTED
 void AdminMenu(); //!TESTED
@@ -62,25 +56,18 @@ void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex); //
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex); //!TESTED
 void ReadFromFile(std::string FileName); //!TESTED
 void ShuffleAnswers(std::vector<std::string> (&Answers));
-void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]); //!AWAITING
-void ShuffleQuestionPool();
-void DisplayStatistics();
-void DisplayScores();
-void GetFileNameFromUser();
-Profile GenerateReport(std::string Name); //!AWAITING
-// Quiz UpdateQuizState(Quiz CurrentQuiz, int CorrectAnswersCount = NULL, int WrongAnswersCount = NULL); //!AWAITING
-
+void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]); //!TESTED
+void ShuffleQuestionPool(); //!TESTED
+void DisplayStatistics(); //!TESTED
+void DisplayScores(); //!TESTED
+void GetFileNameFromUser(); //!TESTEED
+void GenerateAfterQuizReport(int CorrectAnswers); //!TESTED
+void QuestionsMenu(); //!TESTED
+void QuestionsMenuHandler(); //!TESTED
 
 /*
 	HELPERS
 */
-
-// Generate a random integer
-int GenerateRandomInteger(int limit = 10) {
-  srand(time(NULL));
-  return rand() % limit;
-}
-
 
 //Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
 bool CheckCurrentQuestionPoolSize(int ExpectedSize) {
@@ -169,17 +156,6 @@ bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer) {
 }
 
 
-// Checks if array includes element
-bool ArrayIncludes(std::string Searchables[], std::string Searchable, int ArraySize) {
-  for (int i = 0; i < ArraySize; i++) {
-    if (Searchables[i] == Searchable) {
-      return true;
-    }
-  }
-  return false;
-}
-
-
 // Randomises passed question answers and returns true if the user chose correctly
 bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
   std::vector<std::string> Answers{ CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
@@ -243,18 +219,6 @@ void UpdateProfileAfterQuiz(int CorrectAnswers){
   NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
 
   UserProfile = NewProfile;
-}
-
-
-// Checks if the currently generated question is a duplicate/already exxists in the generated questions array
-bool CheckDuplicateQuestion(Question *CurrentQuizQuestions, Question CurrentQuestion) {
-  bool IsDuplicate = false;
-  for (int Counter = 0; Counter < QUIZ_QUESTIONS_COUNT; ++Counter) {
-    if(IsDuplicate == true) return IsDuplicate;
-    if (CurrentQuizQuestions[Counter].QuestionTitle == CurrentQuestion.QuestionTitle) IsDuplicate = true;
-
-  }
-  return IsDuplicate;
 }
 
 
@@ -507,43 +471,15 @@ void AdminMenu() {
 }
 
 
-void Shuffle(std::vector<int> (&RandomlyGeneratedIntegers)){
-  std::vector<int> NewIntegers(POOL_QUESTIONS_COUNT);
-  int Limit = POOL_QUESTIONS_COUNT;
-  srand(time(NULL));
-
-  for(int i = 0; i < Limit; i++){
-    int RandomInteger = rand() % Limit;
-    bool isDuplicate = false;
-    for(int x = 0; x < Limit; x ++){
-      if(NewIntegers[x] == RandomlyGeneratedIntegers[RandomInteger]){
-        isDuplicate = true;
-        break;
-      }
-    }
-
-    if(isDuplicate == false) {
-      NewIntegers.push_back(RandomlyGeneratedIntegers[RandomInteger]);
-    }
-    else i--;
-  }
-
-  for(int i = 0; i < Limit; i ++){
-    RandomlyGeneratedIntegers[i] = NewIntegers[i];
-  }
-}
-
-
 // Shuffles question pool
 void ShuffleQuestionPool(){
-  // Shuffle(RandomlyGeneratedQuestions);
-  std::random_shuffle(RandomlyGeneratedQuestions.begin(),RandomlyGeneratedQuestions.end());
   std::vector<Question> NewPool;
+	
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::shuffle(RandomlyGeneratedQuestions.begin(), RandomlyGeneratedQuestions.end(), std::default_random_engine(seed));
 
   for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) NewPool.push_back(QuestionPool[RandomlyGeneratedQuestions[i]]); // Copies pool away randomly
   for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
-  // Time complexity of O(2n)
-  // TODO: Reduce Space complexity to O(n)
 }
 
 
