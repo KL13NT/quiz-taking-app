@@ -331,7 +331,7 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 	DisplayQuestion(CurrentQuestion, QuestionIndex);
 	
-	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice2, CurrentQuestion.Choice3 };
+	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
 	std::string Labels[] = {"[a] ", "[b] ", "[c] ", "[d] "};
 	ShuffleAnswers(Answers);
 	
