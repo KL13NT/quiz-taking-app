@@ -5,7 +5,8 @@
 #include <string>
 #include <vector>
 #include <algorithm> //random_shuffle
-
+#include <random>
+#include <chrono>
 
 
 /*
@@ -258,7 +259,6 @@ bool CheckDuplicateQuestion(Question *CurrentQuizQuestions, Question CurrentQues
 
 // Generates quiz questions by randomly filling an already created GeneratedQuestions array
 void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) {
-	std::random_shuffle(RandomlyGeneratedQuestions.begin(), RandomlyGeneratedQuestions.end());
 	ShuffleQuestionPool();
 	for(int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
 		GeneratedQuestions[i] = QuestionPool[RandomlyGeneratedQuestions[i]];
@@ -495,6 +495,10 @@ void AdminMenu() {
 // Shuffles question pool
 void ShuffleQuestionPool(){
 	std::vector<Question> NewPool;
+		
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(RandomlyGeneratedQuestions.begin(), RandomlyGeneratedQuestions.end(),  std::default_random_engine(seed));
+
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) NewPool.push_back(QuestionPool[RandomlyGeneratedQuestions[i]]); // Copies pool away randomly
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
 	// Time complexity of O(2n)
@@ -505,7 +509,9 @@ void ShuffleQuestionPool(){
 // Shuffles answers
 void ShuffleAnswers(std::vector<std::string> (&Answers)){
 	std::vector<std::string> NewAnswers;
-	std::random_shuffle(RandomlyGeneratedAnswers.begin(), RandomlyGeneratedAnswers.end());
+	
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(RandomlyGeneratedAnswers.begin(), RandomlyGeneratedAnswers.end(),  std::default_random_engine(seed));
 
 	for(int i = 0; i < 4; i++) NewAnswers.push_back(Answers[RandomlyGeneratedAnswers[i]]); // Copies pool away randomly
 	for(int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
