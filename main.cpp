@@ -5,9 +5,8 @@
 #include <string>
 #include <vector>
 #include <algorithm> //random_shuffle
-#include <unordered_set>
-#include <ctime>
-
+#include <random>
+#include <chrono>
 
 
 /*
@@ -63,10 +62,12 @@ void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex); //
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex); //!TESTED
 void ReadFromFile(); //!TESTED
 void ShuffleAnswers(std::vector<std::string> (&Answers));
+void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]); //!AWAITING
+void ShuffleQuestionPool();
 void DisplayStatistics();
 void DisplayScores();
 Profile GenerateReport(std::string Name); //!AWAITING
-Question GenerateQuizQuestions(std::unordered_set<int> UsedIndices); //!AWAITING
+// Quiz UpdateQuizState(Quiz CurrentQuiz, int CorrectAnswersCount = NULL, int WrongAnswersCount = NULL); //!AWAITING
 
 
 /*
@@ -257,22 +258,11 @@ bool CheckDuplicateQuestion(Question *CurrentQuizQuestions, Question CurrentQues
 
 
 // Generates quiz questions by randomly filling an already created GeneratedQuestions array
-Question GenerateQuizQuestions(std::unordered_set<int> (&UsedIndices)) {	
-	
-	srand(time(NULL));
-	int RandomInteger = rand() % POOL_QUESTIONS_COUNT;
-	bool IsDuplicate = UsedIndices.find(RandomInteger) != UsedIndices.end();
-
-	while(IsDuplicate){
-		RandomInteger = rand() % POOL_QUESTIONS_COUNT;
-		IsDuplicate = UsedIndices.find(RandomInteger) != UsedIndices.end();
+void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) {
+	ShuffleQuestionPool();
+	for(int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
+		GeneratedQuestions[i] = QuestionPool[RandomlyGeneratedQuestions[i]];
 	}
-
-	if(!IsDuplicate){
-		UsedIndices.insert(RandomInteger);
-		return QuestionPool[RandomInteger];
-	} 
-
 }
 
 
@@ -349,16 +339,14 @@ void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 // Starts a new quiz
 void StartNewQuiz() {
 	Question GeneratedQuestions[QUIZ_QUESTIONS_COUNT];
-	std::unordered_set<int> UsedIndices;
 
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
 		int CorrectAnswers = 0;
+		GenerateQuizQuestions(GeneratedQuestions);
 
 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
-			Question CurrentQuesiton = GenerateQuizQuestions(UsedIndices);
-			DisplayQuestion(CurrentQuesiton, i);
-
-			int IsCorrect = RandomiseAndPrintAnswers(CurrentQuesiton);
+			DisplayQuestion(GeneratedQuestions[i], i);
+			int IsCorrect = RandomiseAndPrintAnswers(GeneratedQuestions[i]);
 			if (IsCorrect == true) CorrectAnswers += 1;
 		}
 
@@ -369,6 +357,9 @@ void StartNewQuiz() {
 		std::cout << "Please add more questions to the question pool and try again.\n\n";
 	}
 
+	//TODO: Display report
+	//TODO: update profile
+	//TODO: return to main menu
 }
 
 
@@ -423,6 +414,7 @@ void MainMenu() {
 	std::cout << IndentString("[4] Display your scores statistics\n", 1);
 	std::cout << IndentString("[5] Display all your scores\n", 1);
 	std::cout << IndentString("[6] Exit\n", 1);
+	//TODO: Take user input and push it through a switch
 
 	switch (GetUserInt("Your choice")) {
 	case 1:
@@ -477,13 +469,30 @@ void AdminMenu() {
 		std::cout << "We didn't quite understand that, try again, perhaps?\n";
 		AdminMenu();
 	}
+	//TODO: Take user input and push it through a switch
+}
+
+
+// Shuffles question pool
+void ShuffleQuestionPool(){
+	std::vector<Question> NewPool;
+		
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(RandomlyGeneratedQuestions.begin(), RandomlyGeneratedQuestions.end(),  std::default_random_engine(seed));
+
+	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) NewPool.push_back(QuestionPool[RandomlyGeneratedQuestions[i]]); // Copies pool away randomly
+	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
+	// Time complexity of O(2n)
+	// TODO: Reduce Space complexity to O(n)
 }
 
 
 // Shuffles answers
 void ShuffleAnswers(std::vector<std::string> (&Answers)){
 	std::vector<std::string> NewAnswers;
-	std::random_shuffle(RandomlyGeneratedAnswers.begin(), RandomlyGeneratedAnswers.end());
+	
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(RandomlyGeneratedAnswers.begin(), RandomlyGeneratedAnswers.end(),  std::default_random_engine(seed));
 
 	for(int i = 0; i < 4; i++) NewAnswers.push_back(Answers[RandomlyGeneratedAnswers[i]]); // Copies pool away randomly
 	for(int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
