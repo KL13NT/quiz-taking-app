@@ -41,7 +41,7 @@ std::vector<int>RandomlyGeneratedQuestions; // filled in main
 std::string GetUserString(); //!TESTED
 std::string GetUserInt(); //!TESTED
 std::string IndentString(std::string sentence, int indent); //!TESTED
-char GetUserChar(std::string Additional = "  ");
+char GetUserChar(std::string Additional);
 bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer); //!TESTED
 bool CheckCurrentQuestionPoolSize(int ExpectedSize); //!TESTED
 bool RandomiseAndPrintAnswers(Question CurrentQuestion); //!AWAITING
