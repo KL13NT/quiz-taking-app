@@ -332,7 +332,26 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 // Displays a question followed by its answers
 void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 	DisplayQuestion(CurrentQuestion, QuestionIndex);
-	std::cout << IndentString("*[a] ", 1) << CurrentQuestion.CorrectChoice << IndentString("[b] ", 1) << CurrentQuestion.Choice2 << IndentString("[c] ", 1) << CurrentQuestion.Choice2 << IndentString("[d] ", 1) << CurrentQuestion.Choice3 << "\n\n";
+	
+	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice2, CurrentQuestion.Choice3 };
+	std::string Labels[] = {"[a] ", "[b] ", "[c] ", "[d] "};
+	ShuffleAnswers(Answers);
+	
+	for(int i = 0; i < 4; i++){
+		std::string AnswerWithLabel;
+
+		if(Answers[i] == CurrentQuestion.CorrectChoice){
+			AnswerWithLabel += '*';
+			AnswerWithLabel += Labels[i] + Answers[i];
+		}
+		else AnswerWithLabel += Labels[i] + Answers[i];
+		
+		std::cout << IndentString(AnswerWithLabel, 1);
+	}
+
+	std::cout << "\n\n";
+
+	// std::cout << IndentString("*[a] ", 1) <<  << IndentString("[b] ", 1) <<  << IndentString("[c] ", 1) <<  << IndentString("[d] ", 1) <<  << "\n\n";
 }
 
 
