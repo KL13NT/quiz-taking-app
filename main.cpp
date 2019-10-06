@@ -60,12 +60,13 @@ void AddQuestion(); //!TESTED
 void DisplayAllQuestions(); //!TESTED
 void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex); //!TESTED
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex); //!TESTED
-void ReadFromFile(); //!TESTED
+void ReadFromFile(std::string FileName); //!TESTED
 void ShuffleAnswers(std::vector<std::string> (&Answers));
 void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]); //!AWAITING
 void ShuffleQuestionPool();
 void DisplayStatistics();
 void DisplayScores();
+void GetFileNameFromUser();
 Profile GenerateReport(std::string Name); //!AWAITING
 // Quiz UpdateQuizState(Quiz CurrentQuiz, int CorrectAnswersCount = NULL, int WrongAnswersCount = NULL); //!AWAITING
 
@@ -268,13 +269,8 @@ void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) 
 
 // Displays all quesitons in the question pool
 void DisplayAllQuestions() {
-	if (CheckCurrentQuestionPoolSize(1)) {
-		for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-			DisplayQuestionWithAnswers(QuestionPool[i], i);
-		}
-	}
-	else {
-		std::cout << "Please add more questions to the question pool and try again.\n\n";
+	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+		DisplayQuestionWithAnswers(QuestionPool[i], i);
 	}
 }
 
@@ -284,7 +280,7 @@ void QuestionsMenuHandler() {
 	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
 	std::string UserChoice = GetUserString("Your choice");
 
-	if (UserChoice == "b") MainMenu();
+	if (UserChoice == "b") return MainMenu();
 	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ' && UserChoice[2]) {
 		char IndexOfQuestionAsChar = UserChoice[2];
 		int IndexOfQuestion = IndexOfQuestionAsChar - '0';
@@ -294,32 +290,34 @@ void QuestionsMenuHandler() {
 			std::vector<Question>::iterator it = QuestionPool.begin();
 			std::advance(it, IndexOfQuestion);
 			QuestionPool.erase(it);
-            POOL_QUESTIONS_COUNT -= 1;
-			MainMenu();
+			POOL_QUESTIONS_COUNT -= 1;
+			return MainMenu();
 		}
 		else {
 			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-			QuestionsMenuHandler();
-			return;
+			return QuestionsMenuHandler();
 		}
 	}
 	else {
 		std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-		QuestionsMenuHandler();
-		return;
+		return QuestionsMenuHandler();
 	}
 }
 
 
 // Displays questions-related menu
 void QuestionsMenu() {
-	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\nPlease add more questions to the question pool and try again.\n\n";
+	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	if (CheckCurrentQuestionPoolSize(1)) {
 		std::cout << "Questions list:\n---------------\n";
 
 		DisplayAllQuestions();
 		QuestionsMenuHandler();
 
+	}
+	else {
+		std::cout << "Please add more questions to the question pool and try again.\n\n";
+		return MainMenu();
 	}
 }
 
@@ -390,10 +388,25 @@ std::string IndentString(std::string sentence, int indent) {
 }
 
 
-// Reads questions from files and adds them to the question pool
-void ReadFromFile() {
+void GetFileNameFromUser(){
+	std::string FileName = GetUserString("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
+	
 	std::ifstream File;
-	File.open("exam_questions.txt");
+	File.open(FileName);
+	if(File.is_open()){
+		File.close();
+		
+		std::cout << "\nFile found, loading questions\n";
+		ReadFromFile(FileName);
+	}
+	else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
+}
+
+// Reads questions from files and adds them to the question pool
+void ReadFromFile(std::string FileName) {
+	std::ifstream File;
+	File.open(FileName);
+	
 	if (File.is_open()) {
 		int Counter = 0; //max 4
 		int LoadedQuestionsCount = 0;
@@ -416,8 +429,12 @@ void ReadFromFile() {
 				case 3: NewQuestion.Choice3 = Line; break; //Correct
 				case 4: NewQuestion.Choice4 = Line; break; //Correct
 			}
+			
 			++Counter;
 		}
+
+		File.close();
+		
 		std::cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
 	}
 
@@ -437,28 +454,22 @@ void MainMenu() {
 
 	switch (GetUserInt("Your choice")) {
 	case 1:
-		AdminMenu();
-		break;
+		return AdminMenu();
 	case 2:
 		UpdateUserName();
-		MainMenu();
-		break;
+		return MainMenu();
 	case 3:
 		StartNewQuiz();
-		MainMenu();
-		break;
+		return MainMenu();
 	case 4:
-		DisplayStatistics();
-		break;
+		return DisplayStatistics();
 	case 5:
-		DisplayScores();
-		break;
+		return DisplayScores();
 	case 6:
-		// Exit();
-		break;
+		return;
 	default:
 		std::cout << "We didn't quite understand that, try again, perhaps?\n";
-		MainMenu();
+		return MainMenu();
 	}
 }
 
@@ -473,20 +484,17 @@ void AdminMenu() {
 
 	switch (GetUserInt("Your choice")) {
 	case 1:
-		QuestionsMenu();
-		break;
+		return QuestionsMenu();
 	case 2:
-		AddQuestion();
-		break;
+		return AddQuestion();
 	case 3:
-		ReadFromFile();
-		break;
+		GetFileNameFromUser();
+		return AdminMenu();
 	case 4:
-		MainMenu();
-		break;
+		return MainMenu();
 	default:
 		std::cout << "We didn't quite understand that, try again, perhaps?\n";
-		AdminMenu();
+		return AdminMenu();
 	}
 	//TODO: Take user input and push it through a switch
 }
@@ -536,7 +544,7 @@ void DisplayScores(){
 
 
 int main() {
-	ReadFromFile();
+	ReadFromFile("exam_questions.txt");
 
 	// Generates random integers
 	for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) RandomlyGeneratedQuestions.push_back(i);
