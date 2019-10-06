@@ -269,13 +269,8 @@ void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) 
 
 // Displays all quesitons in the question pool
 void DisplayAllQuestions() {
-	if (CheckCurrentQuestionPoolSize(1)) {
-		for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-			DisplayQuestionWithAnswers(QuestionPool[i], i);
-		}
-	}
-	else {
-		std::cout << "Please add more questions to the question pool and try again.\n\n";
+	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+		DisplayQuestionWithAnswers(QuestionPool[i], i);
 	}
 }
 
@@ -312,13 +307,17 @@ void QuestionsMenuHandler() {
 
 // Displays questions-related menu
 void QuestionsMenu() {
-	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\nPlease add more questions to the question pool and try again.\n\n";
+	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	if (CheckCurrentQuestionPoolSize(1)) {
 		std::cout << "Questions list:\n---------------\n";
 
 		DisplayAllQuestions();
 		QuestionsMenuHandler();
 
+	}
+	else {
+		std::cout << "Please add more questions to the question pool and try again.\n\n";
+		return MainMenu();
 	}
 }
 
@@ -371,7 +370,17 @@ std::string IndentString(std::string sentence, int indent) {
 
 
 void GetFileNameFromUser(){
-	ReadFromFile(GetUserString("Place the file in the same folder as this program exe\nEnter the name of the file you wish to load from"));
+	std::string FileName = GetUserString("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
+	
+	std::ifstream File;
+	File.open(FileName);
+	if(File.is_open()){
+		File.close();
+		
+		std::cout << "\nFile found, loading questions\n";
+		ReadFromFile(FileName);
+	}
+	else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
 }
 
 // Reads questions from files and adds them to the question pool
@@ -404,7 +413,9 @@ void ReadFromFile(std::string FileName) {
 			
 			++Counter;
 		}
+
 		File.close();
+		
 		std::cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
 	}
 
