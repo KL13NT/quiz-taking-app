@@ -288,15 +288,21 @@ void QuestionsMenuHandler() {
       std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].QuestionTitle << "\n\n";
 
       std::vector<Question>::iterator it = QuestionPool.begin();
+      std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
       std::advance(it, IndexOfQuestion);
+      std::advance(rit, IndexOfQuestion);
       QuestionPool.erase(it);
+      RandomlyGeneratedQuestions.erase(rit);
       POOL_QUESTIONS_COUNT -= 1;
-      return MainMenu();
+      for(int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+        RandomlyGeneratedQuestions[i] = i;
+      }
     }
     else {
       std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
       return QuestionsMenuHandler();
     }
+    return MainMenu();
   }
   else {
     std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
