@@ -232,7 +232,7 @@ void UpdateProfileAfterQuiz(int CorrectAnswers){
           : UserProfile.HighestScore;
 
   NewProfile.LowestScore =
-          UserProfile.LowestScore == 0
+          UserProfile.LowestScore == 0 && UserProfile.QuizzesTakenCount == 0
           ?	CorrectAnswers
           : CorrectAnswers < UserProfile.LowestScore && UserProfile.LowestScore > 0
             ? CorrectAnswers
@@ -240,7 +240,7 @@ void UpdateProfileAfterQuiz(int CorrectAnswers){
 
   NewProfile.QuizzesTakenCount += 1;
   NewProfile.Scores.push_back(CorrectAnswers);
-  NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0) / NewProfile.Scores.size();
+  NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
 
   UserProfile = NewProfile;
 }
@@ -492,7 +492,8 @@ void AdminMenu() {
     case 1:
       return QuestionsMenu();
     case 2:
-      return AddQuestion();
+      AddQuestion();
+      return AdminMenu();
     case 3:
       GetFileNameFromUser();
       return AdminMenu();
