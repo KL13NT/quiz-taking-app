@@ -132,7 +132,6 @@ void AddQuestion() {
   NewQuestion.Choice2 = GetUserString("Second Choice");
   NewQuestion.Choice3 = GetUserString("Third Choice");
   NewQuestion.Choice4 = GetUserString("Last Choice");
-  NewQuestion.QuestionID = POOL_QUESTIONS_COUNT;
   std::cout << "\nAdded new question: " << NewQuestion.QuestionTitle << "\n\n";
   QuestionPool.push_back(NewQuestion);
 
