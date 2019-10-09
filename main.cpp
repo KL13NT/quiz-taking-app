@@ -1,3 +1,12 @@
+/*
+Team Name: 2Scoops
+Members:
+	Nabil Tharwat: 20180305
+	Amr Samy: 20180187
+	Muhammad Hisham Shaarawy: 20180243
+	Omar Mustafa: 20180182
+*/
+
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -7,10 +16,6 @@
 #include <algorithm> //shuffle
 #include <random>	//default_random_engine
 #include <chrono> //system_clock
-
-/*
-	INITIALISATIONS
-*/
 
 const int QUIZ_QUESTIONS_COUNT = 5;
 int POOL_QUESTIONS_COUNT = 0;
@@ -65,9 +70,7 @@ void GenerateAfterQuizReport(int CorrectAnswers); //!TESTED
 void QuestionsMenu(); //!TESTED
 void QuestionsMenuHandler(); //!TESTED
 
-/*
-	HELPERS
-*/
+
 
 //Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
 bool CheckCurrentQuestionPoolSize(int ExpectedSize) {
@@ -252,8 +255,8 @@ void QuestionsMenuHandler() {
 
 			std::vector<Question>::iterator it = QuestionPool.begin();
 			std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
-			std::advance(it, IndexOfQuestion - 1);
-			std::advance(rit, IndexOfQuestion - 1);
+			std::advance(it, IndexOfQuestion-1);
+			std::advance(rit, IndexOfQuestion-1);
 			QuestionPool.erase(it);
 			RandomlyGeneratedQuestions.erase(rit);
 			POOL_QUESTIONS_COUNT -= 1;
