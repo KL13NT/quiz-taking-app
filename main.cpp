@@ -337,7 +337,7 @@ void StartNewQuiz() {
 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
 			DisplayQuestion(GeneratedQuestions[i], i);
 			int IsCorrect = RandomiseAndPrintAnswers(GeneratedQuestions[i]);
-			if (IsCorrect == true) CorrectAnswers += 1;
+			if ((bool) IsCorrect) CorrectAnswers += 1;
 		}
 
 		GenerateAfterQuizReport(CorrectAnswers);
