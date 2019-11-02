@@ -19,6 +19,7 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <chrono> //system_clock
 
 #include "classes.h"
+#include "utils.h"
 
 const int QUIZ_QUESTIONS_COUNT = 5;
 int POOL_QUESTIONS_COUNT = 0;
