@@ -22,11 +22,7 @@ const int QUIZ_QUESTIONS_COUNT = 5;
 int POOL_QUESTIONS_COUNT = 0;
 
 struct Question {
-	std::string QuestionTitle;
-	std::string CorrectChoice;
-	std::string Choice2;
-	std::string Choice3;
-	std::string Choice4;
+	
 };
 
 struct Profile {
@@ -375,19 +371,37 @@ void GetFileNameFromUser() {
 	else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
 }
 
+MCQQuestion AssembleMCQ(const int &Counter){
+	int Counter = 0; //max 5
+	Question NewQuestion;
+
+	if (Counter == 6) {
+		QuestionPool.push_back(NewQuestion);
+		POOL_QUESTIONS_COUNT += 1;
+		Counter = 0;
+		LoadedQuestionsCount += 1;
+		RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
+	}
+
+	switch (Counter) {
+	case 0: NewQuestion.QuestionTitle = Line; break; //Correct
+	case 1: NewQuestion.CorrectChoice = Line; break; //Correct
+	case 2: NewQuestion.Choice2 = Line; break; //Correct
+	case 3: NewQuestion.Choice3 = Line; break; //Correct
+	case 4: NewQuestion.Choice4 = Line; break; //Correct
+	}
+}
 // Reads questions from files and adds them to the question pool
 void ReadFromFile(std::string FileName) {
 	std::ifstream File;
 	File.open(FileName);
 
 	if (File.is_open()) {
-		int Counter = 0; //max 4
 		int LoadedQuestionsCount = 0;
-		Question NewQuestion;
 		std::string Line;
 
 		while (getline(File, Line)) {
-			if (Counter == 5) {
+			if (Counter == 6) {
 				QuestionPool.push_back(NewQuestion);
 				POOL_QUESTIONS_COUNT += 1;
 				Counter = 0;
