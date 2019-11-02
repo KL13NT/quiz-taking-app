@@ -380,7 +380,7 @@ void ReadFromFile(std::string FileName) {
 			if(Line == "MCQ") QuestionPool.push_back(MCQQuestion(File, Line));
 			else if(Line == "COMPLETE") QuestionPool.push_back(CompleteQuestion(File, Line));
 			else if(Line == "TF") QuestionPool.push_back(TFQuestion(File, Line));
-			
+
 			LoadedQuestionsCount += 1;
 			POOL_QUESTIONS_COUNT += 1;
 			

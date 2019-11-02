@@ -15,6 +15,11 @@ class Question{
       Weight = WeightInput;
 			Type = TypeInput;
     }
+		
+		bool operator == (const Question &Comparable){
+			if(Comparable.Title == Title) return true;
+			return false;
+		}
 };
 
 class MCQQuestion: public Question{
