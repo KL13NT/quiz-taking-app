@@ -12,6 +12,9 @@ public:
   string Title = "";
   string Type = "";
   string CorrectChoice = "";
+  string Choice2 = "";
+  string Choice3 = "";
+  string Choice4 = "";
 
   Question(){};
   ~Question(){};
@@ -30,9 +33,6 @@ public:
 
 class MCQQuestion : public Question {
 public:
-  string Choice2;
-  string Choice3;
-  string Choice4;
 
   MCQQuestion(string TitleInput, string CC, string C2, string C3, string C4): Question(2, "MCQ") {
     Title = TitleInput;

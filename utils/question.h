@@ -9,13 +9,8 @@
 
 // Shuffles question pool
 void ShuffleQuestionPool() {
-	vector<Question> NewPool;
-
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(QuestionPoolIndices.begin(), QuestionPoolIndices.end(), std::default_random_engine(seed));
-
-	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) NewPool.push_back(QuestionPool[QuestionPoolIndices[i]]); // Copies pool away randomly
-	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
 }
 
 // Shuffles answers
@@ -29,30 +24,6 @@ void ShuffleAnswers(vector<string> (&Answers)) {
 	//REFACTORME: Perhaps use a single loop
 	for (int i = 0; i < 4; i++) NewAnswers.push_back(Answers[AnswerIndices[i]]); // Copies pool away randomly
 	for (int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
-}
-
-void DisplayMCQQuestionWithAnswers(MCQQuestion &CurrentQuestion){
-  vector<string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
-  string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
-
-  CurrentQuestion.DisplayQuestion();
-  ShuffleAnswers(Answers);
-
-  for (int i = 0; i < 4; i++) {
-    bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
-    cout << IsCorrectAnswer? IndentString(("*" + Labels[i] + Answers[i]), 1) : IndentString((Labels[i] + Answers[i]), 1);
-  }
-}
-
-void DisplayQuestionWithAnswers(auto &CurrentQuestion) {
-
-  if(CurrentQuestion.Type == "MCQ") DisplayMCQQuestionWithAnswers(CurrentQuestion);
-  else {
-    CurrentQuestion.DisplayQuestion();
-    cout << CurrentQuestion.CorrectChoice;
-  }
-
-	cout << "\n";
 }
 
 // Loads a "MCQ" question using an ifstream  
@@ -75,7 +46,6 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 	return MCQQuestion(Title, CorrectChoice, Choice2, Choice3, Choice4);
 }
 
-
 // Loads a "complete" question using an ifstream  
 CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
@@ -86,7 +56,6 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 
 	return CompleteQuestion(Title, CorrectChoice);
 }
-
 
 // Loads a "TF" question using an ifstream  
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
@@ -99,8 +68,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 	return TFQuestion(Title, CorrectChoice);
 }
 
-
-// Creates and returns a question
+// Creates a question
 MCQQuestion CreateMCQQuestion(){
 	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CC = GetUserInput("Enter the correct choice");
@@ -129,7 +97,6 @@ TFQuestion CreateTFQuestion(){
 	return TFQuestion(Title, CorrectChoice);
 }
 
-
 // Question creation menu
 bool CreateQuestion(){
 	Question NewQuestion;
@@ -155,81 +122,36 @@ bool CreateQuestion(){
 	else cout << "\nThis question already exists. Try adding a different question.\n";
 }
 
+void DisplayQuestionWithAnswers(Question &CurrentQuestion) {
+	if(CurrentQuestion.Type == "MCQ"){
+			vector<string> Answers = { 
+			CurrentQuestion.CorrectChoice, 
+			CurrentQuestion.Choice2, 
+			CurrentQuestion.Choice3, 
+			CurrentQuestion.Choice4 
+		};
+		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
+		CurrentQuestion.DisplayQuestion();
+		ShuffleAnswers(Answers);
 
-// Displays a question followed by its answers
-// void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
-// 	DisplayQuestion(CurrentQuestion, QuestionIndex);
+		for (int i = 0; i < 4; i++) {
+			bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
+			cout << IsCorrectAnswer? IndentString(("*" + Labels[i] + Answers[i]), 1) : IndentString((Labels[i] + Answers[i]), 1);
+		}
+	}
+	else{
+		CurrentQuestion.DisplayQuestion();
+		cout << CurrentQuestion.CorrectChoice << "\n";
+	}
+}
 
-// 	vector<string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
-// 	string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
-// 	ShuffleAnswers(Answers);
-
-// 	for (int i = 0; i < 4; i++) {
-// 		string AnswerWithLabel;
-
-// 		if (Answers[i] == CurrentQuestion.CorrectChoice) {
-// 			AnswerWithLabel += '*';
-// 			AnswerWithLabel += Labels[i] + Answers[i];
-// 		}
-// 		else AnswerWithLabel += Labels[i] + Answers[i];
-
-// 		cout << IndentString(AnswerWithLabel, 1);
-// 	}
-
-// 	cout << "\n\n";
-
-// 	// cout << IndentString("*[a] ", 1) <<  << IndentString("[b] ", 1) <<  << IndentString("[c] ", 1) <<  << IndentString("[d] ", 1) <<  << "\n\n";
-// }
-
-
-
-
-// Randomises passed question answers and returns true if the user chose correctly
-// bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
-// 	vector<string> Answers{ CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
-
-// 	ShuffleAnswers(Answers);
-
-// 	cout << IndentString("[a] ", 1) << Answers[0] << IndentString("[b] ", 1) << Answers[1] << IndentString("[c] ", 1) << Answers[2] << IndentString("[d] ", 1) << Answers[3] << "\n\n";
-
-// 	bool IsAnswerCorrect;
-// 	bool IsValidChoice = false;
-// 	do {
-// 		switch (GetUserInput("Answer letter")) {
-// 		case 'a':
-// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
-// 			IsValidChoice = true;
-// 			break;
-// 		case 'b':
-// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[1]);
-// 			IsValidChoice = true;
-// 			break;
-// 		case 'c':
-// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[2]);
-// 			IsValidChoice = true;
-// 			break;
-// 		case 'd':
-// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[3]);
-// 			IsValidChoice = true;
-// 			break;
-// 		default:
-// 			IsValidChoice = false;
-// 		}
-// 	} while (IsValidChoice == false);
-
-// 	return IsAnswerCorrect;
-// }
-
-
-
-// Displays all quesitons in the question pool
-// void DisplayAllQuestions() {
-// 	for (auto & Question : QuestionPool) {
-// 		DisplayQuestion(Question);
-// 	}
-//}
-
+// Displays all questions in the question pool
+void DisplayAllQuestions() {
+	for (Question & CurrentQuestion : QuestionPool) {
+		DisplayQuestionWithAnswers(CurrentQuestion);
+	}
+}
 
 
 // bool DeleteQuestion(int QuestionIndex){

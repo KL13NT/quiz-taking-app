@@ -35,6 +35,11 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 	else return false;
 }
 
+bool StringIsEqual(string String1, string String2){
+	if(String1 == String2) return true;
+	return false;
+}
+
 
 // Displays a single question as part of a list
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {

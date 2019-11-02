@@ -14,6 +14,7 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <vector>
 #include <unordered_set> 
 #include <numeric> //accumulate
+#include <memory>
 
 using std::string;
 using std::vector;
@@ -35,7 +36,7 @@ int main() {
 	ReadFromFile("exam2_questions.txt");
 
 
-	AdminMenu();
+	MainMenu();
 
 
 	return 0;
