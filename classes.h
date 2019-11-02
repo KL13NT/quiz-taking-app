@@ -3,9 +3,11 @@
 
 class Question{
   public:
-    std::string Title = "";
     int Weight = 1;
-    Question(std::string TitleInput, int WeightInput){
+    std::string Title = "";
+		std::string CorrectChoice = "";
+    
+		Question(std::string TitleInput, int WeightInput){
       Title = TitleInput;
       Weight = WeightInput;
     }
@@ -13,11 +15,11 @@ class Question{
 
 class MCQQuestion: public Question{
   public:
-    std::string CorrectChoice;
     std::string Choice2;
     std::string Choice3;
     std::string Choice4;
-    MCQQuestion(std::string TitleInput, std::vector <std::string> Choices): Question(TitleInput, 2){
+    
+		MCQQuestion(std::string TitleInput, std::vector <std::string> Choices): Question(TitleInput, 2){
       CorrectChoice = Choices[0];
       Choice2 = Choices[1];
       Choice3 = Choices[2];
@@ -27,8 +29,7 @@ class MCQQuestion: public Question{
 
 class CompleteQuestion: public Question{
   public:
-    bool CorrectChoice = false;
-    CompleteQuestion(std::string TitleInput, bool CorrectChoiceInput): Question(TitleInput, 3){
+    CompleteQuestion(std::string TitleInput, std::string CorrectChoiceInput): Question(TitleInput, 3){
       CorrectChoice = CorrectChoiceInput;
     }
 };

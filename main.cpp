@@ -18,12 +18,10 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <random>	//default_random_engine
 #include <chrono> //system_clock
 
+#include "classes.h"
+
 const int QUIZ_QUESTIONS_COUNT = 5;
 int POOL_QUESTIONS_COUNT = 0;
-
-struct Question {
-	
-};
 
 struct Profile {
 	std::string Name = "USER";
@@ -125,14 +123,15 @@ int GetUserInt(std::string Additional = "  ") {
 
 // Controls the addition of new questions
 void AddQuestion() {
+	//TODO: modify this to reflect changes
 	Question NewQuestion;
 
-	NewQuestion.QuestionTitle = GetUserString("Question without question mark");
+	NewQuestion.Title = GetUserString("Question without question mark");
 	NewQuestion.CorrectChoice = GetUserString("Correct Choice");
 	NewQuestion.Choice2 = GetUserString("Second Choice");
 	NewQuestion.Choice3 = GetUserString("Third Choice");
 	NewQuestion.Choice4 = GetUserString("Last Choice");
-	std::cout << "\nAdded new question: " << NewQuestion.QuestionTitle << "\n\n";
+	std::cout << "\nAdded new question: " << NewQuestion.Title << "\n\n";
 	QuestionPool.push_back(NewQuestion);
 
 	POOL_QUESTIONS_COUNT += 1;
@@ -147,7 +146,7 @@ void UpdateUserName() {
 
 
 // Checks if supplied answer is the correct choice
-bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer) {
+bool CheckAnswerValidity(const Question CurrentQuestion, const std::string Answer) {
 	if (Answer == CurrentQuestion.CorrectChoice) {
 		return true;
 	}
@@ -248,7 +247,7 @@ void QuestionsMenuHandler() {
 		char IndexOfQuestionAsChar = UserChoice[2];
 		int IndexOfQuestion = IndexOfQuestionAsChar - '0';
 		if (IndexOfQuestion <= POOL_QUESTIONS_COUNT) {
-			std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].QuestionTitle << "\n\n";
+			std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].Title << "\n\n";
 
 			std::vector<Question>::iterator it = QuestionPool.begin();
 			std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
@@ -293,7 +292,7 @@ void QuestionsMenu() {
 
 // Displays a single question as part of a list
 void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
-	std::cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.QuestionTitle << "?\n";
+	std::cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.Title << "?\n";
 }
 
 // Displays a question followed by its answers
@@ -350,7 +349,7 @@ void StartNewQuiz() {
 
 
 // Returns sentence indented by tabs
-std::string IndentString(std::string sentence, int indent) {
+std::string IndentString(const std::string sentence, const int indent) {
 	std::string indented(indent, '\t');
 	indented += sentence;
 	return indented;
@@ -384,7 +383,7 @@ MCQQuestion AssembleMCQ(const int &Counter){
 	}
 
 	switch (Counter) {
-	case 0: NewQuestion.QuestionTitle = Line; break; //Correct
+	case 0: NewQuestion.Title = Line; break; //Correct
 	case 1: NewQuestion.CorrectChoice = Line; break; //Correct
 	case 2: NewQuestion.Choice2 = Line; break; //Correct
 	case 3: NewQuestion.Choice3 = Line; break; //Correct
@@ -410,7 +409,7 @@ void ReadFromFile(std::string FileName) {
 			}
 
 			switch (Counter) {
-			case 0: NewQuestion.QuestionTitle = Line; break; //Correct
+			case 0: NewQuestion.Title = Line; break; //Correct
 			case 1: NewQuestion.CorrectChoice = Line; break; //Correct
 			case 2: NewQuestion.Choice2 = Line; break; //Correct
 			case 3: NewQuestion.Choice3 = Line; break; //Correct
