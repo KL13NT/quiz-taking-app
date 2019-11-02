@@ -1,15 +1,19 @@
 #include <string>
 #include <vector> 
+#include <fstream>
+
 
 class Question{
   public:
     int Weight = 1;
     std::string Title = "";
+		std::string Type = "";
 		std::string CorrectChoice = "";
     
-		Question(std::string TitleInput, int WeightInput){
-      Title = TitleInput;
+		Question();
+		Question(int WeightInput, std::string TypeInput){
       Weight = WeightInput;
+			Type = TypeInput;
     }
 };
 
@@ -19,25 +23,42 @@ class MCQQuestion: public Question{
     std::string Choice3;
     std::string Choice4;
     
-		MCQQuestion(std::string TitleInput, std::vector <std::string> Choices): Question(TitleInput, 2){
-      CorrectChoice = Choices[0];
-      Choice2 = Choices[1];
-      Choice3 = Choices[2];
-      Choice4 = Choices[3];
+		MCQQuestion(std::ifstream &File, std::string &Line): Question(2, "MCQ"){
+			getline(File, Line);
+			Title = Line;
+
+			getline(File, Line);
+      CorrectChoice = Line;
+
+			getline(File, Line);
+      Choice2 = Line;
+
+			getline(File, Line);
+      Choice3 = Line;
+
+			getline(File, Line);
+      Choice4 = Line;
     }
 };
 
 class CompleteQuestion: public Question{
   public:
-    CompleteQuestion(std::string TitleInput, std::string CorrectChoiceInput): Question(TitleInput, 3){
-      CorrectChoice = CorrectChoiceInput;
+    CompleteQuestion(std::ifstream &File, std::string &Line): Question(3, "COMPLETE"){
+      getline(File, Line);
+			Title = Line;
+			
+			getline(File, Line);
+			CorrectChoice = Line;
     }
 };
 
 class TFQuestion: public Question{
   public:
-    bool CorrectChoice = false;
-    TFQuestion(std::string TitleInput, bool CorrectChoiceInput): Question(TitleInput, 1){
-      CorrectChoice = CorrectChoiceInput;
+    TFQuestion(std::ifstream &File, std::string &Line): Question(1, "TF"){
+      getline(File, Line);
+			Title = Line;
+			
+			getline(File, Line);
+			CorrectChoice = Line;
     }
 };

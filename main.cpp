@@ -122,21 +122,21 @@ int GetUserInt(std::string Additional = "  ") {
 
 
 // Controls the addition of new questions
-void AddQuestion() {
-	//TODO: modify this to reflect changes
-	Question NewQuestion;
+// void AddQuestion() {
+// 	//TODO: modify this to reflect changes
+// 	Question NewQuestion;
 
-	NewQuestion.Title = GetUserString("Question without question mark");
-	NewQuestion.CorrectChoice = GetUserString("Correct Choice");
-	NewQuestion.Choice2 = GetUserString("Second Choice");
-	NewQuestion.Choice3 = GetUserString("Third Choice");
-	NewQuestion.Choice4 = GetUserString("Last Choice");
-	std::cout << "\nAdded new question: " << NewQuestion.Title << "\n\n";
-	QuestionPool.push_back(NewQuestion);
+// 	NewQuestion.Title = GetUserString("Question without question mark");
+// 	NewQuestion.CorrectChoice = GetUserString("Correct Choice");
+// 	NewQuestion.Choice2 = GetUserString("Second Choice");
+// 	NewQuestion.Choice3 = GetUserString("Third Choice");
+// 	NewQuestion.Choice4 = GetUserString("Last Choice");
+// 	std::cout << "\nAdded new question: " << NewQuestion.Title << "\n\n";
+// 	QuestionPool.push_back(NewQuestion);
 
-	POOL_QUESTIONS_COUNT += 1;
-	RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
-}
+// 	POOL_QUESTIONS_COUNT += 1;
+// 	RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
+// }
 
 
 // Updates username
@@ -155,40 +155,40 @@ bool CheckAnswerValidity(const Question CurrentQuestion, const std::string Answe
 
 
 // Randomises passed question answers and returns true if the user chose correctly
-bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
-	std::vector<std::string> Answers{ CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
+// bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
+// 	std::vector<std::string> Answers{ CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
 
-	ShuffleAnswers(Answers);
+// 	ShuffleAnswers(Answers);
 
-	std::cout << IndentString("[a] ", 1) << Answers[0] << IndentString("[b] ", 1) << Answers[1] << IndentString("[c] ", 1) << Answers[2] << IndentString("[d] ", 1) << Answers[3] << "\n\n";
+// 	std::cout << IndentString("[a] ", 1) << Answers[0] << IndentString("[b] ", 1) << Answers[1] << IndentString("[c] ", 1) << Answers[2] << IndentString("[d] ", 1) << Answers[3] << "\n\n";
 
-	bool IsAnswerCorrect;
-	bool IsValidChoice = false;
-	do {
-		switch (GetUserChar("Answer letter")) {
-		case 'a':
-			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
-			IsValidChoice = true;
-			break;
-		case 'b':
-			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[1]);
-			IsValidChoice = true;
-			break;
-		case 'c':
-			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[2]);
-			IsValidChoice = true;
-			break;
-		case 'd':
-			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[3]);
-			IsValidChoice = true;
-			break;
-		default:
-			IsValidChoice = false;
-		}
-	} while (IsValidChoice == false);
+// 	bool IsAnswerCorrect;
+// 	bool IsValidChoice = false;
+// 	do {
+// 		switch (GetUserChar("Answer letter")) {
+// 		case 'a':
+// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
+// 			IsValidChoice = true;
+// 			break;
+// 		case 'b':
+// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[1]);
+// 			IsValidChoice = true;
+// 			break;
+// 		case 'c':
+// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[2]);
+// 			IsValidChoice = true;
+// 			break;
+// 		case 'd':
+// 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[3]);
+// 			IsValidChoice = true;
+// 			break;
+// 		default:
+// 			IsValidChoice = false;
+// 		}
+// 	} while (IsValidChoice == false);
 
-	return IsAnswerCorrect;
-}
+// 	return IsAnswerCorrect;
+// }
 
 
 // Generates the after-quiz report
@@ -230,11 +230,11 @@ void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) 
 
 
 // Displays all quesitons in the question pool
-void DisplayAllQuestions() {
-	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-		DisplayQuestionWithAnswers(QuestionPool[i], i);
-	}
-}
+// void DisplayAllQuestions() {
+// 	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+// 		DisplayQuestionWithAnswers(QuestionPool[i], i);
+// 	}
+// }
 
 
 // Handles questions menu interactions
@@ -279,7 +279,7 @@ void QuestionsMenu() {
 	if (CheckCurrentQuestionPoolSize(1)) {
 		std::cout << "Questions list:\n---------------\n";
 
-		DisplayAllQuestions();
+//		DisplayAllQuestions();
 		QuestionsMenuHandler();
 
 	}
@@ -296,56 +296,53 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 }
 
 // Displays a question followed by its answers
-void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
-	DisplayQuestion(CurrentQuestion, QuestionIndex);
+// void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
+// 	DisplayQuestion(CurrentQuestion, QuestionIndex);
 
-	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
-	std::string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
-	ShuffleAnswers(Answers);
+// 	std::vector<std::string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
+// 	std::string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
+// 	ShuffleAnswers(Answers);
 
-	for (int i = 0; i < 4; i++) {
-		std::string AnswerWithLabel;
+// 	for (int i = 0; i < 4; i++) {
+// 		std::string AnswerWithLabel;
 
-		if (Answers[i] == CurrentQuestion.CorrectChoice) {
-			AnswerWithLabel += '*';
-			AnswerWithLabel += Labels[i] + Answers[i];
-		}
-		else AnswerWithLabel += Labels[i] + Answers[i];
+// 		if (Answers[i] == CurrentQuestion.CorrectChoice) {
+// 			AnswerWithLabel += '*';
+// 			AnswerWithLabel += Labels[i] + Answers[i];
+// 		}
+// 		else AnswerWithLabel += Labels[i] + Answers[i];
 
-		std::cout << IndentString(AnswerWithLabel, 1);
-	}
+// 		std::cout << IndentString(AnswerWithLabel, 1);
+// 	}
 
-	std::cout << "\n\n";
+// 	std::cout << "\n\n";
 
-	// std::cout << IndentString("*[a] ", 1) <<  << IndentString("[b] ", 1) <<  << IndentString("[c] ", 1) <<  << IndentString("[d] ", 1) <<  << "\n\n";
-}
+// 	// std::cout << IndentString("*[a] ", 1) <<  << IndentString("[b] ", 1) <<  << IndentString("[c] ", 1) <<  << IndentString("[d] ", 1) <<  << "\n\n";
+// }
 
 
 // Starts a new quiz
-void StartNewQuiz() {
-	Question GeneratedQuestions[QUIZ_QUESTIONS_COUNT];
+// void StartNewQuiz() {
+// 	Question GeneratedQuestions[QUIZ_QUESTIONS_COUNT];
 
-	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
-		int CorrectAnswers = 0;
-		GenerateQuizQuestions(GeneratedQuestions);
+// 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
+// 		int CorrectAnswers = 0;
+// 		GenerateQuizQuestions(GeneratedQuestions);
 
-		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
-			DisplayQuestion(GeneratedQuestions[i], i);
-			int IsCorrect = RandomiseAndPrintAnswers(GeneratedQuestions[i]);
-			if ((bool) IsCorrect) CorrectAnswers += 1;
-		}
+// 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
+// 			DisplayQuestion(GeneratedQuestions[i], i);
+// 			int IsCorrect = RandomiseAndPrintAnswers(GeneratedQuestions[i]);
+// 			if ((bool) IsCorrect) CorrectAnswers += 1;
+// 		}
 
-		GenerateAfterQuizReport(CorrectAnswers);
-		UpdateProfileAfterQuiz(CorrectAnswers);
-	}
-	else {
-		std::cout << "Please add more questions to the question pool and try again.\n\n";
-	}
+// 		GenerateAfterQuizReport(CorrectAnswers);
+// 		UpdateProfileAfterQuiz(CorrectAnswers);
+// 	}
+// 	else {
+// 		std::cout << "Please add more questions to the question pool and try again.\n\n";
+// 	}
 
-	//TODO: Display report
-	//TODO: update profile
-	//TODO: return to main menu
-}
+// }
 
 
 // Returns sentence indented by tabs
@@ -370,53 +367,24 @@ void GetFileNameFromUser() {
 	else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
 }
 
-MCQQuestion AssembleMCQ(const int &Counter){
-	int Counter = 0; //max 5
-	Question NewQuestion;
-
-	if (Counter == 6) {
-		QuestionPool.push_back(NewQuestion);
-		POOL_QUESTIONS_COUNT += 1;
-		Counter = 0;
-		LoadedQuestionsCount += 1;
-		RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
-	}
-
-	switch (Counter) {
-	case 0: NewQuestion.Title = Line; break; //Correct
-	case 1: NewQuestion.CorrectChoice = Line; break; //Correct
-	case 2: NewQuestion.Choice2 = Line; break; //Correct
-	case 3: NewQuestion.Choice3 = Line; break; //Correct
-	case 4: NewQuestion.Choice4 = Line; break; //Correct
-	}
-}
 // Reads questions from files and adds them to the question pool
 void ReadFromFile(std::string FileName) {
 	std::ifstream File;
+	std::string Line;
 	File.open(FileName);
 
 	if (File.is_open()) {
 		int LoadedQuestionsCount = 0;
-		std::string Line;
-
+		
 		while (getline(File, Line)) {
-			if (Counter == 6) {
-				QuestionPool.push_back(NewQuestion);
-				POOL_QUESTIONS_COUNT += 1;
-				Counter = 0;
-				LoadedQuestionsCount += 1;
-				RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
-			}
-
-			switch (Counter) {
-			case 0: NewQuestion.Title = Line; break; //Correct
-			case 1: NewQuestion.CorrectChoice = Line; break; //Correct
-			case 2: NewQuestion.Choice2 = Line; break; //Correct
-			case 3: NewQuestion.Choice3 = Line; break; //Correct
-			case 4: NewQuestion.Choice4 = Line; break; //Correct
-			}
-
-			++Counter;
+			if(Line == "MCQ") QuestionPool.push_back(MCQQuestion(File, Line));
+			else if(Line == "COMPLETE") QuestionPool.push_back(CompleteQuestion(File, Line));
+			else if(Line == "TF") QuestionPool.push_back(TFQuestion(File, Line));
+			
+			LoadedQuestionsCount += 1;
+			POOL_QUESTIONS_COUNT += 1;
+			
+			RandomlyGeneratedQuestions.push_back(POOL_QUESTIONS_COUNT - 1);
 		}
 
 		File.close();
@@ -445,7 +413,7 @@ void MainMenu() {
 		UpdateUserName();
 		return MainMenu();
 	case 3:
-		StartNewQuiz();
+//		StartNewQuiz();
 		return MainMenu();
 	case 4:
 		return DisplayStatistics();
@@ -472,7 +440,7 @@ void AdminMenu() {
 	case 1:
 		return QuestionsMenu();
 	case 2:
-		AddQuestion();
+//		AddQuestion();
 		return AdminMenu();
 	case 3:
 		GetFileNameFromUser();
