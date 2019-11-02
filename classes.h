@@ -1,7 +1,7 @@
 #include <string>
 #include <vector> 
 #include <fstream>
-
+#include <unordered_set>
 
 class Question{
   public:
@@ -67,3 +67,16 @@ class TFQuestion: public Question{
 			CorrectChoice = Line;
     }
 };
+
+// Custom hasher for tables
+// struct QuestionHasher {
+//   size_t operator()(const Question &CurrentQuestion) const {
+//     return std::hash<std::string> ()(CurrentQuestion.Title);
+//   }
+// };
+
+// struct QuestionComparator {
+//   bool operator()(const Question &Question1, const Question &Question2) const {
+// 		return Question1.Title == Question2.Title? true: false;
+//   }
+// };

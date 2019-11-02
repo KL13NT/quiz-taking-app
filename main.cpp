@@ -45,6 +45,7 @@ char GetUserChar(std::string Additional);
 bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer); //!TESTED
 bool CheckCurrentQuestionPoolSize(int ExpectedSize); //!TESTED
 bool RandomiseAndPrintAnswers(Question CurrentQuestion); //!AWAITING
+bool CheckDuplicateQuestion(const Question &CurrentQuestion);
 void MainMenu(); //!TESTED
 void AdminMenu(); //!TESTED
 void StartNewQuiz(); //!AWAITING
@@ -65,6 +66,10 @@ void GenerateAfterQuizReport(int CorrectAnswers); //!TESTED
 void QuestionsMenu(); //!TESTED
 void QuestionsMenuHandler(); //!TESTED
 
+
+bool CheckDuplicateQuestion(const Question &CurrentQuestion){
+	
+}
 
 
 //Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
