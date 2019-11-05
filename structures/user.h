@@ -52,7 +52,7 @@ class User {
 			
 		}
 
-		User operator = (const User &ToEqual){
+		void operator = (const User &ToEqual){
 			bool IsAdmin = ToEqual.IsAdmin;
 			string FirstName = ToEqual.FirstName;
 			string LastName = ToEqual.LastName;
@@ -73,7 +73,7 @@ class User {
 			string IsAdminString = IsAdmin? "Admin\n": "Player\n";
 			cout << "Full Name: " << FirstName << " " << LastName << "\n";
 			cout << "Username: " << Username << "\n";
-			cout << "Role: " << IsAdminString << "\n";
+			cout << "Role: " << IsAdminString << "\n\n";
 		}
 
 		friend void Login(const User &);

@@ -70,6 +70,85 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 }
 
 
+MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
+	MCQQuestion CurrentQuestion;
+	
+	getline(File, Line);
+	CurrentQuestion.Title = Line;
+
+	getline(File, Line);
+	CurrentQuestion.CorrectChoice = Line;
+
+	getline(File, Line);
+	CurrentQuestion.Choice2 = Line;
+
+	getline(File, Line);
+	CurrentQuestion.Choice3 = Line;
+
+	getline(File, Line);
+	CurrentQuestion.Choice4 = Line;
+
+	return CurrentQuestion;
+}
+
+
+CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
+	CompleteQuestion CurrentQuestion;
+	
+	getline(File, Line);
+	Title = Line;
+	
+	getline(File, Line);
+	CorrectChoice = Line;
+
+	return CurrentQuestion
+}
+
+
+TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
+	TFQuestion CurrentQuestion;
+
+	getline(File, Line);
+	Title = Line;
+	
+	getline(File, Line);
+	CorrectChoice = Line;
+
+	return CurrentQuestion;
+}
+
+
+MCQQuestion CreateMCQQuestion(){
+	MCQQuestion CurrentQuestion;
+
+	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
+	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
+	CurrentQuestion.Choice2 = GetUserInput("Second Choice");
+	CurrentQuestion.Choice3 = GetUserInput("Third Choice");
+	CurrentQuestion.Choice4 = GetUserInput("Last Choice");
+
+	return CurrentQuestion;
+}
+
+
+CompleteQuestion CreateCompleteQuestion(){
+	CompleteQuestion CurrentQuestion;
+
+	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
+	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
+
+	return CurrentQuestion;
+}
+
+
+TFQuestion CreateMCQQuestion(){
+	TFQuestion CurrentQuestion;
+
+	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
+	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
+
+	return CurrentQuestion;
+}
 
 //Controls the addition of new questions
 // void AddQuestion() {

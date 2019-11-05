@@ -17,6 +17,7 @@ class Question{
 		std::string CorrectChoice = "";
     
 		Question();
+    ~Question();
 		Question(int WeightInput, std::string TypeInput){
       Weight = WeightInput;
 			Type = TypeInput;
@@ -50,6 +51,14 @@ class MCQQuestion: public Question{
 			getline(File, Line);
       Choice4 = Line;
     }
+
+    void operator = (const MCQQuestion &ToEqual){
+			Title = ToEqual.Title;
+      CorrectChoice = ToEqual.CorrectChoice;
+      Choice2 = ToEqual.Choice2;
+      Choice3 = ToEqual.Choice3;
+      Choice4 = ToEqual.Choice4;
+		}
 };
 
 class CompleteQuestion: public Question{
@@ -61,6 +70,11 @@ class CompleteQuestion: public Question{
 			getline(File, Line);
 			CorrectChoice = Line;
     }
+    
+    void operator = (const CompleteQuestion &ToEqual){
+			Title = ToEqual.Title;
+      CorrectChoice = ToEqual.CorrectChoice;
+		}
 };
 
 class TFQuestion: public Question{
@@ -72,20 +86,27 @@ class TFQuestion: public Question{
 			getline(File, Line);
 			CorrectChoice = Line;
     }
+
+    void operator = (const TFQuestion &ToEqual){
+			Title = ToEqual.Title;
+      CorrectChoice = ToEqual.CorrectChoice;
+		}
 };
 
 
 
-// Custom hasher for tables
-// struct QuestionHasher {
-//   size_t operator()(const Question &CurrentQuestion) const {
-//     return std::hash<std::string> ()(CurrentQuestion.Title);
+// // Custom hasher for tables
+// struct UsernameHasher {
+//   size_t operator()(const User &CurrentUser) const {
+//     return std::hash<std::string> ()(CurrentUser.Username + to_string(CurrentUser.ID);
 //   }
 // };
 
 // struct QuestionComparator {
-//   bool operator()(const Question &Question1, const Question &Question2) const {
-// 		return Question1.Title == Question2.Title? true: false;
+//   bool operator()(const string &Username1, const string &Username2) const {
+//     int index = std::stoi(str.substr(str.find_last_of(" ")).erase(0, 1)); //parse 
+//     // str.erase(str.find_last_of(" "));
+// 		return Username1 == Username2? true: false;
 //   }
 // };
 

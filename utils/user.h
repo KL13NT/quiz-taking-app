@@ -13,4 +13,8 @@
 // 	if (GetUserInput("Your choice") == 'b') MainMenu();
 // }
 
+void CreateNewUser(){
+  
+}
+
 #endif

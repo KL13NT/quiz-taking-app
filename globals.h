@@ -22,7 +22,6 @@ unordered_set<string> QuestionPoolSet; //used for duplicate question detection
 vector<int> AnswerIndices; // filled in main before program starts
 vector<int> QuestionPoolIndices; // filled in main
 vector<User> Users;
-unordered_set<string> UserUsernames;
 User LoggedInUser;
 
 #endif
