@@ -120,7 +120,7 @@ void AddQuestion() {
 
 // Updates username
 void UpdateUserName() {
-	UserProfile.Name = 
+	UserProfile.Name = GetUserInput("		");
 }
 
 
@@ -144,7 +144,7 @@ bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
 	bool IsAnswerCorrect;
 	bool IsValidChoice = false;
 	do {
-		switch (/*GetUserInput*/) {
+		switch () {
 		case 'a':
 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
 			IsValidChoice = true;
@@ -240,12 +240,15 @@ bool DeleteQuestion(int QuestionIndex){
 // Handles questions menu interactions
 void QuestionsMenuHandler() {
 	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	std::string UserChoice = ;
+	std::string UserChoice = GetUserInput("		");
 
 	if (UserChoice == "b") return MainMenu();
 	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
-		
-
+		std::string QuestionIndexAsString;
+		QuestionIndexAsString = UserChoice.substr(2);
+		std::stringstream ToInteger(QuestionIndexAsString);
+		int QuestionIndex;
+		ToInteger >> QuestionIndex;
 		DeleteQuestion(QuestionIndex);
 		if(DeleteQuestion(QuestionIndex)==1){
 			return MainMenu();
@@ -485,7 +488,7 @@ void ShuffleAnswers(std::vector<std::string>(&Answers)) {
 void DisplayStatistics() {
 	std::cout << "Your score statistics: \n\t- Number of quizzes taken: " << UserProfile.QuizzesTakenCount << "\n\t- Highest Score: " << UserProfile.HighestScore << "/" << QUIZ_QUESTIONS_COUNT << "\n\t- Lowest Score: " << UserProfile.LowestScore << "/" << QUIZ_QUESTIONS_COUNT << "\n\t- Average Score: " << UserProfile.AvgScore << "/" << QUIZ_QUESTIONS_COUNT << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
 
-	if (GetUserChar("Your choice") == 'b') MainMenu();
+	if (GetUserInput("Your choice") == "b") MainMenu();
 }
 
 
@@ -494,7 +497,7 @@ void DisplayScores() {
 	for (int i = 0; i < UserProfile.QuizzesTakenCount; i++) std::cout << "Quiz [" << i + 1 << "] >> " << UserProfile.Scores[i] << "/" << QUIZ_QUESTIONS_COUNT << "\n";
 
 	std::cout << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
-	if (GetUserChar("Your choice") == 'b') MainMenu();
+	if (GetUserInput("Your choice") == "b") MainMenu();
 }
 
 
