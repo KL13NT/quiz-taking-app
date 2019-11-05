@@ -1,6 +1,11 @@
-#include <string>
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 #include <vector>
-#include <unordered_set> 
+#include <string>
+#include <unordered_set>
+
+#include "./structures/index.h"
 
 using std::vector;
 using std::string;
@@ -24,3 +29,5 @@ vector<Question> QuestionPool;
 unordered_set<string> QuestionPoolSet; //used for duplicate question detection
 vector<int> AnswerIndices; // filled in main before program starts
 vector<int> QuestionPoolIndices; // filled in main
+
+#endif

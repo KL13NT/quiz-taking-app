@@ -1,3 +1,6 @@
+#ifndef STRING_H
+#define STRING_H
+
 #include <string>
 #include <cctype>
 
@@ -32,3 +35,14 @@ string StringToUpperCase(string StringToChange){
 
   return ResultingString;
 }
+
+
+// Returns sentence indented by tabs
+string IndentString(const string sentence, const int indent) {
+	string indented(indent, '\t');
+	indented += sentence;
+	return indented;
+}
+
+
+#endif

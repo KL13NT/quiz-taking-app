@@ -1,3 +1,7 @@
+#ifndef IO_H
+#define IO_H
+
+
 #include <string>
 #include <iostream>
 
@@ -51,3 +55,5 @@ char GetUserChar(string Additional = "  ") {
 	cout << "\n";
 	return InputChar;
 }
+
+#endif

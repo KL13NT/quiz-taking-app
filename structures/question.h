@@ -1,7 +1,13 @@
+#ifndef QUESTION_H
+#define QUESTION_H
+
 #include <string>
 #include <vector> 
 #include <fstream>
 #include <unordered_set>
+
+#include "../utils/index.h"
+
 
 class Question{
   public:
@@ -68,6 +74,8 @@ class TFQuestion: public Question{
     }
 };
 
+
+
 // Custom hasher for tables
 // struct QuestionHasher {
 //   size_t operator()(const Question &CurrentQuestion) const {
@@ -80,3 +88,6 @@ class TFQuestion: public Question{
 // 		return Question1.Title == Question2.Title? true: false;
 //   }
 // };
+
+
+#endif

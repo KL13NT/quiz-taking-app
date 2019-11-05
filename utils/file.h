@@ -1,4 +1,18 @@
+#ifndef FILE_H
+#define FILE_H
+
 #include <fstream>
+#include <string>
+
+#include "../structures/index.h"
+#include "./index.h"
+
+
+using std::cout;
+using std::vector;
+using std::string;
+using std::unordered_set;
+
 
 // Reads questions from files and adds them to the question pool
 void ReadFromFile(string FileName) {
@@ -41,3 +55,5 @@ void GetFileNameFromUser() {
   }
   else cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
 }
+
+#endif
