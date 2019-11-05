@@ -10,9 +10,11 @@ using std::vector;
 
 //each log represents a quiz
 class Log{
-  private: 
+  private:
     bool IsAdminLog = false;
   public:
+    Log();
+    ~Log();
     friend Log ViewLog(const Log &);
 };
 

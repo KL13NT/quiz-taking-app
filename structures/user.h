@@ -27,6 +27,8 @@ class User {
 		double AvgScore = 0;
 	
 	public:
+		User();
+		~User();
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
 			FirstName = FirstNameInput;	
 			LastName = LastNameInput;
@@ -50,7 +52,7 @@ class User {
 			
 		}
 
-		void operator = (const User &ToEqual){
+		User operator = (const User &ToEqual){
 			bool IsAdmin = ToEqual.IsAdmin;
 			string FirstName = ToEqual.FirstName;
 			string LastName = ToEqual.LastName;
@@ -68,7 +70,7 @@ class User {
 		}
 		
 		void DisplayInfo(){
-			bool IsAdminString = IsAdmin? "Admin\n": "Player\n";
+			string IsAdminString = IsAdmin? "Admin\n": "Player\n";
 			cout << "Full Name: " << FirstName << " " << LastName << "\n";
 			cout << "Username: " << Username << "\n";
 			cout << "Role: " << IsAdminString << "\n";
