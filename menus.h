@@ -2,7 +2,7 @@
 #include <string>
 
 #include "./utils/index.h"
-#include "globals.h"
+#include "./globals.h"
 
 
 using std::string;
@@ -118,7 +118,8 @@ void QuestionsMenu() {
 
 
 void AllUsersMenu(){
-  cout << "\n\nExisting users in the system:\n";
-	cout << "First
-	"
+  cout << "\n\nExisting users in the system:\n" << string Line('=', 10) << "\n";
+	for (auto & User : Users) {
+    User.DisplayInfo();
+	}	
 }

@@ -27,8 +27,9 @@ class User {
 		double AvgScore = 0;
 	
 	public:
-		User(string NameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
-			Name = NameInput;
+		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
+			FirstName = FirstNameInput;	
+			LastName = LastNameInput;
 			Username = UsernameInput;
 			Password = PasswordInput;
 			IsAdmin = IsAdminInput;
@@ -66,6 +67,13 @@ class User {
 			return ToEqual.Username == Username? true: false;
 		}
 		
+		void DisplayInfo(){
+			bool IsAdminString = IsAdmin? "Admin\n": "Player\n";
+			cout << "Full Name: " << FirstName << " " << LastName << "\n";
+			cout << "Username: " << Username << "\n";
+			cout << "Role: " << IsAdminString << "\n";
+		}
+
 		friend void Login(const User &);
 		friend void DisplayUserStatistics(const User &);
 };
