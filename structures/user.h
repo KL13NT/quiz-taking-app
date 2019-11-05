@@ -16,7 +16,8 @@ using std::string;
 class User {
 	private:
 		bool IsAdmin = false;
-		string Name = "";
+		string FirstName = "";
+		string LastName = "";
 		string Username = "";
 		string Password = "";
 		vector<Log> Logs = {};
@@ -24,6 +25,7 @@ class User {
 		int LowestScore = 0;
 		int QuizzesTaken = 0;
 		double AvgScore = 0;
+	
 	public:
 		User(string NameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
 			Name = NameInput;
@@ -32,24 +34,25 @@ class User {
 			IsAdmin = IsAdminInput;
 		}
 		
-		void DisplayUserStatistics(){
-			cout << "Your score statistics: \n\t- Number of quizzes taken: " << QuizzesTaken
-			<< "\n\t- Highest Score: " 
-			<< HighestScore << "/" << QUIZ_QUESTIONS_COUNT 
-			<< "\n\t- Lowest Score: " 
-			<< LowestScore << "/" << QUIZ_QUESTIONS_COUNT 
-			<< "\n\t- Average Score: " 
-			<< AvgScore << "/" << QUIZ_QUESTIONS_COUNT 
-			<< "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
-		}
+		// void DisplayUserStatistics(){
+		// 	cout << "Your score statistics: \n\t- Number of quizzes taken: " << QuizzesTaken
+		// 	<< "\n\t- Highest Score: " 
+		// 	<< HighestScore << "/" << QUIZ_QUESTIONS_COUNT 
+		// 	<< "\n\t- Lowest Score: " 
+		// 	<< LowestScore << "/" << QUIZ_QUESTIONS_COUNT 
+		// 	<< "\n\t- Average Score: " 
+		// 	<< AvgScore << "/" << QUIZ_QUESTIONS_COUNT 
+		// 	<< "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
+		// }
 
 		void UpdateUserData(string NewName, string NewUsername, string NewPassword){
 			
 		}
 
-		User operator = (const User &ToEqual){
+		void operator = (const User &ToEqual){
 			bool IsAdmin = ToEqual.IsAdmin;
-			string Name = ToEqual.Name;
+			string FirstName = ToEqual.FirstName;
+			string LastName = ToEqual.LastName;
 			string Username = ToEqual.Username;
 			string Password = ToEqual.Password;
 			vector<Log> Logs = ToEqual.Logs;
@@ -58,8 +61,13 @@ class User {
 			int QuizzesTaken = ToEqual.QuizzesTaken;
 			double AvgScore = ToEqual.AvgScore;
 		}
+
+		bool operator == (const User &ToEqual){
+			return ToEqual.Username == Username? true: false;
+		}
 		
-		friend User Login(const User &);
+		friend void Login(const User &);
+		friend void DisplayUserStatistics(const User &);
 };
 
 

@@ -1,6 +1,12 @@
 #include <sstream>
+#include <string>
 
 #include "./utils/index.h"
+#include "globals.h"
+
+
+using std::string;
+using std::cout;
 
 
 void AdminMenu();
@@ -70,14 +76,14 @@ void AdminMenu() {
 
 // Handles questions menu interactions
 void QuestionsMenuHandler() {
-	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	std::string UserChoice = GetUserInput("		");
+	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
+	string UserChoice = GetUserInput("		");
 
 	if (UserChoice == "b") return MainMenu();
 	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
-		std::string QuestionIndexAsString;
+		string QuestionIndexAsString;
 		QuestionIndexAsString = UserChoice.substr(2);
-		std::stringstream ToInteger(QuestionIndexAsString);
+		std::sstream ToInteger(QuestionIndexAsString);
 		int QuestionIndex;
 		ToInteger >> QuestionIndex;
 		DeleteQuestion(QuestionIndex);
@@ -87,7 +93,7 @@ void QuestionsMenuHandler() {
 		else return QuestionsMenuHandler();
 	}
 	else {
-		std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
+		cout << "We didn't quite catch that, try again, perhaps?\n\n";
 		return QuestionsMenuHandler();
 	}
 }
@@ -96,16 +102,23 @@ void QuestionsMenuHandler() {
 
 // Displays questions-related menu
 void QuestionsMenu() {
-	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
+	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	if (CheckCurrentQuestionPoolSize(1)) {
-		std::cout << "Questions list:\n---------------\n";
+		cout << "Questions list:\n---------------\n";
 
 		// DisplayAllQuestions();
 		QuestionsMenuHandler();
 
 	}
 	else {
-		std::cout << "Please add more questions to the question pool and try again.\n\n";
+		cout << "Please add more questions to the question pool and try again.\n\n";
 		return MainMenu();
 	}
+}
+
+
+void AllUsersMenu(){
+  cout << "\n\nExisting users in the system:\n";
+	cout << "First
+	"
 }

@@ -5,12 +5,10 @@
 
 
 // Displays user score statistics
-void DisplayStatistics() {
-	LoggedInUser.DisplayUserStatistics();
+// void DisplayStatistics() {
+// 	LoggedInUser.DisplayUserStatistics();
 
-	if (GetUserInput("Your choice") == 'b') MainMenu();
-}
-
-
+// 	if (GetUserInput("Your choice") == 'b') MainMenu();
+// }
 
 #endif
