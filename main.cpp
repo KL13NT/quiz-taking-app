@@ -71,6 +71,25 @@ void GenerateAfterQuizReport(int CorrectAnswers); //!TESTED
 void QuestionsMenu(); //!TESTED
 void QuestionsMenuHandler(); //!TESTED
 
+std::string GetUserInput(std::string Additional = "  "){
+  std::string Input;
+  
+  getline(std::cin, Input);
+		if (Input[1] == '\0'){
+			if (Input >="0" || Input <= "9"){
+				char *Output = new char[];
+				Output[0] = Input[0];
+				return Output;
+			}
+
+  else if(Input >= "a" || Input <= "z"){
+				char *Output = new char[];
+				Output[0] = Input [0];
+				return Output;
+			}
+		}
+		else return Input;
+
 
 
 //Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
