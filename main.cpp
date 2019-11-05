@@ -530,7 +530,7 @@ int main() {
 
 
 void AdminMenu() {
-    std::cout << "Welcome Admin" << ", please choose from the following options:\n";
+    std::cout << "Welcome, " << UserProfile.Name << ", please choose from the following options:\n";
 	std::cout << "[1] Switch accounts\n";
 	std::cout << "[2] Update your name\n";
 	std::cout << "[3] View all users\n";
@@ -542,7 +542,7 @@ void AdminMenu() {
 }
 
 void PlayerMenu() {
-    std::cout << "Welcome User" << ", please choose from the following options:\n";
+    std::cout << "Welcome, " << UserProfile.Name << ", please choose from the following options:\n";
 	std::cout << "[1] Switch accounts\n";
 	std::cout << "[2] Update your name\n";
 	std::cout << "[3] Start a new quiz\n";
@@ -552,40 +552,46 @@ void PlayerMenu() {
     std::cout << "[7] Exit\n";
 }
 
-class Login {
+class User{
     public:
-        std::string Name, Password;
-        login() {
-            Name = "";
-            Password = "";
+        User(){
+            std::string Username = "";
+            std::string Userpassword = "";
         };
-        bool CheckLogging();
 };
 
-bool Login :: CheckLogging() {
-    std::string ad_username = "admin";
-    std::string ad_password = "admin";
+class Admin : public User{
+    public:
+        std::string username = "admin";
+        std::string password = "admin";
+};
+
+bool Checklogin(){
+	Admin ad;
+    std::string Name, Password;
     std::cout << "Enter your username:";
     getline(std::cin, Name);
     std::cout << "Enter your password:";
     getline(std::cin, Password);
-    if ( Name == ad_username && Password == ad_password) {
+    if(Name == ad.username && Password == ad.password){
         return true;
     }
-    else {
+    else{
         return false;
+        }
+}
+
+int main(){
+    bool status = Checklogin();
+    if(!status){
+        std::cout << "Failed!!\n";
+    }
+    else {
+        std::cout << "Logged in Successfully!!\n";
+		AdminMenu();
     }
 }
- int main() {
-     Login log;
-     bool status = log.CheckLogging();
-     if(status) {
-         AdminMenu();
-     }
-     else {
-         PlayerMenu();
-     }
- }
+
 
 
 
