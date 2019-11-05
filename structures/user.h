@@ -1,21 +1,67 @@
 #ifndef USER_H
 #define USER_H
 
+#include <iostream>
+#include <string>
+
+
 #include "../utils/index.h"
 #include "../menus.h"
-
-// Updates username
-void UpdateUserName() {
-	UserProfile.Name = GetUserInput("New name");
-}
+#include "./log.h"
 
 
-// Displays user score statistics
-void DisplayStatistics() {
-	cout << "Your score statistics: \n\t- Number of quizzes taken: " << UserProfile.QuizzesTakenCount << "\n\t- Highest Score: " << UserProfile.HighestScore << "/" << QUIZ_QUESTIONS_COUNT << "\n\t- Lowest Score: " << UserProfile.LowestScore << "/" << QUIZ_QUESTIONS_COUNT << "\n\t- Average Score: " << UserProfile.AvgScore << "/" << QUIZ_QUESTIONS_COUNT << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
+using std::cout;
+using std::string;
 
-	if (GetUserInput("Your choice") == 'b') MainMenu();
-}
+class User {
+	private:
+		bool IsAdmin = false;
+		string Name = "";
+		string Username = "";
+		string Password = "";
+		vector<Log> Logs = {};
+		int HighestScore = 0;
+		int LowestScore = 0;
+		int QuizzesTaken = 0;
+		double AvgScore = 0;
+	public:
+		User(string NameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
+			Name = NameInput;
+			Username = UsernameInput;
+			Password = PasswordInput;
+			IsAdmin = IsAdminInput;
+		}
+		
+		void DisplayUserStatistics(){
+			cout << "Your score statistics: \n\t- Number of quizzes taken: " << QuizzesTaken
+			<< "\n\t- Highest Score: " 
+			<< HighestScore << "/" << QUIZ_QUESTIONS_COUNT 
+			<< "\n\t- Lowest Score: " 
+			<< LowestScore << "/" << QUIZ_QUESTIONS_COUNT 
+			<< "\n\t- Average Score: " 
+			<< AvgScore << "/" << QUIZ_QUESTIONS_COUNT 
+			<< "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
+		}
+
+		void UpdateUserData(string NewName, string NewUsername, string NewPassword){
+			
+		}
+
+		User operator = (const User &ToEqual){
+			bool IsAdmin = ToEqual.IsAdmin;
+			string Name = ToEqual.Name;
+			string Username = ToEqual.Username;
+			string Password = ToEqual.Password;
+			vector<Log> Logs = ToEqual.Logs;
+			int HighestScore = ToEqual.HighestScore;
+			int LowestScore = ToEqual.LowestScore;
+			int QuizzesTaken = ToEqual.QuizzesTaken;
+			double AvgScore = ToEqual.AvgScore;
+		}
+		
+		friend User Login(const User &);
+};
+
 
 
 // Displays user scores

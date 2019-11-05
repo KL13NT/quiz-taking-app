@@ -175,14 +175,14 @@ bool DeleteQuestion(int QuestionIndex){
 			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
 
 			std::vector<Question>::iterator it = QuestionPool.begin();
-			std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
+			std::vector<int>::iterator rit = QuestionPoolIndices.begin();
 			std::advance(it, QuestionIndex-1);
 			std::advance(rit, QuestionIndex-1);
 			QuestionPool.erase(it);
-			RandomlyGeneratedQuestions.erase(rit);
+			QuestionPoolIndices.erase(rit);
 			POOL_QUESTIONS_COUNT -= 1;
 			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-				RandomlyGeneratedQuestions[i] = i;
+				QuestionPoolIndices[i] = i;
 			}
 			return true;
 		}

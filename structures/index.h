@@ -3,5 +3,6 @@
 
 #include "./user.h"
 #include "./question.h"
+#include "./log.h"
 
 #endif

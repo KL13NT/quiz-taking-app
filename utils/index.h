@@ -6,6 +6,7 @@
 #include "./question.h"
 #include "./file.h"
 #include "./quiz.h"
+#include "./user.h"
 
 
 #endif
