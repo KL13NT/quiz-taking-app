@@ -78,7 +78,12 @@ class User {
 		friend void DisplayUserStatistics(const User &);
 };
 
-
+void DisplayUserStatistics(const User & CurrentUser){
+	cout << "Number of quizzes taken: " << CurrentUser.QuizzesTaken <<std::endl;
+	cout << "Highest quiz score: " << CurrentUser.HighestScore << std::endl;
+	cout << "Lowest quiz score: " << CurrentUser.LowestScore << std::endl;
+	cout << "Average quiz score: " << CurrentUser.AvgScore << std::endl;
+}
 
 // Displays user scores
 void DisplayScores() {
