@@ -11,8 +11,10 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <numeric> //accumulate
 #include <string>
+#include <cstring>
 #include <vector>
 #include <algorithm> //shuffle
 #include <random>	//default_random_engine
@@ -44,10 +46,8 @@ std::vector<int>RandomlyGeneratedAnswers; // filled in main before program start
 std::vector<int>RandomlyGeneratedQuestions; // filled in main
 
 
-std::string GetUserString(); //!TESTED
-std::string GetUserInt(); //!TESTED
+std::string GetUserInput();
 std::string IndentString(std::string sentence, int indent); //!TESTED
-char GetUserChar(std::string Additional);
 bool CheckAnswerValidity(Question CurrentQuestion, std::string Answer); //!TESTED
 bool CheckCurrentQuestionPoolSize(int ExpectedSize); //!TESTED
 bool RandomiseAndPrintAnswers(Question CurrentQuestion); //!AWAITING
@@ -68,6 +68,7 @@ void DisplayStatistics(); //!TESTED
 void DisplayScores(); //!TESTED
 void GetFileNameFromUser(); //!TESTEED
 void GenerateAfterQuizReport(int CorrectAnswers); //!TESTED
+bool DeleteQuestion(int QuestionIndex);
 void QuestionsMenu(); //!TESTED
 void QuestionsMenuHandler(); //!TESTED
 
@@ -80,17 +81,18 @@ std::string GetUserInput(std::string Additional = "  "){
 				char *Output = new char[];
 				Output[0] = Input[0];
 				return Output;
-			}
+  		}
 
   else if(Input >= "a" || Input <= "z"){
 				char *Output = new char[];
 				Output[0] = Input [0];
 				return Output;
-			}
+  		}
 		}
 		else return Input;
 
 
+}
 
 //Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
 bool CheckCurrentQuestionPoolSize(int ExpectedSize) {
@@ -99,62 +101,15 @@ bool CheckCurrentQuestionPoolSize(int ExpectedSize) {
 }
 
 
-// Takes user input string and returns it
-std::string GetUserString(std::string Additional = "  ") {
-	std::string Input;
-	if (Additional != "  ") {
-		std::cout << Additional << ": ";
-		getline(std::cin, Input);
-		return Input;
-	}
-	getline(std::cin, Input);
-	std::cout << "\n";
-	return Input;
-}
-
-
-// Gets a character from the user
-char GetUserChar(std::string Additional = "  ") {
-	char InputChar;
-	if (Additional != "  ") {
-		std::cout << Additional << ": ";
-		std::cin >> InputChar;
-		std::cin.ignore(1000, '\n');
-		std::cout << "\n";
-		return InputChar;
-	}
-	std::cin >> InputChar;
-	std::cin.ignore(1000, '\n');
-	std::cout << "\n";
-	return InputChar;
-}
-
-
-// Takes integer and returns it
-int GetUserInt(std::string Additional = "  ") {
-	int InputChar;
-	if (Additional != "  ") {
-		std::cout << Additional << ": ";
-		std::cin >> InputChar;
-		std::cin.ignore(1000, '\n');
-		return InputChar;
-	}
-	std::cin >> InputChar;
-	std::cin.ignore(1000, '\n');
-	std::cout << "\n";
-	return InputChar;
-}
-
-
 // Controls the addition of new questions
 void AddQuestion() {
 	Question NewQuestion;
 
-	NewQuestion.QuestionTitle = GetUserString("Question without question mark");
-	NewQuestion.CorrectChoice = GetUserString("Correct Choice");
-	NewQuestion.Choice2 = GetUserString("Second Choice");
-	NewQuestion.Choice3 = GetUserString("Third Choice");
-	NewQuestion.Choice4 = GetUserString("Last Choice");
+	/*NewQuestion.QuestionTitle = 
+	NewQuestion.CorrectChoice = 
+	NewQuestion.Choice2 = 
+	NewQuestion.Choice3 = 
+	NewQuestion.Choice4 = */
 	std::cout << "\nAdded new question: " << NewQuestion.QuestionTitle << "\n\n";
 	QuestionPool.push_back(NewQuestion);
 
@@ -165,7 +120,7 @@ void AddQuestion() {
 
 // Updates username
 void UpdateUserName() {
-	UserProfile.Name = GetUserString("New name");
+	UserProfile.Name = 
 }
 
 
@@ -189,7 +144,7 @@ bool RandomiseAndPrintAnswers(Question CurrentQuestion) {
 	bool IsAnswerCorrect;
 	bool IsValidChoice = false;
 	do {
-		switch (GetUserChar("Answer letter")) {
+		switch (/*GetUserInput*/) {
 		case 'a':
 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
 			IsValidChoice = true;
@@ -260,35 +215,42 @@ void DisplayAllQuestions() {
 	}
 }
 
-
-// Handles questions menu interactions
-void QuestionsMenuHandler() {
-	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	std::string UserChoice = GetUserString("Your choice");
-
-	if (UserChoice == "b") return MainMenu();
-	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ' && UserChoice[2]) {
-		char IndexOfQuestionAsChar = UserChoice[2];
-		int IndexOfQuestion = IndexOfQuestionAsChar - '0';
-		if (IndexOfQuestion <= POOL_QUESTIONS_COUNT) {
-			std::cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].QuestionTitle << "\n\n";
+// Deletes a selected Question from the pool
+bool DeleteQuestion(int QuestionIndex){
+	if (QuestionIndex <= POOL_QUESTIONS_COUNT) {
+			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
 
 			std::vector<Question>::iterator it = QuestionPool.begin();
 			std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
-			std::advance(it, IndexOfQuestion-1);
-			std::advance(rit, IndexOfQuestion-1);
+			std::advance(it, QuestionIndex-1);
+			std::advance(rit, QuestionIndex-1);
 			QuestionPool.erase(it);
 			RandomlyGeneratedQuestions.erase(rit);
 			POOL_QUESTIONS_COUNT -= 1;
 			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
 				RandomlyGeneratedQuestions[i] = i;
 			}
+			return true;
 		}
 		else {
 			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-			return QuestionsMenuHandler();
+			return false;
 		}
-		return MainMenu();
+}
+// Handles questions menu interactions
+void QuestionsMenuHandler() {
+	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
+	std::string UserChoice = ;
+
+	if (UserChoice == "b") return MainMenu();
+	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
+		
+
+		DeleteQuestion(QuestionIndex);
+		if(DeleteQuestion(QuestionIndex)==1){
+			return MainMenu();
+		}
+		else return QuestionsMenuHandler();
 	}
 	else {
 		std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
@@ -343,6 +305,8 @@ void DisplayQuestionWithAnswers(Question CurrentQuestion, int QuestionIndex) {
 
 	// std::cout << IndentString("*[a] ", 1) <<  << IndentString("[b] ", 1) <<  << IndentString("[c] ", 1) <<  << IndentString("[d] ", 1) <<  << "\n\n";
 }
+std::string arr[3] = {"Mohamed", "Hesham","Shaarawy"};
+
 
 
 // Starts a new quiz
@@ -381,17 +345,17 @@ std::string IndentString(std::string sentence, int indent) {
 
 
 void GetFileNameFromUser() {
-	std::string FileName = GetUserString("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
+  std::string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
 
-	std::ifstream File;
-	File.open(FileName);
-	if (File.is_open()) {
-		File.close();
+  std::ifstream File;
+  File.open(FileName);
+  if (File.is_open()) {
+    File.close();
 
-		std::cout << "\nFile found, loading questions\n";
-		ReadFromFile(FileName);
-	}
-	else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
+    std::cout << "\nFile found, loading questions\n";
+    ReadFromFile(FileName);
+  }
+  else std::cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
 }
 
 // Reads questions from files and adds them to the question pool
@@ -444,7 +408,7 @@ void MainMenu() {
 	std::cout << IndentString("[6] Exit\n", 1);
 	//TODO: Take user input and push it through a switch
 
-	switch (GetUserInt("Your choice")) {
+	switch () {
 	case 1:
 		return AdminMenu();
 	case 2:
@@ -474,7 +438,7 @@ void AdminMenu() {
 	std::cout << IndentString("[3] Load questions from file\n", 1);
 	std::cout << IndentString("[4] Go back to main menu\n", 1);
 
-	switch (GetUserInt("Your choice")) {
+	switch () {
 	case 1:
 		return QuestionsMenu();
 	case 2:
@@ -545,3 +509,5 @@ int main() {
 
 	return 0;
 }
+
+
