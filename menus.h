@@ -1,4 +1,7 @@
+#include <sstream>
+
 #include "./utils/index.h"
+
 
 void AdminMenu();
 void MainMennu();
@@ -14,7 +17,7 @@ void MainMenu() {
 	cout << IndentString("[6] Exit\n", 1);
 	//TODO: Take user input and push it through a switch
 
-	switch (GetUserInt("Your choice")) {
+	switch (GetUserInput("Your choice")[0]) {
 	case 1:
 		return AdminMenu();
 	case 2:
@@ -44,7 +47,7 @@ void AdminMenu() {
 	cout << IndentString("[3] Load questions from file\n", 1);
 	cout << IndentString("[4] Go back to main menu\n", 1);
 
-	switch (GetUserInt("Your choice")) {
+	switch (GetUserInput("Your choice")[0]) {
 	case 1:
 		return QuestionsMenu();
 	case 2:
@@ -64,53 +67,45 @@ void AdminMenu() {
 
 
 // Handles questions menu interactions
+
+// Handles questions menu interactions
 void QuestionsMenuHandler() {
-	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	string UserChoice = GetUserString("Your choice");
+	std::cout << std::string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
+	std::string UserChoice = GetUserInput("		");
 
 	if (UserChoice == "b") return MainMenu();
-	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ' && UserChoice[2]) {
-		char IndexOfQuestionAsChar = UserChoice[2];
-		int IndexOfQuestion = IndexOfQuestionAsChar - '0';
-		if (IndexOfQuestion <= POOL_QUESTIONS_COUNT) {
-			cout << "\nDeleted the following question: " << QuestionPool[IndexOfQuestion - 1].Title << "\n\n";
-
-			vector<Question>::iterator it = QuestionPool.begin();
-			vector<int>::iterator rit = QuestionPoolIndices.begin();
-			std::advance(it, IndexOfQuestion-1);
-			std::advance(rit, IndexOfQuestion-1);
-			QuestionPool.erase(it);
-			QuestionPoolIndices.erase(rit);
-			POOL_QUESTIONS_COUNT -= 1;
-			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-				QuestionPoolIndices[i] = i;
-			}
+	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
+		std::string QuestionIndexAsString;
+		QuestionIndexAsString = UserChoice.substr(2);
+		std::stringstream ToInteger(QuestionIndexAsString);
+		int QuestionIndex;
+		ToInteger >> QuestionIndex;
+		DeleteQuestion(QuestionIndex);
+		if(DeleteQuestion(QuestionIndex)==1){
+			return MainMenu();
 		}
-		else {
-			cout << "We didn't quite catch that, try again, perhaps?\n\n";
-			return QuestionsMenuHandler();
-		}
-		return MainMenu();
+		else return QuestionsMenuHandler();
 	}
 	else {
-		cout << "We didn't quite catch that, try again, perhaps?\n\n";
+		std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
 		return QuestionsMenuHandler();
 	}
 }
 
 
+
 // Displays questions-related menu
 void QuestionsMenu() {
-	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
-	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
-		cout << "Questions list:\n---------------\n";
+	std::cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
+	if (CheckCurrentQuestionPoolSize(1)) {
+		std::cout << "Questions list:\n---------------\n";
 
-//		DisplayAllQuestions();
+		// DisplayAllQuestions();
 		QuestionsMenuHandler();
 
 	}
 	else {
-		cout << "Please add more questions to the question pool and try again.\n\n";
+		std::cout << "Please add more questions to the question pool and try again.\n\n";
 		return MainMenu();
 	}
 }

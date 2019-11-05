@@ -76,11 +76,11 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 // 	//TODO: modify this to reflect changes
 // 	Question NewQuestion;
 
-// 	NewQuestion.Title = GetUserString("Question without question mark");
-// 	NewQuestion.CorrectChoice = GetUserString("Correct Choice");
-// 	NewQuestion.Choice2 = GetUserString("Second Choice");
-// 	NewQuestion.Choice3 = GetUserString("Third Choice");
-// 	NewQuestion.Choice4 = GetUserString("Last Choice");
+// 	NewQuestion.Title = GetUserInput("Question without question mark");
+// 	NewQuestion.CorrectChoice = GetUserInput("Correct Choice");
+// 	NewQuestion.Choice2 = GetUserInput("Second Choice");
+// 	NewQuestion.Choice3 = GetUserInput("Third Choice");
+// 	NewQuestion.Choice4 = GetUserInput("Last Choice");
 // 	cout << "\nAdded new question: " << NewQuestion.Title << "\n\n";
 // 	QuestionPool.push_back(NewQuestion);
 
@@ -134,7 +134,7 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 // 	bool IsAnswerCorrect;
 // 	bool IsValidChoice = false;
 // 	do {
-// 		switch (GetUserChar("Answer letter")) {
+// 		switch (GetUserInput("Answer letter")) {
 // 		case 'a':
 // 			IsAnswerCorrect = CheckAnswerValidity(CurrentQuestion, Answers[0]);
 // 			IsValidChoice = true;
@@ -170,6 +170,27 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 
 
 
+bool DeleteQuestion(int QuestionIndex){
+	if (QuestionIndex <= POOL_QUESTIONS_COUNT) {
+			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
+
+			std::vector<Question>::iterator it = QuestionPool.begin();
+			std::vector<int>::iterator rit = RandomlyGeneratedQuestions.begin();
+			std::advance(it, QuestionIndex-1);
+			std::advance(rit, QuestionIndex-1);
+			QuestionPool.erase(it);
+			RandomlyGeneratedQuestions.erase(rit);
+			POOL_QUESTIONS_COUNT -= 1;
+			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+				RandomlyGeneratedQuestions[i] = i;
+			}
+			return true;
+		}
+		else {
+			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
+			return false;
+		}
+}
 
 
 #endif

@@ -10,50 +10,26 @@ using std::string;
 using std::cout;
 using std::cin;
 
-// Takes user input string and returns it
-string GetUserString(string Additional = "  ") {
-	string Input;
-	if (Additional != "  ") {
-		cout << Additional << ": ";
-		getline(cin, Input);
-		return Input;
+
+std::string GetUserInput(std::string Additional = "  "){
+  std::string Input;
+  getline(std::cin, Input);
+	
+	if (Input[1] == '\0'){
+		if (Input >="0" || Input <= "9"){
+			char *Output = new char[];
+			Output[0] = Input[0];
+			return Output;
+		}
+
+		else if(Input >= "a" || Input <= "z"){
+			char *Output = new char[];
+			Output[0] = Input [0];
+			return Output;
+		}
 	}
-	getline(cin, Input);
-	cout << "\n";
+	
 	return Input;
-}
-
-
-// Takes integer and returns it
-int GetUserInt(string Additional = "  ") {
-	int InputChar;
-	if (Additional != "  ") {
-		cout << Additional << ": ";
-		cin >> InputChar;
-		cin.ignore(1000, '\n');
-		return InputChar;
-	}
-	cin >> InputChar;
-	cin.ignore(1000, '\n');
-	cout << "\n";
-	return InputChar;
-}
-
-
-// Gets a character from the user
-char GetUserChar(string Additional = "  ") {
-	char InputChar;
-	if (Additional != "  ") {
-		cout << Additional << ": ";
-		cin >> InputChar;
-		cin.ignore(1000, '\n');
-		cout << "\n";
-		return InputChar;
-	}
-	cin >> InputChar;
-	cin.ignore(1000, '\n');
-	cout << "\n";
-	return InputChar;
 }
 
 #endif

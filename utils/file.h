@@ -43,7 +43,7 @@ void ReadFromFile(string FileName) {
 
 
 void GetFileNameFromUser() {
-  string FileName = GetUserString("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
+  string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
 
   std::ifstream File;
   File.open(FileName);
