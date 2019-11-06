@@ -123,7 +123,7 @@ TFQuestion CreateTFQuestion(){
 	return TFQuestion(Title, CorrectChoice);
 }
 
-void CreateQuestion(){
+bool CreateQuestion(){
 	Question NewQuestion;
 	
 	string UserChoice = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]. Alternatively, you can enter 'cancel' to go back to the main menu."));
@@ -131,7 +131,7 @@ void CreateQuestion(){
 	if(UserChoice ==  "tf") NewQuestion = CreateTFQuestion(); 
 	else if(UserChoice == "complete") NewQuestion = CreateCompleteQuestion();
 	else if(UserChoice == "mcq") NewQuestion = CreateMCQQuestion();
-	else if(UserChoice == "cancel") return MainMenu();
+	else if(UserChoice == "cancel") return true;
 	else{
 		cout << "We didn't catch that, please try again.\n\n";
 		return CreateQuestion();
@@ -226,27 +226,27 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 
 
 
-bool DeleteQuestion(int QuestionIndex){
-	if (QuestionIndex <= POOL_QUESTIONS_COUNT) {
-			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
+// bool DeleteQuestion(int QuestionIndex){
+// 	if (QuestionIndex <= POOL_QUESTIONS_COUNT) {
+// 			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
 
-			std::vector<Question>::iterator it = QuestionPool.begin();
-			std::vector<int>::iterator rit = QuestionPoolIndices.begin();
-			std::advance(it, QuestionIndex-1);
-			std::advance(rit, QuestionIndex-1);
-			QuestionPool.erase(it);
-			QuestionPoolIndices.erase(rit);
-			POOL_QUESTIONS_COUNT -= 1;
-			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-				QuestionPoolIndices[i] = i;
-			}
-			return true;
-		}
-		else {
-			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-			return false;
-		}
-}
+// 			std::vector<Question>::iterator it = QuestionPool.begin();
+// 			std::vector<int>::iterator rit = QuestionPoolIndices.begin();
+// 			std::advance(it, QuestionIndex-1);
+// 			std::advance(rit, QuestionIndex-1);
+// 			QuestionPool.erase(it);
+// 			QuestionPoolIndices.erase(rit);
+// 			POOL_QUESTIONS_COUNT -= 1;
+// 			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+// 				QuestionPoolIndices[i] = i;
+// 			}
+// 			return true;
+// 		}
+// 		else {
+// 			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
+// 			return false;
+// 		}
+// }
 
 
 #endif

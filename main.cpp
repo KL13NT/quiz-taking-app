@@ -15,17 +15,21 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <unordered_set> 
 #include <numeric> //accumulate
 
-// custom definitions
-#include "./structures/index.h"
-#include "./globals.h"
-#include "./utils/index.h"
-#include "./menus.h"
-
 using std::string;
 using std::vector;
 using std::unordered_set;
 using std::cin;
 using std::cout;
+
+// function indexer
+
+// custom definitions
+#include "./structures/index.h"
+#include "./indexer.h"
+#include "./globals.h"
+#include "./utils/index.h"
+#include "./menus.h"
+
 
 
 int main() {

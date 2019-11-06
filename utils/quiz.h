@@ -8,26 +8,26 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 
 
 // Updates user profile
-void UpdateProfileAfterQuiz(int CorrectAnswers) {
-	User NewProfile = UserProfile;
-	NewProfile.HighestScore =
-		CorrectAnswers > UserProfile.HighestScore
-		? CorrectAnswers
-		: UserProfile.HighestScore;
+// void UpdateProfileAfterQuiz(int CorrectAnswers) {
+// 	User NewProfile = UserProfile;
+// 	NewProfile.HighestScore =
+// 		CorrectAnswers > UserProfile.HighestScore
+// 		? CorrectAnswers
+// 		: UserProfile.HighestScore;
 
-	NewProfile.LowestScore =
-		UserProfile.LowestScore == 0 && UserProfile.QuizzesTakenCount == 0
-		? CorrectAnswers
-		: CorrectAnswers < UserProfile.LowestScore && UserProfile.LowestScore > 0
-		? CorrectAnswers
-		: UserProfile.LowestScore;
+// 	NewProfile.LowestScore =
+// 		UserProfile.LowestScore == 0 && UserProfile.QuizzesTakenCount == 0
+// 		? CorrectAnswers
+// 		: CorrectAnswers < UserProfile.LowestScore && UserProfile.LowestScore > 0
+// 		? CorrectAnswers
+// 		: UserProfile.LowestScore;
 
-	NewProfile.QuizzesTaken += 1;
-	NewProfile.Scores.push_back(CorrectAnswers);
-	NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
+// 	NewProfile.QuizzesTaken += 1;
+// 	NewProfile.Scores.push_back(CorrectAnswers);
+// 	NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
 
-	UserProfile = NewProfile;
-}
+// 	UserProfile = NewProfile;
+// }
 
 
 

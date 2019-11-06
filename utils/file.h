@@ -4,11 +4,6 @@
 #include <fstream>
 #include <string>
 
-using std::cout;
-using std::vector;
-using std::string;
-using std::unordered_set;
-
 
 // Reads questions from files and adds them to the question pool
 void ReadFromFile(string FileName) {
