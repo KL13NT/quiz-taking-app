@@ -57,7 +57,7 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 
 MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
-	string Title = Line;
+	string Title = FormatQuestionTitle(Line);
 
 	getline(File, Line);
 	string CorrectChoice = Line;
@@ -77,7 +77,7 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 
 CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
-	string Title = Line;
+	string Title = FormatQuestionTitle(Line);
 	
 	getline(File, Line);
 	string CorrectChoice = Line;
@@ -88,7 +88,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
-	string Title = Line;
+	string Title = FormatQuestionTitle(Line);
 	
 	getline(File, Line);
 	string CorrectChoice = Line;
@@ -98,7 +98,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 
 
 MCQQuestion CreateMCQQuestion(){
-	string Title = GetUserInput("Enter Question without the question mark");
+	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CC = GetUserInput("Enter the correct choice");
 	string C2 = GetUserInput("Enter choice 2");
 	string C3 = GetUserInput("Enter choice 3");
@@ -109,7 +109,7 @@ MCQQuestion CreateMCQQuestion(){
 
 
 CompleteQuestion CreateCompleteQuestion(){
-	string Title = GetUserInput("Enter Question without the question mark");
+	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CorrectChoice = GetUserInput("Enter the correct choice");
 
 	return CompleteQuestion(Title, CorrectChoice);
@@ -117,7 +117,7 @@ CompleteQuestion CreateCompleteQuestion(){
 
 
 TFQuestion CreateTFQuestion(){
-	string Title = GetUserInput("Enter Question without the question mark");
+	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CorrectChoice = GetUserInput("Enter the correct choice");
 
 	return TFQuestion(Title, CorrectChoice);

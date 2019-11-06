@@ -28,6 +28,6 @@ string StringToLowerCase(string StringToChange);
 string StringToUpperCase(string StringToChange);
 string IndentString(const string sentence, const int indent);
 void CreateNewUser();
-
+string FormatQuestionTitle(string QuestionTitle);
 
 #endif
