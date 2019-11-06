@@ -83,12 +83,12 @@ void DisplayUserStatistics(const User & CurrentUser){
 }
 
 // Displays user scores
-void DisplayScores() {
-	for (int i = 0; i < UserProfile.QuizzesTakenCount; i++) cout << "Quiz [" << i + 1 << "] >> " << UserProfile.Scores[i] << "/" << QUIZ_QUESTIONS_COUNT << "\n";
-
-	cout << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
-	if (GetUserInput("Your choice") == "b") MainMenu();
-}
+//void DisplayScores() {
+//	for (int i = 0; i < UserProfile.QuizzesTakenCount; i++) cout << "Quiz [" << i + 1 << "] >> " << UserProfile.Scores[i] << "/" << QUIZ_QUESTIONS_COUNT << "\n";
+//
+//	cout << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
+//	if (GetUserInput("Your choice") == "b") MainMenu();
+//}
 
 
 #endif
