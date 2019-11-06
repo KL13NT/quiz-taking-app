@@ -25,6 +25,13 @@ class User {
 		int LowestScore = 0;
 		int QuizzesTaken = 0;
 		double AvgScore = 0;
+		int MCQuestionCount = 0;
+		int TFQuestionCount = 0;
+		int CompleteQuestionCount = 0;
+		double GradePerMCQ = 0;
+		double GradePerTFQuestion = 0;
+		double GradePerCompleteQuestion = 0;
+
 	
 	public:
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
@@ -61,6 +68,12 @@ class User {
 			int LowestScore = ToEqual.LowestScore;
 			int QuizzesTaken = ToEqual.QuizzesTaken;
 			double AvgScore = ToEqual.AvgScore;
+			int MCQuestionCount = ToEqual.MCQuestionCount;
+			int TFQuestionCount = ToEqual.TFQuestionCount;
+			int CompleteQuestionCount = ToEqual.CompleteQuestionCount;
+			double GradePerMCQ = ToEqual.GradePerMCQ;
+			double GradePerTFQuestion = ToEqual.GradePerTFQuestion;
+			double GradePerCompleteQuestion = ToEqual.GradePerCompleteQuestion;
 		}
 
 		bool operator == (const User &ToEqual){
@@ -79,10 +92,18 @@ class User {
 };
 
 void DisplayUserStatistics(const User & CurrentUser){
+	cout << "Your score statistics per quiz:" << std::endl;
 	cout << "Number of quizzes taken: " << CurrentUser.QuizzesTaken <<std::endl;
 	cout << "Highest quiz score: " << CurrentUser.HighestScore << std::endl;
 	cout << "Lowest quiz score: " << CurrentUser.LowestScore << std::endl;
 	cout << "Average quiz score: " << CurrentUser.AvgScore << std::endl;
+	cout << "Your score statistics per question type:" <<std::endl;
+	cout << "Number of MC questions: " << CurrentUser.MCQuestionCount <<std::endl;
+	cout << "Number of complete questions: " << CurrentUser.CompleteQuestionCount <<std::endl;
+	cout << "Number of T/F questions: " << CurrentUser.TFQuestionCount << std::endl;
+	cout << "Average grade for MC questions: " << CurrentUser.GradePerMCQ << std::endl;
+	cout << "Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
+	cout << "Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
 }
 
 // Displays user scores
