@@ -9,20 +9,22 @@
 void ReadFromFile(string FileName) {
 	std::ifstream File;
 	string Line;
+	Question NewQuestion;
 	File.open(FileName);
 
 	if (File.is_open()) {
 		int LoadedQuestionsCount = 0;
-		
 		while (getline(File, Line)) {
-			if(Line == "MCQ") QuestionPool.push_back(LoadMCQQuestion(File, Line));
-			else if(Line == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line));
-			else if(Line == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line));
-
-			LoadedQuestionsCount += 1;
-			POOL_QUESTIONS_COUNT += 1;
+			if(Line == "MCQ") NewQuestion = LoadMCQQuestion(File, Line);
+			else if(Line == "COMPLETE") NewQuestion = LoadCompleteQuestion(File, Line);
+			else if(Line == "TF") NewQuestion = LoadTFQuestion(File, Line);
 			
-			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT - 1);
+			if(!IsDuplicateQuestion(NewQuestion, QuestionPoolSet)){
+				LoadedQuestionsCount += 1;
+				POOL_QUESTIONS_COUNT += 1;
+				
+				QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT - 1);
+			}
 		}
 
 		File.close();

@@ -8,9 +8,7 @@
 
 // Checks whether the question is a duplicate
 bool IsDuplicateQuestion(const Question &CurrentQuestion, const unordered_set<string> &QuestionPoolSet){
-	auto QuestionIterator = QuestionPoolSet.find(CurrentQuestion.Title);
-	
-  if(QuestionIterator != QuestionPoolSet.end()) return true;
+  if(QuestionPoolSet.find(CurrentQuestion.Title) != QuestionPoolSet.end()) return true;
   return false;
 }
 
@@ -137,11 +135,14 @@ bool CreateQuestion(){
 		return CreateQuestion();
 	}
 
-	QuestionPool.push_back(NewQuestion);
-	QuestionPoolSet.insert(NewQuestion.Title);
+	if(!IsDuplicateQuestion(NewQuestion, QuestionPoolSet)){
+		QuestionPool.push_back(NewQuestion);
+		QuestionPoolSet.insert(NewQuestion.Title);
 
-	QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
-	POOL_QUESTIONS_COUNT += 1;
+		QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+		POOL_QUESTIONS_COUNT += 1;
+	}
+	else cout << "\nThis question already exists. Try adding a different question.\n";
 }
 
 
