@@ -44,65 +44,61 @@ int main() {
 	return 0;
 }
 
-void AdminMenu() {
-   std::cout << "Welcome, " << UserProfile -> FirstName << ", please choose from the following options:\n";
-	std::cout << "[1] Switch accounts\n";
-	std::cout << "[2] Update your name\n";
-	std::cout << "[3] View all users\n";
-	std::cout << "[4] Add new user\n";
-	std::cout << "[5] View all questions\n";
-	std::cout << "[6] Add new question\n";
-   std::cout << "[7] Load questions from file\n";
-   std::cout << "[8] Exit\n";
+void Login(const User &user){
+    std::string Name, Password;
+    bool found = user.IsAdmin;
+    std::cout << "Enter your username: ";
+    getline(std::cin, Name);
+    std::cout << "Enter your password: ";
+    getline(std::cin, Password);
+    if(Name == user.Username && Password == user.Userpassword){
+        found = true;
+    }
+    else{
+        found = false;
+    }
+    if(!found){
+        std::cout << "Incorrect username or password, Please Try Again.\n";
+        Login(user);
+    }
+    else {
+        std::cout << "Logged in Successfully!!\n";
+		return AdminMenu();
+    }
 }
 
-void PlayerMenu() {
-   std::cout << "Welcome, " << UserProfile -> FirstName << ", please choose from the following options:\n";
-	std::cout << "[1] Switch accounts\n";
-	std::cout << "[2] Update your name\n";
-	std::cout << "[3] Start a new quiz\n";
-	std::cout << "[4] Display your scores statistics\n";
-	std::cout << "[5] Display all your scores\n";
-	std::cout << "[6] Display details of your last 2 quizzes\n";
-   std::cout << "[7] Exit\n";
-}
-
-class User{
-   public:
-       User(){
-           std::string Username = "";
-           std::string Userpassword = "";
-       };
-};
-
-class Admin : public User{
-   public:
-       std::string username = "admin";
-       std::string password = "admin";
-};
-
-bool Checklogin(){
-	Admin ad;
-   std::string Name, Password;
-   std::cout << "Enter your username:";
-   getline(std::cin, Name);
-   std::cout << "Enter your password:";
-   getline(std::cin, Password);
-   if(Name == ad.username && Password == ad.password){
-       return true;
-   }
-   else{
-       return false;
-       }
-}
-
-int main(){
-   bool status = Checklogin();
-   if(!status){
-       std::cout << "Failed!!\n";
-   }
-   else {
-       std::cout << "Logged in Successfully!!\n";
-		AdminMenu();
-   }
+void RegisterUser(const User &user){
+    int Choice;
+    char Confirmation;
+    std::string username, password;
+    std::cout << "Please enter your username: ";
+    getline(std::cin, username);
+    std::cout << "Please enter your password: ";
+    getline(std::cin, password);
+    std::cout << "Username -  "<< username << "\nPassword -  " << password;
+    std::cout << "\nAre you sure that username and password are correct? [Y/N]\n";
+    std::cin >> Confirmation;
+    std::cin.ignore(1000, '\n');
+    if(Confirmation == 'y' || Confirmation == 'Y'){
+            //user.Username = username;
+            //user.Userpassword = password;
+            std::cout << "Would you like this account be Admin or normal user? \n[1]Admin \n[2]Normal User\n";
+            std::cin >> Choice;
+            std::cin.ignore(1000, '\n');
+            switch(Choice){
+                case 1:
+                    //user.IsAdmin = true;
+                    return AdminMenu();
+                    break;
+                case 2:
+                    return AdminMenu();
+                    break;
+                default:
+                    std::cout << "Invalid Input!!";
+                    RegisterUser(user);
+            }
+    }
+    else if(Confirmation == 'n' || Confirmation == 'N'){
+        RegisterUser(user);
+    }
 }
