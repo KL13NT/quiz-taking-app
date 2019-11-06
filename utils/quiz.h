@@ -32,12 +32,12 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 
 
 // Generates quiz questions by randomly filling an already created GeneratedQuestions array
-void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) {
-	ShuffleQuestionPool();
-	for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
-		GeneratedQuestions[i] = QuestionPool[QuestionPoolIndices[i]];
-	}
-}
+//void GenerateQuizQuestions(Question(&GeneratedQuestions)[QUIZ_QUESTIONS_COUNT]) {
+//	ShuffleQuestionPool();
+//	for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
+//		GeneratedQuestions[i] = QuestionPool[QuestionPoolIndices[i]];
+//	}
+//}
 
 
 // Starts a new quiz

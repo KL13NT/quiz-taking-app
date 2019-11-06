@@ -9,7 +9,7 @@ using std::cout;
 using std::string;
 
 class User {
-	private:
+	public:
 		bool IsAdmin = false;
 		string FirstName = "";
 		string LastName = "";
@@ -29,8 +29,8 @@ class User {
 
 	
 	public:
-		User();
-		~User();
+		User(){};
+		~User(){};
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
 			FirstName = FirstNameInput;	
 			LastName = LastNameInput;

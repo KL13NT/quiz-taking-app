@@ -16,8 +16,8 @@ class Question{
 		string Type = "";
 		string CorrectChoice = "";
     
-		Question();
-    ~Question();
+		Question(){};
+    ~Question(){};
 		Question(int WeightInput, string TypeInput){
       Weight = WeightInput;
 			Type = TypeInput;

@@ -6,12 +6,13 @@ class Log{
   private:
     bool IsAdminLog = false;
   public:
-    Log();
-    ~Log();
+    Log(){};
+    ~Log(){};
     friend Log ViewLog(const Log &);
 };
 
 
+//TODO: Possible extra, implement admin log
 // class AdminLog: public Log{
 //   private: 
 //     vector<string> Questions = {};

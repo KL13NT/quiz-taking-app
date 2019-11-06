@@ -8,34 +8,30 @@
 using std::string;
 using std::cout;
 
-
-void AdminMenu();
-void MainMennu();
-
 // Displays main menu
 void MainMenu() {
-	cout << "Welcome " << UserProfile.Name << ", please choose from the following options:\n";
+	cout << "Welcome " << UserProfile -> FirstName << ", please choose from the following options:\n";
 	cout << IndentString("[1] Go to administration menu\n", 1);
 	cout << IndentString("[2] Update your name\n", 1);
 	cout << IndentString("[3] Start a new quiz\n", 1);
 	cout << IndentString("[4] Display your scores statistics\n", 1);
 	cout << IndentString("[5] Display all your scores\n", 1);
 	cout << IndentString("[6] Exit\n", 1);
-	//TODO: Take user input and push it through a switch
+	//TODO: Fix
 
 	switch (GetUserInput("Your choice")[0]) {
 	case 1:
 		return AdminMenu();
 	case 2:
-		UpdateUserName();
+//		UpdateUserName();
 		return MainMenu();
 	case 3:
 //		StartNewQuiz();
 		return MainMenu();
 	case 4:
-		return DisplayStatistics();
+//		return DisplayUserStatistics(CurrentUser);
 	case 5:
-		return DisplayScores();
+//		return DisplayScores();
 	case 6:
 		return;
 	default:
@@ -83,14 +79,14 @@ void QuestionsMenuHandler() {
 	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
 		string QuestionIndexAsString;
 		QuestionIndexAsString = UserChoice.substr(2);
-		std::sstream ToInteger(QuestionIndexAsString);
+		std::stringstream ToInteger(QuestionIndexAsString);
 		int QuestionIndex;
 		ToInteger >> QuestionIndex;
-		DeleteQuestion(QuestionIndex);
-		if(DeleteQuestion(QuestionIndex)==1){
-			return MainMenu();
-		}
-		else return QuestionsMenuHandler();
+//		DeleteQuestion(QuestionIndex);
+//		if(DeleteQuestion(QuestionIndex)==1){
+//			return MainMenu();
+//		}
+//		else return QuestionsMenuHandler();
 	}
 	else {
 		cout << "We didn't quite catch that, try again, perhaps?\n\n";
@@ -103,7 +99,7 @@ void QuestionsMenuHandler() {
 // Displays questions-related menu
 void QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
-	if (CheckCurrentQuestionPoolSize(1)) {
+	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
 		cout << "Questions list:\n---------------\n";
 
 		// DisplayAllQuestions();
@@ -118,7 +114,7 @@ void QuestionsMenu() {
 
 
 void AllUsersMenu(){
-  cout << "\n\nExisting users in the system:\n" << string Line('=', 10) << "\n";
+  cout << "\n\nExisting users in the system:\n" << string('=', 10) << "\n";
 	for (auto & User : Users) {
     User.DisplayInfo();
 	}	
