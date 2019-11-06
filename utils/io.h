@@ -7,14 +7,14 @@ std::string GetUserInput(std::string Additional = "  "){
   getline(std::cin, Input);
 	
 	if (Input[1] == '\0'){
-		if (Input >="0" || Input <= "9"){
-			char *Output = new char[];
+		if (Input[0] >= '0' || Input[0] <= '9'){
+			char  *Output = new char[1];
 			Output[0] = Input[0];
 			return Output;
 		}
 
-		else if(Input >= "a" || Input <= "z"){
-			char *Output = new char[];
+		else if(Input[0] >= 'a' || Input[0] <= 'z'){
+			char *Output = new char[1];
 			Output[0] = Input [0];
 			return Output;
 		}
