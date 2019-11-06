@@ -21,6 +21,12 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include "./utils/index.h"
 #include "./menus.h"
 
+using std::string;
+using std::vector;
+using std::unordered_set;
+using std::cin;
+using std::cout;
+
 
 int main() {
 	ReadFromFile("exam2_questions.txt");

@@ -1,25 +1,10 @@
 #ifndef QUESTION_UTILS_H
 #define QUESTION_UTILS_H
 
-
-#include <string>
-#include <unordered_set>
-#include <vector>
 #include <ctime>
 #include <chrono> //system_clock
 #include <random>	//default_random_engine
 #include <algorithm> //shuffle
-
-
-#include "../structures/question.h"
-#include "../globals.h"
-
-
-using std::cout;
-using std::vector;
-using std::string;
-using std::unordered_set;
-
 
 // Checks whether the question is a duplicate
 bool IsDuplicateQuestion(const Question &CurrentQuestion, const unordered_set<string> &QuestionPoolSet){
@@ -71,101 +56,93 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 
 
 MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
-	MCQQuestion CurrentQuestion;
-	
 	getline(File, Line);
-	CurrentQuestion.Title = Line;
+	string Title = Line;
 
 	getline(File, Line);
-	CurrentQuestion.CorrectChoice = Line;
+	string CorrectChoice = Line;
 
 	getline(File, Line);
-	CurrentQuestion.Choice2 = Line;
+	string Choice2 = Line;
 
 	getline(File, Line);
-	CurrentQuestion.Choice3 = Line;
+	string Choice3 = Line;
 
 	getline(File, Line);
-	CurrentQuestion.Choice4 = Line;
+	string Choice4 = Line;
 
-	return CurrentQuestion;
+	return MCQQuestion(Title, CorrectChoice, Choice2, Choice3, Choice4);
 }
 
 
 CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
-	CompleteQuestion CurrentQuestion;
+	getline(File, Line);
+	string Title = Line;
 	
 	getline(File, Line);
-	Title = Line;
-	
-	getline(File, Line);
-	CorrectChoice = Line;
+	string CorrectChoice = Line;
 
-	return CurrentQuestion
+	return CompleteQuestion(Title, CorrectChoice);
 }
 
 
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
-	TFQuestion CurrentQuestion;
-
 	getline(File, Line);
-	Title = Line;
+	string Title = Line;
 	
 	getline(File, Line);
-	CorrectChoice = Line;
+	string CorrectChoice = Line;
 
-	return CurrentQuestion;
+	return TFQuestion(Title, CorrectChoice);
 }
 
 
 MCQQuestion CreateMCQQuestion(){
-	MCQQuestion CurrentQuestion;
-
-	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
-	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
-	CurrentQuestion.Choice2 = GetUserInput("Second Choice");
-	CurrentQuestion.Choice3 = GetUserInput("Third Choice");
-	CurrentQuestion.Choice4 = GetUserInput("Last Choice");
-
-	return CurrentQuestion;
+	string Title = GetUserInput("Enter Question without the question mark");
+	string CC = GetUserInput("Enter the correct choice");
+	string C2 = GetUserInput("Enter choice 2");
+	string C3 = GetUserInput("Enter choice 3");
+	string C4 = GetUserInput("Enter choice 4");
+	
+	return MCQQuestion(Title, CC, C2, C3, C4);
 }
 
 
 CompleteQuestion CreateCompleteQuestion(){
-	CompleteQuestion CurrentQuestion;
+	string Title = GetUserInput("Enter Question without the question mark");
+	string CorrectChoice = GetUserInput("Enter the correct choice");
 
-	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
-	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
-
-	return CurrentQuestion;
+	return CompleteQuestion(Title, CorrectChoice);
 }
 
 
-TFQuestion CreateMCQQuestion(){
-	TFQuestion CurrentQuestion;
+TFQuestion CreateTFQuestion(){
+	string Title = GetUserInput("Enter Question without the question mark");
+	string CorrectChoice = GetUserInput("Enter the correct choice");
 
-	CurrentQuestion.Title = GetUserInput("Enter Question without the question mark");
-	CurrentQuestion.CorrectChoice = GetUserInput("Enter the correct choice");
-
-	return CurrentQuestion;
+	return TFQuestion(Title, CorrectChoice);
 }
 
-//Controls the addition of new questions
-// void AddQuestion() {
-// 	//TODO: modify this to reflect changes
-// 	Question NewQuestion;
+void CreateQuestion(){
+	Question NewQuestion;
+	
+	string UserChoice = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]. Alternatively, you can enter 'cancel' to go back to the main menu."));
+	
+	if(UserChoice ==  "tf") NewQuestion = CreateTFQuestion(); 
+	else if(UserChoice == "complete") NewQuestion = CreateCompleteQuestion();
+	else if(UserChoice == "mcq") NewQuestion = CreateMCQQuestion();
+	else if(UserChoice == "cancel") return MainMenu();
+	else{
+		cout << "We didn't catch that, please try again.\n\n";
+		return CreateQuestion();
+	}
 
-// 	NewQuestion.Title = GetUserInput("Question without question mark");
-// 	NewQuestion.CorrectChoice = GetUserInput("Correct Choice");
-// 	NewQuestion.Choice2 = GetUserInput("Second Choice");
-// 	NewQuestion.Choice3 = GetUserInput("Third Choice");
-// 	NewQuestion.Choice4 = GetUserInput("Last Choice");
-// 	cout << "\nAdded new question: " << NewQuestion.Title << "\n\n";
-// 	QuestionPool.push_back(NewQuestion);
+	QuestionPool.push_back(NewQuestion);
+	QuestionPoolSet.insert(NewQuestion.Title);
 
-// 	POOL_QUESTIONS_COUNT += 1;
-// 	QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT - 1);
-// }
+	QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+	POOL_QUESTIONS_COUNT += 1;
+}
 
 
 // Displays a single question as part of a list

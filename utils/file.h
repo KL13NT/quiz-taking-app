@@ -4,10 +4,6 @@
 #include <fstream>
 #include <string>
 
-#include "../structures/index.h"
-#include "./index.h"
-
-
 using std::cout;
 using std::vector;
 using std::string;
@@ -24,9 +20,9 @@ void ReadFromFile(string FileName) {
 		int LoadedQuestionsCount = 0;
 		
 		while (getline(File, Line)) {
-			if(Line == "MCQ") QuestionPool.push_back(MCQQuestion(File, Line));
-			else if(Line == "COMPLETE") QuestionPool.push_back(CompleteQuestion(File, Line));
-			else if(Line == "TF") QuestionPool.push_back(TFQuestion(File, Line));
+			if(Line == "MCQ") QuestionPool.push_back(LoadMCQQuestion(File, Line));
+			else if(Line == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line));
+			else if(Line == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line));
 
 			LoadedQuestionsCount += 1;
 			POOL_QUESTIONS_COUNT += 1;

@@ -1,13 +1,6 @@
 #ifndef LOG_H
 #define LOG_H
 
-#include <vector>
-#include <string>
-
-using std::string;
-using std::vector;
-
-
 //each log represents a quiz
 class Log{
   private:

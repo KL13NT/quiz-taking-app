@@ -5,9 +5,6 @@
 #include <cctype>
 
 
-using std::string;
-
-
 string StringToLowerCase(string StringToChange){
   int i = 0;
   char curr;

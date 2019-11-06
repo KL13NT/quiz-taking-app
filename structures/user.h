@@ -5,11 +5,6 @@
 #include <string>
 
 
-#include "../utils/index.h"
-#include "../menus.h"
-#include "./log.h"
-
-
 using std::cout;
 using std::string;
 

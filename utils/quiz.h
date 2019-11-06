@@ -1,14 +1,6 @@
 #ifndef QUIZ_UTILS_H
 #define QUIZ_UTILS_H
 
-using std::cin;
-using std::cout;
-using std::vector;
-using std::string;
-using std::unordered_set;
-
-#include "../globals.h"
-
 // Generates the after-quiz report
 void GenerateAfterQuizReport(int CorrectAnswers) {
 	cout << "You answered " << CorrectAnswers << "/" << QUIZ_QUESTIONS_COUNT << " questions correctly.\n";
@@ -17,7 +9,7 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 
 // Updates user profile
 void UpdateProfileAfterQuiz(int CorrectAnswers) {
-	Profile NewProfile = UserProfile;
+	User NewProfile = UserProfile;
 	NewProfile.HighestScore =
 		CorrectAnswers > UserProfile.HighestScore
 		? CorrectAnswers
@@ -30,7 +22,7 @@ void UpdateProfileAfterQuiz(int CorrectAnswers) {
 		? CorrectAnswers
 		: UserProfile.LowestScore;
 
-	NewProfile.QuizzesTakenCount += 1;
+	NewProfile.QuizzesTaken += 1;
 	NewProfile.Scores.push_back(CorrectAnswers);
 	NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
 

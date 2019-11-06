@@ -6,19 +6,19 @@
 #include <fstream>
 #include <unordered_set>
 
-#include "../utils/index.h"
 
+using std::string;
 
 class Question{
   public:
     int Weight = 1;
-    std::string Title = "";
-		std::string Type = "";
-		std::string CorrectChoice = "";
+    string Title = "";
+		string Type = "";
+		string CorrectChoice = "";
     
 		Question();
     ~Question();
-		Question(int WeightInput, std::string TypeInput){
+		Question(int WeightInput, string TypeInput){
       Weight = WeightInput;
 			Type = TypeInput;
     }
@@ -31,25 +31,16 @@ class Question{
 
 class MCQQuestion: public Question{
   public:
-    std::string Choice2;
-    std::string Choice3;
-    std::string Choice4;
+    string Choice2;
+    string Choice3;
+    string Choice4;
     
-		MCQQuestion(std::ifstream &File, std::string &Line): Question(2, "MCQ"){
-			getline(File, Line);
-			Title = Line;
-
-			getline(File, Line);
-      CorrectChoice = Line;
-
-			getline(File, Line);
-      Choice2 = Line;
-
-			getline(File, Line);
-      Choice3 = Line;
-
-			getline(File, Line);
-      Choice4 = Line;
+		MCQQuestion(string TitleInput, string CC, string C2, string C3, string C4): Question(2, "MCQ"){
+			Title = TitleInput;
+      CorrectChoice = CC;
+      Choice2 = C2;
+      Choice3 = C3;
+      Choice4 = C4;
     }
 
     void operator = (const MCQQuestion &ToEqual){
@@ -63,12 +54,9 @@ class MCQQuestion: public Question{
 
 class CompleteQuestion: public Question{
   public:
-    CompleteQuestion(std::ifstream &File, std::string &Line): Question(3, "COMPLETE"){
-      getline(File, Line);
-			Title = Line;
-			
-			getline(File, Line);
-			CorrectChoice = Line;
+    CompleteQuestion(string TitleInput, string CC): Question(3, "COMPLETE"){
+			Title = TitleInput;
+			CorrectChoice = CC;
     }
     
     void operator = (const CompleteQuestion &ToEqual){
@@ -79,12 +67,9 @@ class CompleteQuestion: public Question{
 
 class TFQuestion: public Question{
   public:
-    TFQuestion(std::ifstream &File, std::string &Line): Question(1, "TF"){
-      getline(File, Line);
-			Title = Line;
-			
-			getline(File, Line);
-			CorrectChoice = Line;
+    TFQuestion(string TitleInput, string CC): Question(1, "TF"){
+			Title = TitleInput;			
+			CorrectChoice = CC;
     }
 
     void operator = (const TFQuestion &ToEqual){
@@ -98,7 +83,7 @@ class TFQuestion: public Question{
 // // Custom hasher for tables
 // struct UsernameHasher {
 //   size_t operator()(const User &CurrentUser) const {
-//     return std::hash<std::string> ()(CurrentUser.Username + to_string(CurrentUser.ID);
+//     return std::hash<string> ()(CurrentUser.Username + to_string(CurrentUser.ID);
 //   }
 // };
 

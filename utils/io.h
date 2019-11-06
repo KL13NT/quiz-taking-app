@@ -2,15 +2,6 @@
 #define IO_H
 
 
-#include <string>
-#include <iostream>
-
-
-using std::string;
-using std::cout;
-using std::cin;
-
-
 std::string GetUserInput(std::string Additional = "  "){
   std::string Input;
   getline(std::cin, Input);
