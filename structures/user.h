@@ -5,11 +5,6 @@
 #include <string>
 
 
-#include "../utils/index.h"
-#include "../menus.h"
-#include "./log.h"
-
-
 using std::cout;
 using std::string;
 
@@ -34,6 +29,8 @@ class User {
 
 	
 	public:
+		User();
+		~User();
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
 			FirstName = FirstNameInput;	
 			LastName = LastNameInput;
@@ -81,10 +78,10 @@ class User {
 		}
 		
 		void DisplayInfo(){
-			bool IsAdminString = IsAdmin? "Admin\n": "Player\n";
+			string IsAdminString = IsAdmin? "Admin\n": "Player\n";
 			cout << "Full Name: " << FirstName << " " << LastName << "\n";
 			cout << "Username: " << Username << "\n";
-			cout << "Role: " << IsAdminString << "\n";
+			cout << "Role: " << IsAdminString << "\n\n";
 		}
 
 		friend void Login(const User &);
