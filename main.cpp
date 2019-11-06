@@ -21,11 +21,11 @@ using std::unordered_set;
 using std::cin;
 using std::cout;
 
-// function indexer
+// Indexer
+#include "./indexer.h"
 
 // custom definitions
 #include "./structures/index.h"
-#include "./indexer.h"
 #include "./globals.h"
 #include "./utils/index.h"
 #include "./menus.h"

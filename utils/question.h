@@ -6,19 +6,6 @@
 #include <random>	//default_random_engine
 #include <algorithm> //shuffle
 
-// Checks whether the question is a duplicate
-bool IsDuplicateQuestion(const Question &CurrentQuestion, const unordered_set<string> &QuestionPoolSet){
-  if(QuestionPoolSet.find(CurrentQuestion.Title) != QuestionPoolSet.end()) return true;
-  return false;
-}
-
-
-//Checks if question pool has enough questions >= QUIZ_QUESTIONS_COUNT
-bool CheckCurrentQuestionPoolSize(int ExpectedSize, int POOL_QUESTIONS_COUNT) {
-	if (POOL_QUESTIONS_COUNT >= ExpectedSize) return true;
-	return false;
-}
-
 
 // Shuffles question pool
 void ShuffleQuestionPool() {
@@ -33,7 +20,7 @@ void ShuffleQuestionPool() {
 
 
 // Shuffles answers
-void ShuffleAnswers(vector<string>(&Answers)) {
+void ShuffleAnswers(vector<string> (&Answers)) {
 	vector<string> NewAnswers;
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -44,15 +31,7 @@ void ShuffleAnswers(vector<string>(&Answers)) {
 }
 
 
-// Checks if supplied answer is the correct choice
-bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) {
-	if (Answer == CurrentQuestion.CorrectChoice) {
-		return true;
-	}
-	else return false;
-}
-
-
+// Loads a "MCQ" question using an ifstream  
 MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
 	string Title = FormatQuestionTitle(Line);
@@ -73,6 +52,7 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 }
 
 
+// Loads a "complete" question using an ifstream  
 CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
 	string Title = FormatQuestionTitle(Line);
@@ -84,6 +64,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 }
 
 
+// Loads a "TF" question using an ifstream  
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 	getline(File, Line);
 	string Title = FormatQuestionTitle(Line);
@@ -95,6 +76,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 }
 
 
+// Creates and returns a question
 MCQQuestion CreateMCQQuestion(){
 	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CC = GetUserInput("Enter the correct choice");
@@ -106,6 +88,7 @@ MCQQuestion CreateMCQQuestion(){
 }
 
 
+// Creates and returns a question
 CompleteQuestion CreateCompleteQuestion(){
 	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CorrectChoice = GetUserInput("Enter the correct choice");
@@ -114,6 +97,7 @@ CompleteQuestion CreateCompleteQuestion(){
 }
 
 
+// Creates and returns a question
 TFQuestion CreateTFQuestion(){
 	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 	string CorrectChoice = GetUserInput("Enter the correct choice");
@@ -121,6 +105,8 @@ TFQuestion CreateTFQuestion(){
 	return TFQuestion(Title, CorrectChoice);
 }
 
+
+// Question creation menu
 bool CreateQuestion(){
 	Question NewQuestion;
 	
@@ -145,11 +131,6 @@ bool CreateQuestion(){
 	else cout << "\nThis question already exists. Try adding a different question.\n";
 }
 
-
-// Displays a single question as part of a list
-void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
-	cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.Title << "?\n";
-}
 
 
 // Displays a question followed by its answers
