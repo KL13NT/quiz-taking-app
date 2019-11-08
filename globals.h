@@ -7,7 +7,7 @@ int POOL_QUESTIONS_COUNT = 0;
 
 vector<Question> QuestionPool;
 unordered_set<string> QuestionPoolSet; //used for duplicate question detection
-vector<int> AnswerIndices; // filled in main before program starts
+vector<int> AnswerIndices = { 0, 1, 2, 3 }; // filled in main before program starts
 vector<int> QuestionPoolIndices; // filled in main
 vector<User> Users;
 User *UserProfile = &Users[0];

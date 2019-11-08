@@ -2,19 +2,14 @@
 #define INDEXER_H
 
 // All class declarations
-class Log;
-class PlayerLog;
-class User;
-class Question;
-class MCQQuestion;
-class TFQuestion;
-class CompleteQuestion;
+// class Log;
+// class PlayerLog;
+// class User;
+// class Question;
 
 // All function definitions
 void ReadFromFile(string);
 void GetFileNameFromUser();
-void DisplayQuestion(Question, int);
-void DisplayQuestionWithAnswers(Question, int);
 void ShuffleQuestionPool();
 void ShuffleAnswers(vector<string>&);
 void DisplayAllQuestions();

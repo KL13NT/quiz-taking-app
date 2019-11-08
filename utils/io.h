@@ -2,7 +2,7 @@
 #define IO_H
 
 
-std::string GetUserInput(std::string Additional = "  "){
+string GetUserInput(string Additional = "  "){
   std::string Input;
   getline(std::cin, Input);
 	

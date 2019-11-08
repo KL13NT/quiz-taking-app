@@ -1,6 +1,5 @@
 # quiz-taking-app
-
-This tiny program was an assignment in FCI-CU@2019. This is a single-user multiple-quizzes/run program. The requested features were as follows:
+A quiz app with the following features: 
 - Load questions from file
 - Add question using the program
 - Questions are randomised each new quiz
@@ -9,9 +8,32 @@ This tiny program was an assignment in FCI-CU@2019. This is a single-user multip
 - Error handling
 - Ability to see all scores and score statistics
 
-#### You have absolutely every right to use the code in this repo as your own but it would be more helpful to understand the concepts involved, why we did certain things in certain ways, and implementing them yourself instead of just copying. 
+# Contents
+- [Prerequisites](#Prerequisites)
+- [Behaviour](#Behaviour)
+  - [Structure](#Structure)
+  - [How it all comes together](#How-it-all-comes-together)
+- [Development Environment](#Development-Environment)
+  - [Testing](#Testing)
+- [V2](#V2)
+- [Contributing](#Contributing)
+- [Contributors](#Contributors)
 
-## V2 (In development)
+# Prerequisites
+Compiler: A GNU-based compiler
+Compiler lang support: C++11
+
+# Behaviour
+> This section describes how the program operates and how its structure comes together.
+  ## Structure
+  ## How it all comes together
+
+# Development Environment
+  - Codacy: For code style analysis
+  - Testing: We're still searching for a testing framework/platform to use. 
+
+## V2
+> In development
 Version 2.0.0 is underway. This will include whole new structure and an enhanced, performant search algorithm. It'll also include a collection of new features such as multiple users with different account types. 
 
 ## Contributing

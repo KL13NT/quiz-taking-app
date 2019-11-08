@@ -5,9 +5,6 @@
 #include <string>
 
 
-using std::cout;
-using std::string;
-
 class User {
 	public:
 		bool IsAdmin = false;
@@ -73,23 +70,22 @@ class User {
 			cout << "Role: " << IsAdminString << "\n\n";
 		}
 
-		friend void DisplayUserStatistics(const User &);
+		void DisplayUserStatistics(const User & CurrentUser){
+			cout << "Your score statistics per quiz:" << std::endl;
+			cout << "		-Number of quizzes taken: " << CurrentUser.QuizzesTaken << std::endl;
+			cout << "		-Highest quiz score: " << CurrentUser.HighestScore << std::endl;
+			cout << "		-Lowest quiz score: " << CurrentUser.LowestScore << std::endl;
+			cout << "		-Average quiz score: " << CurrentUser.AvgScore << std::endl;
+			cout << "Your score statistics per question type:" <<std::endl;
+			cout << "		-Number of MC questions: " << CurrentUser.MCQuestionCount << std::endl;
+			cout << "		-Number of complete questions: " << CurrentUser.CompleteQuestionCount << std::endl;
+			cout << "		-Number of T/F questions: " << CurrentUser.TFQuestionCount << std::endl;
+			cout << "		-Average grade for MC questions: " << CurrentUser.GradePerMCQ << std::endl;
+			cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
+			cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
+		}
 };
 
-void DisplayUserStatistics(const User & CurrentUser){
-	cout << "Your score statistics per quiz:" << std::endl;
-	cout << "		-Number of quizzes taken: " << CurrentUser.QuizzesTaken << std::endl;
-	cout << "		-Highest quiz score: " << CurrentUser.HighestScore << std::endl;
-	cout << "		-Lowest quiz score: " << CurrentUser.LowestScore << std::endl;
-	cout << "		-Average quiz score: " << CurrentUser.AvgScore << std::endl;
-	cout << "Your score statistics per question type:" <<std::endl;
-	cout << "		-Number of MC questions: " << CurrentUser.MCQuestionCount << std::endl;
-	cout << "		-Number of complete questions: " << CurrentUser.CompleteQuestionCount << std::endl;
-	cout << "		-Number of T/F questions: " << CurrentUser.TFQuestionCount << std::endl;
-	cout << "		-Average grade for MC questions: " << CurrentUser.GradePerMCQ << std::endl;
-	cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
-	cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
-}
 
 // Displays user scores
 //void DisplayScores() {

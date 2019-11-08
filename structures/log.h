@@ -17,7 +17,6 @@ class Log{
 //   private: 
 //     vector<string> Questions = {};
 //     vector<string> Answers = {};
-
 // };
 
 

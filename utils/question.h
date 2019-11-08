@@ -203,7 +203,7 @@ bool CreateQuestion(){
 // Displays all quesitons in the question pool
 void DisplayAllQuestions() {
 	for (auto & Question : QuestionPool) {
-		DisplayQuestionWithAnswers(QuestionPool[i], i);
+		Question.DisplayQuestionWithAnswers();
 	}
 }
 

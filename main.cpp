@@ -22,10 +22,10 @@ using std::cin;
 using std::cout;
 
 // Definitions reference
+#include "./structures/index.h"
 #include "./indexer.h"
 
-// custom definitions
-#include "./structures/index.h"
+// custom methods
 #include "./globals.h"
 #include "./utils/index.h"
 #include "./menus.h"
@@ -35,8 +35,6 @@ using std::cout;
 int main() {
 	ReadFromFile("exam2_questions.txt");
 
-	// Generates random integers
-	for (int i = 0; i < 4; i++) AnswerIndices.push_back(i);
 
 	MainMenu();
 
