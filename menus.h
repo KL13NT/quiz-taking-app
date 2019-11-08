@@ -124,8 +124,12 @@ void Login(const User &user){
     Name = GetUserInput();
     std::cout << "Enter your password: ";
     Password = GetUserInput();
-    if(Name == user.Username && Password == user.Userpassword) found = true;
-    else found = false;
+    if(Name == user.Username && Password == user.Userpassword && found = true){
+		found = true;
+	}
+    else if(Name == user.Username && Password == user.Userpassword && found = false){
+		found = false;
+	}
     if(!found){
         std::cout << "Incorrect username or password, Please Try Again.\n";
         Login(user);
