@@ -48,17 +48,22 @@ void AdminMenu() {
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
 
-	switch ((char) GetUserInput("Your choice")[0] - '0') {
+	switch (ctoi(GetUserInput("Your choice"))) {
 	case 1:
 		QuestionsMenu();
+		break;
 	case 2:
 		CreateQuestion();
+    break;
 	case 3:
 		GetFileNameFromUser();
+    break;
 	case 4:
 		AllUsersMenu();
+    break;
 	case 5:
 		CreateNewUser();
+    break;
 	default:
 		cout << "We didn't quite understand that, try again, perhaps?\n";
 	}

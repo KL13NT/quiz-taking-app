@@ -41,4 +41,12 @@ void DisplayQuestion(Question CurrentQuestion, int QuestionIndex) {
 	cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.Title << "?\n";
 }
 
+int ctoi(string str){
+	// std::stringstream output;  
+	// output << str[0];
+	char input = str[0];
+	if(input >= '1' && input <= '9') return input - '0';
+	else return 0;
+}
+
 #endif

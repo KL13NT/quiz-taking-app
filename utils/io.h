@@ -3,9 +3,11 @@
 
 
 string GetUserInput(string Additional = "  "){
-  std::string Input;
+  string Input;
 
-  if(Additional != "  ") cout << Additional;
+  if (Additional != "  ") {
+		cout << Additional << ":";
+	}
 
   getline(std::cin, Input);
 	
