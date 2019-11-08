@@ -15,11 +15,13 @@ class User {
 		string LastName = "";
 		string Username = "";
 		string Password = "";
+		
 		vector<Log> Logs = {};
 		int HighestScore = 0;
 		int LowestScore = 0;
 		int QuizzesTaken = 0;
 		double AvgScore = 0;
+
 		int MCQuestionCount = 0;
 		int TFQuestionCount = 0;
 		int CompleteQuestionCount = 0;
@@ -27,8 +29,6 @@ class User {
 		double GradePerTFQuestion = 0;
 		double GradePerCompleteQuestion = 0;
 
-	
-	public:
 		User(){};
 		~User(){};
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
@@ -38,17 +38,6 @@ class User {
 			Password = PasswordInput;
 			IsAdmin = IsAdminInput;
 		}
-		
-		// void DisplayUserStatistics(){
-		// 	cout << "Your score statistics: \n\t- Number of quizzes taken: " << QuizzesTaken
-		// 	<< "\n\t- Highest Score: " 
-		// 	<< HighestScore << "/" << QUIZ_QUESTIONS_COUNT 
-		// 	<< "\n\t- Lowest Score: " 
-		// 	<< LowestScore << "/" << QUIZ_QUESTIONS_COUNT 
-		// 	<< "\n\t- Average Score: " 
-		// 	<< AvgScore << "/" << QUIZ_QUESTIONS_COUNT 
-		// 	<< "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
-		// }
 
 		void UpdateUserData(string NewName, string NewUsername, string NewPassword){
 			

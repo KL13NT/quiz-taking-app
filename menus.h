@@ -42,51 +42,48 @@ void MainMenu() {
 
 
 // Displays administration menu
-void AdminMenu() {
+bool AdminMenu() {
 	cout << "Welcome to the administration menu, please choose from the following options:\n";
 	cout << IndentString("[1] View all questions\n", 1);
 	cout << IndentString("[2] Add new question\n", 1);
 	cout << IndentString("[3] Load questions from file\n", 1);
-	cout << IndentString("[4] Go back to main menu\n", 1);
+	cout << IndentString("[4] Display all users\n", 1);
+	cout << IndentString("[5] Add a new user\n", 1);
 
 	switch (GetUserInput("Your choice")[0]) {
 	case 1:
-		return QuestionsMenu();
+		QuestionsMenu();
 	case 2:
-//		AddQuestion();
-		return AdminMenu();
+		CreateQuestion() == true? AdminMenu(): 0;
 	case 3:
 		GetFileNameFromUser();
-		return AdminMenu();
 	case 4:
-		return MainMenu();
+		AllUsersMenu();
 	default:
 		cout << "We didn't quite understand that, try again, perhaps?\n";
-		return AdminMenu();
 	}
-	//TODO: Take user input and push it through a switch
+
+	return AdminMenu();
 }
 
 
 // Handles questions menu interactions
-
-// Handles questions menu interactions
-void QuestionsMenuHandler() {
+bool QuestionsMenuHandler() {
 	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	string UserChoice = GetUserInput("		");
+	
+	string UserChoice = GetUserInput("Your Choice");
+	char Type = UserChoice[0];
 
-	if (UserChoice == "b") return MainMenu();
-	else if (UserChoice[0] == 'd' && UserChoice[1] == ' ') {
-		string QuestionIndexAsString;
-		QuestionIndexAsString = UserChoice.substr(2);
-		std::stringstream ToInteger(QuestionIndexAsString);
-		int QuestionIndex;
-		ToInteger >> QuestionIndex;
+	if (Type == 'b') return true;
+	else if (Type == 'd') {
+		int QuestionIndex = std::stoi(UserChoice.substr(2)) - 1;
+		if(POOL_QUESTIONS_COUNT >= QuestionIndex){
 //		DeleteQuestion(QuestionIndex);
 //		if(DeleteQuestion(QuestionIndex)==1){
 //			return MainMenu();
 //		}
 //		else return QuestionsMenuHandler();
+		}
 	}
 	else {
 		cout << "We didn't quite catch that, try again, perhaps?\n\n";
@@ -94,21 +91,20 @@ void QuestionsMenuHandler() {
 	}
 }
 
-
-
 // Displays questions-related menu
-void QuestionsMenu() {
+bool QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
+	
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
 		cout << "Questions list:\n---------------\n";
 
 		// DisplayAllQuestions();
-		QuestionsMenuHandler();
+		return QuestionsMenuHandler();
 
 	}
 	else {
 		cout << "Please add more questions to the question pool and try again.\n\n";
-		return MainMenu();
+		return true;
 	}
 }
 
