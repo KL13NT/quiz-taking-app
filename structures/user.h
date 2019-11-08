@@ -36,8 +36,11 @@ class User {
 			IsAdmin = IsAdminInput;
 		}
 
-		void UpdateUserData(string NewName, string NewUsername, string NewPassword){
-			
+		void UpdateUserData(std::string NewFirstname, std::string NewLastname, std::string NewUsername, std::string NewPassword){
+				FirstName = NewFirstname;
+				LastName = NewLastname;
+				Username = NewUsername;
+				Password = NewPassword;
 		}
 
 		void operator = (const User &ToEqual){
@@ -83,6 +86,10 @@ class User {
 			cout << "		-Average grade for MC questions: " << CurrentUser.GradePerMCQ << std::endl;
 			cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
 			cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
+		}
+		void UpdateYourName(){
+			FirstName = GetUserInput("Please Enter Your New First Name: ");
+			LastName = GetUserInput("Please Enter Your New Last Name: ");
 		}
 };
 
