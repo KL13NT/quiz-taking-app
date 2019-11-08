@@ -35,7 +35,7 @@ void ReadFromFile(string FileName) {
 }
 
 
-bool GetFileNameFromUser() {
+void GetFileNameFromUser() {
   std::ifstream File;
   
 	string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
@@ -46,11 +46,10 @@ bool GetFileNameFromUser() {
 
     cout << "\nFile found, loading questions\n";
     ReadFromFile(FileName);
-		return true;
   }
   
 	cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
-	return false;
+  return GetFileNameFromUser();
 }
 
 #endif

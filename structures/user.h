@@ -41,22 +41,22 @@ class User {
 		}
 
 		void operator = (const User &ToEqual){
-			bool IsAdmin = ToEqual.IsAdmin;
-			string FirstName = ToEqual.FirstName;
-			string LastName = ToEqual.LastName;
-			string Username = ToEqual.Username;
-			string Password = ToEqual.Password;
-			vector<Log> Logs = ToEqual.Logs;
-			int HighestScore = ToEqual.HighestScore;
-			int LowestScore = ToEqual.LowestScore;
-			int QuizzesTaken = ToEqual.QuizzesTaken;
-			double AvgScore = ToEqual.AvgScore;
-			int MCQuestionCount = ToEqual.MCQuestionCount;
-			int TFQuestionCount = ToEqual.TFQuestionCount;
-			int CompleteQuestionCount = ToEqual.CompleteQuestionCount;
-			double GradePerMCQ = ToEqual.GradePerMCQ;
-			double GradePerTFQuestion = ToEqual.GradePerTFQuestion;
-			double GradePerCompleteQuestion = ToEqual.GradePerCompleteQuestion;
+			IsAdmin = ToEqual.IsAdmin;
+			FirstName = ToEqual.FirstName;
+			LastName = ToEqual.LastName;
+			Username = ToEqual.Username;
+			Password = ToEqual.Password;
+			Logs = ToEqual.Logs;
+			HighestScore = ToEqual.HighestScore;
+			LowestScore = ToEqual.LowestScore;
+			QuizzesTaken = ToEqual.QuizzesTaken;
+			AvgScore = ToEqual.AvgScore;
+			MCQuestionCount = ToEqual.MCQuestionCount;
+			TFQuestionCount = ToEqual.TFQuestionCount;
+			CompleteQuestionCount = ToEqual.CompleteQuestionCount;
+			GradePerMCQ = ToEqual.GradePerMCQ;
+			GradePerTFQuestion = ToEqual.GradePerTFQuestion;
+			GradePerCompleteQuestion = ToEqual.GradePerCompleteQuestion;
 		}
 
 		bool operator == (const User &ToEqual){

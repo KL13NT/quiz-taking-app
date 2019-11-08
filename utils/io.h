@@ -4,9 +4,10 @@
 
 string GetUserInput(string Additional = "  "){
   std::string Input;
+
+  if(Additional != "  ") cout << Additional;
+
   getline(std::cin, Input);
-	
-	if(Additional != "  ") cout << Additional;
 	
 	if (Input[1] == '\0'){
 		if (Input[0] >= '0' || Input[0] <= '9'){

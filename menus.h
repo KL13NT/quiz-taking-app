@@ -1,44 +1,42 @@
 #include <sstream>
 #include <string>
 
-#include "./utils/index.h"
-#include "./globals.h"
-
 
 using std::string;
 using std::cout;
 
 // Displays main menu
-void MainMenu() {
-	cout << "Welcome " << UserProfile -> FirstName << ", please choose from the following options:\n";
-	cout << IndentString("[1] Go to administration menu\n", 1);
-	cout << IndentString("[2] Update your name\n", 1);
-	cout << IndentString("[3] Start a new quiz\n", 1);
-	cout << IndentString("[4] Display your scores statistics\n", 1);
-	cout << IndentString("[5] Display all your scores\n", 1);
-	cout << IndentString("[6] Exit\n", 1);
-	//TODO: Fix
-
-	switch (GetUserInput("Your choice")[0]) {
-	case 1:
-		return AdminMenu();
-	case 2:
-//		UpdateUserName();
-		return MainMenu();
-	case 3:
-//		StartNewQuiz();
-		return MainMenu();
-	case 4:
-//		return DisplayUserStatistics(CurrentUser);
-	case 5:
-//		return DisplayScores();
-	case 6:
-		return;
-	default:
-		cout << "We didn't quite understand that, try again, perhaps?\n";
-		return MainMenu();
-	}
-}
+// TODO: remove MainMenu
+//void MainMenu() {
+//	cout << "Welcome " << UserProfile -> FirstName << ", please choose from the following options:\n";
+//	cout << IndentString("[1] Go to administration menu\n", 1);
+//	cout << IndentString("[2] Update your name\n", 1);
+//	cout << IndentString("[3] Start a new quiz\n", 1);
+//	cout << IndentString("[4] Display your scores statistics\n", 1);
+//	cout << IndentString("[5] Display all your scores\n", 1);
+//	cout << IndentString("[6] Exit\n", 1);
+//	//TODO: Fix
+//
+//	switch (GetUserInput("Your choice")[0]) {
+//	case 1:
+//		return AdminMenu();
+//	case 2:
+////		UpdateUserName();
+//		return MainMenu();
+//	case 3:
+////		StartNewQuiz();
+//		return MainMenu();
+//	case 4:
+////		return DisplayUserStatistics(CurrentUser);
+//	case 5:
+////		return DisplayScores();
+//	case 6:
+//		return;
+//	default:
+//		cout << "We didn't quite understand that, try again, perhaps?\n";
+//		return MainMenu();
+//	}
+//}
 
 
 // Displays administration menu
@@ -50,7 +48,7 @@ void AdminMenu() {
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
 
-	switch (GetUserInput("Your choice")[0]) {
+	switch ((char) GetUserInput("Your choice")[0] - '0') {
 	case 1:
 		QuestionsMenu();
 	case 2:
@@ -101,7 +99,7 @@ void QuestionsMenu() {
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
 		cout << "Questions list:\n---------------\n";
 
-		DisplayAllQuestions();
+//		DisplayAllQuestions();
 		return QuestionsMenuHandler();
 
 	}
@@ -117,21 +115,21 @@ void AllUsersMenu(){
 	}	
 }
 
-void Login(const User &user){
-    std::string Name, Password;
-    bool found = user.IsAdmin;
-    std::cout << "Enter your username: ";
-    Name = GetUserInput();
-    std::cout << "Enter your password: ";
-    Password = GetUserInput();
-    if(Name == user.Username && Password == user.Userpassword) found = true;
-    else found = false;
-    if(!found){
-        std::cout << "Incorrect username or password, Please Try Again.\n";
-        Login(user);
-    }
-    else {
-        std::cout << "Logged in Successfully!!\n";
-        return AdminMenu();
-    }
-}
+//void Login(const User &user){
+//    std::string Name, Password;
+//    bool found = user.IsAdmin;
+//    std::cout << "Enter your username: ";
+//    Name = GetUserInput();
+//    std::cout << "Enter your password: ";
+//    Password = GetUserInput();
+//    if(Name == user.Username && Password == user.Userpassword) found = true;
+//    else found = false;
+//    if(!found){
+//        std::cout << "Incorrect username or password, Please Try Again.\n";
+//        Login(user);
+//    }
+//    else {
+//        std::cout << "Logged in Successfully!!\n";
+//        return AdminMenu();
+//    }
+//}

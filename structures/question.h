@@ -3,8 +3,6 @@
 
 #include <fstream>
 #include <string>
-#include <unordered_set>
-#include <vector>
 
 using std::string;
 
@@ -22,15 +20,12 @@ public:
     Type = TypeInput;
   }
 
-  bool operator==(const Question &Comparable) {
-    if (Comparable.Title == Title)
-      return true;
+  bool operator == (const Question &Comparable) {
+    if (Comparable.Title == Title) return true;
     return false;
   }
 
   void DisplayQuestion() { cout << Title; }
-
-  virtual void DisplayQuestionWithAnswers() = 0;
 };
 
 class MCQQuestion : public Question {
@@ -54,17 +49,6 @@ public:
     Choice3 = ToEqual.Choice3;
     Choice4 = ToEqual.Choice4;
   }
-
-  void DisplayQuestionWithAnswers() {
-    string Answers[4] = { CorrectChoice, Choice2, Choice3, Choice4 };
-		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
-		
-		DisplayQuestion();
-		ShuffleAnswers(Answers);
-
-		for (int i = 0; i < 4; i++) cout << Answers[i] == CorrectChoice? IndentString("*" + Labels[i] + Answers[i], 1) : IndentString(Labels[i] + Answers[i]);
-
-		cout << "\n";
 };
 
 class CompleteQuestion : public Question {
@@ -78,11 +62,6 @@ public:
     Title = ToEqual.Title;
     CorrectChoice = ToEqual.CorrectChoice;
   }
-
-	void DisplayQuestionWithAnswers(){
-		DisplayQuestion();
-		cout << "Correct answer is: " << CorrectChoice << "\n";
-	}
 };
 
 class TFQuestion : public Question {
@@ -96,11 +75,6 @@ public:
     Title = ToEqual.Title;
     CorrectChoice = ToEqual.CorrectChoice;
   }
-
-	void DisplayQuestionWithAnswers(){
-		DisplayQuestion();
-		cout << "Correct answer is: " << CorrectChoice << "\n";
-	}
 };
 
 // // Custom hasher for tables

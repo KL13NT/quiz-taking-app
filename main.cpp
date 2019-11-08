@@ -22,13 +22,12 @@ using std::cin;
 using std::cout;
 
 // Definitions reference
-#include "./structures/index.h"
-#include "./indexer.h"
+#include "indexer.h"
 
 // custom methods
-#include "./globals.h"
-#include "./utils/index.h"
-#include "./menus.h"
+#include "globals.h"
+#include "utils/index.h"
+#include "menus.h"
 
 
 
@@ -36,7 +35,7 @@ int main() {
 	ReadFromFile("exam2_questions.txt");
 
 
-	MainMenu();
+	AdminMenu();
 
 
 	return 0;

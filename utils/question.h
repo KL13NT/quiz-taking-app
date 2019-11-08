@@ -18,10 +18,10 @@ void ShuffleQuestionPool() {
 	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) QuestionPool[i] = NewPool[i]; // Copies randomised questions over again
 }
 
-
 // Shuffles answers
 void ShuffleAnswers(vector<string> (&Answers)) {
 	vector<string> NewAnswers;
+	vector<int> AnswerIndices = { 0, 1, 2, 3 };
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
@@ -31,6 +31,29 @@ void ShuffleAnswers(vector<string> (&Answers)) {
 	for (int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
 }
 
+void DisplayMCQQuestionWithAnswers(MCQQuestion &CurrentQuestion){
+  vector<string> Answers = { CurrentQuestion.CorrectChoice, CurrentQuestion.Choice2, CurrentQuestion.Choice3, CurrentQuestion.Choice4 };
+  string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
+
+  CurrentQuestion.DisplayQuestion();
+  ShuffleAnswers(Answers);
+
+  for (int i = 0; i < 4; i++) {
+    bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
+    cout << IsCorrectAnswer? IndentString(("*" + Labels[i] + Answers[i]), 1) : IndentString((Labels[i] + Answers[i]), 1);
+  }
+}
+
+void DisplayQuestionWithAnswers(auto &CurrentQuestion) {
+
+  if(CurrentQuestion.Type == "MCQ") DisplayMCQQuestionWithAnswers(CurrentQuestion);
+  else {
+    CurrentQuestion.DisplayQuestion();
+    cout << CurrentQuestion.CorrectChoice;
+  }
+
+	cout << "\n";
+}
 
 // Loads a "MCQ" question using an ifstream  
 MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
@@ -201,11 +224,11 @@ bool CreateQuestion(){
 
 
 // Displays all quesitons in the question pool
-void DisplayAllQuestions() {
-	for (auto & Question : QuestionPool) {
-		Question.DisplayQuestionWithAnswers();
-	}
-}
+// void DisplayAllQuestions() {
+// 	for (auto & Question : QuestionPool) {
+// 		DisplayQuestion(Question);
+// 	}
+//}
 
 
 

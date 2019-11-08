@@ -1,17 +1,12 @@
 #ifndef INDEXER_H
 #define INDEXER_H
 
-// All class declarations
-// class Log;
-// class PlayerLog;
-// class User;
-// class Question;
+#include "structures/index.h"
 
 // All function definitions
 void ReadFromFile(string);
 void GetFileNameFromUser();
 void ShuffleQuestionPool();
-void ShuffleAnswers(vector<string>&);
 void DisplayAllQuestions();
 void GenerateAfterQuizReport(int);
 void UpdateProfileAfterQuiz(int);
@@ -27,7 +22,7 @@ void Login(const User &);
 bool CheckCurrentQuestionPoolSize(int, int);
 bool CheckAnswerValidity(const Question &, const string &);
 bool CreateQuestion();
-bool RandomiseAndPrintAnswers(Question);
+// bool RandomiseAndPrintAnswers(Question);
 bool DeleteQuestion(int);
 bool IsDuplicateQuestion(const Question &, const unordered_set<string> &);
 
