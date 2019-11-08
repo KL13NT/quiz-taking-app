@@ -26,7 +26,10 @@ void CreateNewUser(){
     ){
       Users.push_back(User(FirstName, LastName, Username, Password,  Type == "admin"? true: false));
     }
-
+  else {
+    cout << "Input isn't adequate. Try again\n";
+    return CreateNewUser();
+  }
 }
 
 #endif
