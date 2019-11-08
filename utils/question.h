@@ -26,6 +26,7 @@ void ShuffleAnswers(vector<string> (&Answers)) {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
 
+	//REFACTORME: Perhaps use a single loop
 	for (int i = 0; i < 4; i++) NewAnswers.push_back(Answers[AnswerIndices[i]]); // Copies pool away randomly
 	for (int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
 }
@@ -199,12 +200,12 @@ bool CreateQuestion(){
 
 
 
-//Displays all quesitons in the question pool
-//void DisplayAllQuestions() {
-//	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-//		DisplayQuestionWithAnswers(QuestionPool[i], i);
-//	}
-//}
+// Displays all quesitons in the question pool
+void DisplayAllQuestions() {
+	for (auto & Question : QuestionPool) {
+		DisplayQuestionWithAnswers(QuestionPool[i], i);
+	}
+}
 
 
 

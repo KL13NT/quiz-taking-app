@@ -27,6 +27,12 @@ class Question{
 			if(Comparable.Title == Title) return true;
 			return false;
 		}
+
+    void DisplayQuestion() {
+      cout << Title;
+    }
+
+    virtual void DisplayQuestionWithAnswers() = 0;
 };
 
 class MCQQuestion: public Question{
@@ -50,6 +56,13 @@ class MCQQuestion: public Question{
       Choice3 = ToEqual.Choice3;
       Choice4 = ToEqual.Choice4;
 		}
+
+    void DisplayQuestionWithAnswers(){
+      vector<string> Answers = { CorrectChoice, Choice2, Choice3, Choice4 };
+      ShuffleAnswers(Answers);
+
+      
+    }
 };
 
 class CompleteQuestion: public Question{

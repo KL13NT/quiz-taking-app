@@ -101,7 +101,7 @@ void QuestionsMenu() {
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
 		cout << "Questions list:\n---------------\n";
 
-		// DisplayAllQuestions();
+		DisplayAllQuestions();
 		return QuestionsMenuHandler();
 
 	}

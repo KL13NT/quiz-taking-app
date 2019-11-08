@@ -52,18 +52,18 @@ void Login(const User &user){
 	std::cout << "Enter your password: ";
 	getline(std::cin, Password);
 	if(Name == user.Username && Password == user.Userpassword){
-			found = true;
+		found = true;
 	}
 	else{
-			found = false;
+		found = false;
 	}
 	if(!found){
-			std::cout << "Incorrect username or password, Please Try Again.\n";
-			Login(user);
+		std::cout << "Incorrect username or password, Please Try Again.\n";
+		Login(user);
 	}
 	else {
-			std::cout << "Logged in Successfully!!\n";
-	return AdminMenu();
+		std::cout << "Logged in Successfully!!\n";
+		return AdminMenu();
 	}
 }
 

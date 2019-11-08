@@ -6,6 +6,8 @@ std::string GetUserInput(std::string Additional = "  "){
   std::string Input;
   getline(std::cin, Input);
 	
+	if(Additional != "  ") cout << Additional;
+	
 	if (Input[1] == '\0'){
 		if (Input[0] >= '0' || Input[0] <= '9'){
 			char  *Output = new char[1];
