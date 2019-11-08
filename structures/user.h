@@ -73,7 +73,6 @@ class User {
 			cout << "Role: " << IsAdminString << "\n\n";
 		}
 
-		friend void Login(const User &);
 		friend void DisplayUserStatistics(const User &);
 };
 

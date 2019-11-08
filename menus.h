@@ -116,3 +116,22 @@ void AllUsersMenu(){
     User.DisplayInfo();
 	}	
 }
+
+void Login(const User &user){
+    std::string Name, Password;
+    bool found = user.IsAdmin;
+    std::cout << "Enter your username: ";
+    Name = GetUserInput();
+    std::cout << "Enter your password: ";
+    Password = GetUserInput();
+    if(Name == user.Username && Password == user.Userpassword) found = true;
+    else found = false;
+    if(!found){
+        std::cout << "Incorrect username or password, Please Try Again.\n";
+        Login(user);
+    }
+    else {
+        std::cout << "Logged in Successfully!!\n";
+        return AdminMenu();
+    }
+}

@@ -27,6 +27,7 @@ void MainMenu();
 void QuestionsMenu();
 void QuestionsMenuHandler();
 void AllUsersMenu();
+void Login(const User &);
 
 bool CheckCurrentQuestionPoolSize(int, int);
 bool CheckAnswerValidity(const Question &, const string &);
