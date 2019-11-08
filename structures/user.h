@@ -36,9 +36,12 @@ class User {
 			IsAdmin = IsAdminInput;
 		}
 
-		void UpdateUserData(string NewName, string NewUsername, string NewPassword){
-			
-		}
+        void UpdateUserData(std::string NewFirstname, std::string NewLastname, std::string NewUsername, std::string NewPassword){
+            Firstname = NewFirstname;
+            Lastname = NewLastname;
+            Username = NewUsername;
+            Userpassword = NewPassword;
+        }
 
 		void operator = (const User &ToEqual){
 			IsAdmin = ToEqual.IsAdmin;
