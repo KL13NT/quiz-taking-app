@@ -84,6 +84,10 @@ class User {
 			cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
 			cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
 		}
+		void UpdateYourName(){
+    		FirstName = GetUserInput("Please Enter Your New First Name: ");
+    		LastName = GetUserInput("Please Enter Your New Last Name: ");
+		}
 };
 
 
