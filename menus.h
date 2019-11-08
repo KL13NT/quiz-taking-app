@@ -120,21 +120,23 @@ void AllUsersMenu(){
 	}	
 }
 
-//void Login(const User &user){
-//    std::string Name, Password;
-//    bool found = user.IsAdmin;
-//    std::cout << "Enter your username: ";
-//    Name = GetUserInput();
-//    std::cout << "Enter your password: ";
-//    Password = GetUserInput();
-//    if(Name == user.Username && Password == user.Userpassword) found = true;
-//    else found = false;
-//    if(!found){
-//        std::cout << "Incorrect username or password, Please Try Again.\n";
-//        Login(user);
-//    }
-//    else {
-//        std::cout << "Logged in Successfully!!\n";
-//        return AdminMenu();
-//    }
-//}
+void Login(){
+    std::string Name, Password;
+    Name = GetUserInput("Enter your username: ");
+    Password = GetUserInput("Enter your password: ");
+    for (auto &User : Users){
+        bool found = User.IsAdmin;
+        if(Name == User.Username && Password == User.Userpassword && User.IsAdmin == true){
+            std::cout << "Logged As Admin in Successfully!!\n";
+            return AdminMenu();
+        }
+        else if(Name == User.Username && Password == User.Userpassword && User.IsAdmin == false){
+            std::cout << "Logged As User in Successfully!!\n";
+            //return PlayerMenu();
+        }
+        else{
+            std::cout << "Invalid Input!" << std::endl;
+            Login();
+        }
+    }
+}
