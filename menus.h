@@ -42,7 +42,7 @@ void MainMenu() {
 
 
 // Displays administration menu
-bool AdminMenu() {
+void AdminMenu() {
 	cout << "Welcome to the administration menu, please choose from the following options:\n";
 	cout << IndentString("[1] View all questions\n", 1);
 	cout << IndentString("[2] Add new question\n", 1);
@@ -54,11 +54,13 @@ bool AdminMenu() {
 	case 1:
 		QuestionsMenu();
 	case 2:
-		CreateQuestion() == true? AdminMenu(): 0;
+		CreateQuestion();
 	case 3:
 		GetFileNameFromUser();
 	case 4:
 		AllUsersMenu();
+	case 5:
+		CreateNewUser();
 	default:
 		cout << "We didn't quite understand that, try again, perhaps?\n";
 	}
@@ -68,21 +70,22 @@ bool AdminMenu() {
 
 
 // Handles questions menu interactions
-bool QuestionsMenuHandler() {
+void QuestionsMenuHandler() {
 	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
 	
 	string UserChoice = GetUserInput("Your Choice");
 	char Type = UserChoice[0];
 
-	if (Type == 'b') return true;
+	if (Type == 'b') return;
 	else if (Type == 'd') {
 		int QuestionIndex = std::stoi(UserChoice.substr(2)) - 1;
 		if(POOL_QUESTIONS_COUNT >= QuestionIndex){
-//		DeleteQuestion(QuestionIndex);
-//		if(DeleteQuestion(QuestionIndex)==1){
-//			return MainMenu();
-//		}
-//		else return QuestionsMenuHandler();
+			//TODO: Deletion logic here
+			
+		}
+		else {
+			cout << "No question with this number exists. Try again.\n";
+			return QuestionsMenuHandler();
 		}
 	}
 	else {
@@ -92,7 +95,7 @@ bool QuestionsMenuHandler() {
 }
 
 // Displays questions-related menu
-bool QuestionsMenu() {
+void QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
@@ -102,10 +105,8 @@ bool QuestionsMenu() {
 		return QuestionsMenuHandler();
 
 	}
-	else {
-		cout << "Please add more questions to the question pool and try again.\n\n";
-		return true;
-	}
+	
+	cout << "Please add more questions to the question pool and try again.\n\n";
 }
 
 
