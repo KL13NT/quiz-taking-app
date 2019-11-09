@@ -41,13 +41,13 @@ using std::cout;
 
 // Displays administration menu
 void AdminMenu() {
-	cout << "Welcome to the administration menu, please choose from the following options:\n";
+	cout << MakeHeader("Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.", 50);
 	cout << IndentString("[1] View all questions\n", 1);
 	cout << IndentString("[2] Add new question\n", 1);
 	cout << IndentString("[3] Load questions from file\n", 1);
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
-	cout << IndentString("[5] Update account details\n", 1);
+	cout << IndentString("[6] Update account details\n", 1);
 	cout << IndentString("[7] Switch account\n", 1);
 	cout << IndentString("[8] Exit\n", 1);
 
@@ -67,7 +67,7 @@ void AdminMenu() {
 	case 5:
 		CreateNewUser();
     break;
-	case 6: 
+	case 6:
 		UpdateAccountDetails();
 		break;
 	case 7:
@@ -144,7 +144,8 @@ void QuestionsMenu() {
 
 
 void AllUsersMenu(){
-  cout << "\n\nExisting users in the system:\n";
+  cout << MakeHeader("Existing users in the system:", 30);
+
 	for (auto & User : Users) {
     User.DisplayInfo();
 	}
@@ -153,6 +154,7 @@ void AllUsersMenu(){
 void PlayerMenu(){}
 
 void Login(){
+	cout << MakeHeader("Login", 10);
 	string Username = GetUserInput("Username");
 	string Password = GetUserInput("Password");
 
@@ -169,7 +171,29 @@ void Login(){
 }
 
 void MainMenu(){
-	if(Users.size() == 0) return CreateNewUser();
+	if(Users.size() == 0) {
+		CreateNewUser();
+		MainMenu();
+	}
 	else if(Users.size() > 0 && IsLoggedin) return UserProfile -> IsAdmin? AdminMenu(): PlayerMenu();
 	else if(Users.size() > 0 && !IsLoggedin) return Login();
+}
+
+void SwitchAccount(){
+	string Answer = GetUserInput("Are you sure you wish to switch accounts? [Y]es or [N]o");
+
+	while(!(StringIsEqualIgnoreCase(Answer, "Y") || StringIsEqualIgnoreCase(Answer, "N") || StringIsEqualIgnoreCase(Answer, "Yes") || StringIsEqualIgnoreCase(Answer, "No"))) {
+		Answer = StringToLowerCase(GetUserInput("We didn't catch that, please try again.\nDo you wish to log out? [Y]es or [N]o"));
+	}
+
+	if(StringIsEqualIgnoreCase(Answer, "Y") || StringIsEqualIgnoreCase(Answer, "Yes") ){
+		cout << "Logged out successfully...\n";
+		UserProfile = NULL; //Leaving no trace of the logged out user.
+		IsLoggedin = false;
+
+		return MainMenu();
+	}
+
+	else return MainMenu();
+
 }

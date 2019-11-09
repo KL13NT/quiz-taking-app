@@ -29,7 +29,7 @@ void ReadFromFile(string FileName) {
           else if(QuestionType == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line, Title));
           else if(QuestionType == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line, Title));
 
-          
+
           QuestionPoolSet.insert(Title);
           QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
           LoadedQuestionsCount += 1;
@@ -56,7 +56,7 @@ void GetFileNameFromUser() {
     File.close();
 
     cout << "\nFile found, loading questions\n";
-    ReadFromFile(FileName);
+    return ReadFromFile(FileName);
   }
   
 	cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";

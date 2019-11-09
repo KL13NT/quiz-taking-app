@@ -16,6 +16,7 @@ void QuestionsMenu();
 void QuestionsMenuHandler();
 void AllUsersMenu();
 void Login();
+void SwitchAccount();
 
 bool CheckCurrentQuestionPoolSize(int);
 bool CheckAnswerValidity(const Question &, const string &);

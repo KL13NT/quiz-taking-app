@@ -137,7 +137,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 
 
 bool DeleteQuestion(int QuestionIndex){
-	std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex].Title << "\n\n";
+	std::cout << "\nDeleted the following question: \"" << QuestionPool[QuestionIndex].Title << "\"\n\n";
 
 	std::vector<Question>::iterator it = QuestionPool.begin();
 	std::vector<int>::iterator rit = QuestionPoolIndices.begin();

@@ -46,7 +46,7 @@ int ctoi(string str){
 
 
 string MakeHeader(const string &ToPrint, int multiplier){
-	return '\n' + string(multiplier, '-') + '\n' + ToPrint + "\n" + string(multiplier, '-') + "\n\n" ;
+	return '\n' + string(multiplier, '-') + '\n' + ToPrint + "\n" + string(multiplier, '-') + "\n" ;
 }
 
 // Determines whether two strings are equal, case-insensitive
