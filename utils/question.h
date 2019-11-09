@@ -135,13 +135,6 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	}
 }
 
-// Displays all questions in the question pool
-void DisplayAllQuestions() {
-	for (Question & CurrentQuestion : QuestionPool) {
-		DisplayQuestionWithAnswers(CurrentQuestion, -1);
-	}
-}
-
 
 bool DeleteQuestion(int QuestionIndex){
 	std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex].Title << "\n\n";

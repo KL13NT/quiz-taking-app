@@ -125,9 +125,8 @@ void QuestionsMenu() {
 		for(int i = 0; i < (int) CompleteQuestions.size(); i++){
 			DisplayQuestionWithAnswers(CompleteQuestions[i], i);
 		}
-//		DisplayAllQuestions();
+		
 		return QuestionsMenuHandler();
-
 	}
 
 	cout << "Please add more questions to the question pool and try again.\n\n";
