@@ -32,7 +32,7 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, string &Line, string Title){
 	getline(File, Line);
 	string Choice4 = Line;
 
-	return MCQQuestion(Title, CorrectChoice, Choice2, Choice3, Choice4);
+	return MCQQuestion(Title, CorrectChoice, Choice2, Choice3, Choice4, POOL_QUESTIONS_COUNT);
 }
 
 // Loads a "complete" question using an ifstream  
@@ -40,7 +40,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line, st
 	getline(File, Line);
 	string CorrectChoice = Line;
 
-	return CompleteQuestion(Title, CorrectChoice);
+	return CompleteQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT);
 }
 
 // Loads a "TF" question using an ifstream  
@@ -48,7 +48,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
 
-	return TFQuestion(Title, CorrectChoice);
+	return TFQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT);
 }
 
 // Creates a question
@@ -57,7 +57,7 @@ MCQQuestion CreateMCQQuestion(string Title, string CC){
 	string C3 = GetUserInput("Enter choice 3");
 	string C4 = GetUserInput("Enter choice 4");
 	
-	return MCQQuestion(Title, CC, C2, C3, C4);
+	return MCQQuestion(Title, CC, C2, C3, C4, POOL_QUESTIONS_COUNT);
 }
 
 
@@ -79,8 +79,8 @@ bool CreateQuestion(){
 			while(!VerifyChoice(QuestionType, CorrectChoice));
 
 			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title, CorrectChoice));
-			else if(QuestionType == "complete") QuestionPool.push_back(CompleteQuestion(Title, CorrectChoice));
-			else if(QuestionType == "tf") QuestionPool.push_back(TFQuestion(Title, CorrectChoice));
+			else if(QuestionType == "complete") QuestionPool.push_back(CompleteQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT));
+			else if(QuestionType == "tf") QuestionPool.push_back(TFQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT));
 			
 			cout << "\nQuestion added successfully.\n\n";
 
@@ -104,7 +104,7 @@ bool CreateQuestion(){
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	bool IsList = index > -1;
 	
-	if(IsList) cout << "[" << index + 1 << "] " << CurrentQuestion.Title << "\n";
+	if(IsList) cout << "[" << index + 1 << "] (ID: " << CurrentQuestion.ID << ") " << CurrentQuestion.Title << "\n";
 
 	if(CurrentQuestion.Type == "MCQ"){
 			vector<string> Answers = { 

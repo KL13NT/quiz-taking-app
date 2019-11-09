@@ -29,6 +29,7 @@ void ReadFromFile(string FileName) {
           else if(QuestionType == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line, Title));
           else if(QuestionType == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line, Title));
 
+          
           QuestionPoolSet.insert(Title);
           QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
           LoadedQuestionsCount += 1;

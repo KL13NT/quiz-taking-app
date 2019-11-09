@@ -54,7 +54,6 @@ bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 	return false;
 }
 
-// Answer here is always lowercase
 // Check whether answer is valid before checking its value
 bool CheckUserAnswer(const Question &CurrentQuestion){
 	string UserAnswer = StringToLowerCase(GetUserInput("Answer"));
@@ -122,13 +121,19 @@ void StartNewQuiz() {
 
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
 		int CorrectAnswers = 0;
+		int MCQScore = 0;
+		int TFScore = 0;
+		int CompleteScore = 0;
+		
 		GenerateQuizQuestions(GeneratedQuestions);
 
 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
 			QuizDisplayQuestion(GeneratedQuestions[i], i);
 
 			bool IsCorrectAnswer = CheckUserAnswer(GeneratedQuestions[i]);
-			// if ((bool) IsCorrect) CorrectAnswers += 1;
+			
+
+			CorrectAnswers += 1;
 		}
 
 	}
