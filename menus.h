@@ -112,17 +112,17 @@ void QuestionsMenu() {
 			else if(CurrentQuestion.Type == "COMPLETE") CompleteQuestions.push_back(CurrentQuestion);
 		}
 
-		cout << MakeHeader("MCQ Questions List (Total: " + std::to_string(MCQQuestions.size()) + " Questions)");
+		cout << MakeHeader("MCQ Questions List (Total: " + std::to_string(MCQQuestions.size()) + " Questions)", 40);
 		for(int i = 0; i < (int) MCQQuestions.size(); i++){
 			DisplayQuestionWithAnswers(MCQQuestions[i], i);
 		}
 		
-		cout << MakeHeader("True or False Questions List (Total: " + std::to_string(TFQuestions.size()) + " Questions)");
+		cout << MakeHeader("True or False Questions List (Total: " + std::to_string(TFQuestions.size()) + " Questions)", 40);
 		for(int i = 0; i < (int) TFQuestions.size(); i++){
 			DisplayQuestionWithAnswers(TFQuestions[i], i);
 		}
 		
-		cout << MakeHeader("Complete Questions List (Total: " + std::to_string(CompleteQuestions.size()) + " Questions)");
+		cout << MakeHeader("Complete Questions List (Total: " + std::to_string(CompleteQuestions.size()) + " Questions)", 40);
 		for(int i = 0; i < (int) CompleteQuestions.size(); i++){
 			DisplayQuestionWithAnswers(CompleteQuestions[i], i);
 		}

@@ -23,12 +23,16 @@ bool CreateQuestion();
 // bool RandomiseAndPrintAnswers(Question);
 bool DeleteQuestion(int);
 bool IsDuplicateQuestion(const string &);
+bool StringIsEqualIgnoreCase(const string &String1, const string &String2);
+bool StringIsEqual(const string &String1, const string &String2);
+bool VerifyChoice(string &Type, string &CorrectChoice);
 
 string GetUserInput(string);
 string StringToLowerCase(string);
 string StringToUpperCase(string);
 string IndentString(const string, const int);
 string FormatQuestionTitle(const string &);
+string MakeHeader(const string &ToPrint, int multiplier);
 
 void LoadMCQQuestion(std::ifstream &, string &);
 Question CreateMCQQuestion();

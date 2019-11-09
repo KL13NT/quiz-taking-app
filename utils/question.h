@@ -14,7 +14,6 @@ void ShuffleQuestionPool() {
 
 // Shuffles answers
 void ShuffleAnswers() {
-
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
 }
@@ -53,8 +52,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line, string Title){
 }
 
 // Creates a question
-MCQQuestion CreateMCQQuestion(string Title){
-	string CC = GetUserInput("Enter the correct choice");
+MCQQuestion CreateMCQQuestion(string Title, string CC){
 	string C2 = GetUserInput("Enter choice 2");
 	string C3 = GetUserInput("Enter choice 3");
 	string C4 = GetUserInput("Enter choice 4");
@@ -62,21 +60,6 @@ MCQQuestion CreateMCQQuestion(string Title){
 	return MCQQuestion(Title, CC, C2, C3, C4);
 }
 
-
-// Creates and returns a question
-CompleteQuestion CreateCompleteQuestion(string Title){
-	string CorrectChoice = GetUserInput("Enter the correct choice");
-
-	return CompleteQuestion(Title, CorrectChoice);
-}
-
-
-// Creates and returns a question
-TFQuestion CreateTFQuestion(string Title){
-	string CorrectChoice = GetUserInput("Enter the correct choice");
-
-	return TFQuestion(Title, CorrectChoice);
-}
 
 // Question creation menu
 bool CreateQuestion(){
@@ -86,11 +69,20 @@ bool CreateQuestion(){
 	
 	if(QuestionType == "tf" || QuestionType == "mcq" || QuestionType == "complete"){
 		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
-		
+
 		if(!IsDuplicateQuestion(Title)){
-			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title));
-			else if(QuestionType == "complete") QuestionPool.push_back(CreateCompleteQuestion(Title));
-			else if(QuestionType == "tf") QuestionPool.push_back(CreateTFQuestion(Title));
+			string CorrectChoice;
+			
+			do {
+				CorrectChoice = GetUserInput("Enter correct choice");
+			}
+			while(!VerifyChoice(QuestionType, CorrectChoice));
+
+			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title, CorrectChoice));
+			else if(QuestionType == "complete") QuestionPool.push_back(CompleteQuestion(Title, CorrectChoice));
+			else if(QuestionType == "tf") QuestionPool.push_back(TFQuestion(Title, CorrectChoice));
+			
+			cout << "\nQuestion added successfully.\n\n";
 
 			QuestionPoolSet.insert(Title);
 			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
@@ -112,9 +104,7 @@ bool CreateQuestion(){
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	bool IsList = index > -1;
 	
-	if(IsList) cout << "[" << index + 1 << "] ";
-
-	CurrentQuestion.DisplayQuestion();
+	if(IsList) cout << "[" << index + 1 << "] " << CurrentQuestion.Title << "\n";
 
 	if(CurrentQuestion.Type == "MCQ"){
 			vector<string> Answers = { 
@@ -129,7 +119,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 		ShuffleAnswers();
 
 		for (int i = 0; i < 4; i++) {
-			bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
+			bool IsCorrectAnswer = Answers[AnswerIndices[i]] == CurrentQuestion.CorrectChoice;
 			
 			string Result = IsCorrectAnswer ? 
 				IndentString(("*" + Labels[i] + Answers[AnswerIndices[i]]), 1) :
@@ -141,7 +131,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 		cout << "\n";
 	}
 	else{
-		cout << "Answer: " + CurrentQuestion.CorrectChoice << "\n";
+		cout << "\tAnswer: " + CurrentQuestion.CorrectChoice << "\n";
 	}
 }
 

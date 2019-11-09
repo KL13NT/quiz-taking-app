@@ -40,8 +40,8 @@ int main() {
 
 
 	// MainMenu();
-	// AdminMenu();
-	StartNewQuiz();
+	AdminMenu();
+	// StartNewQuiz();
 
 
 	return 0;

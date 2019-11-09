@@ -30,10 +30,6 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 	return StringToLowerCase(Answer) == StringToLowerCase(CurrentQuestion.CorrectChoice);
 }
 
-bool StringIsEqual(const string &String1, const string &String2){
-	return String1 == String2;
-}
-
 
 // // Displays a single question as part of a list
 // void DisplayQuestion(const Question &CurrentQuestion, int QuestionIndex) {
@@ -48,8 +44,38 @@ int ctoi(string str){
 	else return 0;
 }
 
-string MakeHeader(const string &ToPrint){
-	return string(20, '-') + '\n' + ToPrint + "\n" + string(20, '-') + '\n';
+
+string MakeHeader(const string &ToPrint, int multiplier){
+	return '\n' + string(multiplier, '-') + '\n' + ToPrint + "\n" + string(multiplier, '-') + "\n\n" ;
+}
+
+// Determines whether two strings are equal, case-insensitive
+bool StringIsEqualIgnoreCase(const string &String1, const string &String2){
+	return StringToLowerCase(String1) == StringToLowerCase(String2);
+}
+
+// Determines whether two strings are equal, case-sensitive
+bool StringIsEqual(const string &String1, const string &String2){
+	return String1 == String2;
+}
+
+// Verifies if question answers are adequate
+bool VerifyChoice(string &Type, string &CorrectChoice){
+	bool IsValid = false;
+
+	if(Type == "tf") {
+		IsValid = 
+			StringIsEqualIgnoreCase("true", CorrectChoice) 
+			|| StringIsEqualIgnoreCase("t", CorrectChoice)  
+			|| StringIsEqualIgnoreCase("false", CorrectChoice) 
+			|| StringIsEqualIgnoreCase("f", CorrectChoice);
+	}
+	else IsValid = CorrectChoice.length() > 0;
+
+	if(Type == "tf" && IsValid == false) cout << "\nTF question answers should be one of: [T]rue, [F]alse.\n";
+	else if(Type == "complete" && IsValid == false) cout << "\nComplete question answers should be a string of more than 0 characters.\n";
+
+	return IsValid;
 }
 
 #endif
