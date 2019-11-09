@@ -75,21 +75,20 @@ void AdminMenu() {
 // Handles questions menu interactions
 void QuestionsMenuHandler() {
 	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
-	
+
 	string UserChoice = GetUserInput("Your Choice");
 	char Type = UserChoice[0];
 
 	if (Type == 'b') return;
 	else if (Type == 'd') {
-		int QuestionIndex = std::stoi(UserChoice.substr(2)) - 1;
-		if(POOL_QUESTIONS_COUNT >= QuestionIndex){
-			//TODO: Deletion logic here
-			
+		int QuestionIndex = std::stoi(UserChoice.substr(2));
+
+		while(!(POOL_QUESTIONS_COUNT >= QuestionIndex)){
+			QuestionIndex = std::stoi(GetUserInput("No question with this ID exists. Try again.\nYour choice").substr(2));
 		}
-		else {
-			cout << "No question with this number exists. Try again.\n";
-			return QuestionsMenuHandler();
-		}
+
+
+		DeleteQuestion(QuestionIndex);
 	}
 	else {
 		cout << "We didn't quite catch that, try again, perhaps?\n\n";
@@ -100,7 +99,7 @@ void QuestionsMenuHandler() {
 // Displays questions-related menu
 void QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
-	
+
 	if (CheckCurrentQuestionPoolSize(1)) {
 		vector<Question> MCQQuestions;
 		vector<Question> TFQuestions;
@@ -116,12 +115,12 @@ void QuestionsMenu() {
 		for(int i = 0; i < (int) MCQQuestions.size(); i++){
 			DisplayQuestionWithAnswers(MCQQuestions[i], i);
 		}
-		
+
 		cout << MakeHeader("True or False Questions List (Total: " + std::to_string(TFQuestions.size()) + " Questions)", 40);
 		for(int i = 0; i < (int) TFQuestions.size(); i++){
 			DisplayQuestionWithAnswers(TFQuestions[i], i);
 		}
-		
+
 		cout << MakeHeader("Complete Questions List (Total: " + std::to_string(CompleteQuestions.size()) + " Questions)", 40);
 		for(int i = 0; i < (int) CompleteQuestions.size(); i++){
 			DisplayQuestionWithAnswers(CompleteQuestions[i], i);
@@ -130,7 +129,7 @@ void QuestionsMenu() {
 		return QuestionsMenuHandler();
 
 	}
-	
+
 	cout << "Please add more questions to the question pool and try again.\n\n";
 }
 
@@ -139,13 +138,13 @@ void AllUsersMenu(){
   cout << "\n\nExisting users in the system:\n";
 	for (auto & User : Users) {
     User.DisplayInfo();
-	}	
+	}
 }
 
 void Login(){
 	string Username = GetUserInput("Username");
 	string Password = GetUserInput("Password");
-	
+
 	for (User & CurrentUser : Users){
 		if(Username == CurrentUser.Username && Password == CurrentUser.Password){
 			cout << "User found.\n";

@@ -143,27 +143,25 @@ void DisplayAllQuestions() {
 }
 
 
-// bool DeleteQuestion(int QuestionIndex){
-// 	if (QuestionIndex <= POOL_QUESTIONS_COUNT) {
-// 			std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex - 1].QuestionTitle << "\n\n";
+bool DeleteQuestion(int QuestionIndex){
+	std::cout << "\nDeleted the following question: " << QuestionPool[QuestionIndex].Title << "\n\n";
 
-// 			std::vector<Question>::iterator it = QuestionPool.begin();
-// 			std::vector<int>::iterator rit = QuestionPoolIndices.begin();
-// 			std::advance(it, QuestionIndex-1);
-// 			std::advance(rit, QuestionIndex-1);
-// 			QuestionPool.erase(it);
-// 			QuestionPoolIndices.erase(rit);
-// 			POOL_QUESTIONS_COUNT -= 1;
-// 			for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-// 				QuestionPoolIndices[i] = i;
-// 			}
-// 			return true;
-// 		}
-// 		else {
-// 			std::cout << "We didn't quite catch that, try again, perhaps?\n\n";
-// 			return false;
-// 		}
-// }
+	std::vector<Question>::iterator it = QuestionPool.begin();
+	std::vector<int>::iterator rit = QuestionPoolIndices.begin();
+
+	std::advance(it, QuestionIndex);
+	std::advance(rit, QuestionIndex);
+	
+	QuestionPoolSet.erase(QuestionPool[QuestionIndex].Title);
+	QuestionPool.erase(it);
+	QuestionPoolIndices.erase(rit);
+	
+	POOL_QUESTIONS_COUNT -= 1;
+	
+	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+		QuestionPoolIndices[i] = i;
+	}
+}
 
 
 #endif
