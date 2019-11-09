@@ -48,7 +48,7 @@ void AdminMenu() {
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
 
-	switch (ctoi(GetUserInput("Your choice"))) {
+	switch (ctoi(GetUserInput("Your choice: "))) {
 	case 1:
 		QuestionsMenu();
 		break;
@@ -76,7 +76,7 @@ void AdminMenu() {
 void QuestionsMenuHandler() {
 	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
 	
-	string UserChoice = GetUserInput("Your Choice");
+	string UserChoice = GetUserInput("Your Choice:\n");
 	char Type = UserChoice[0];
 
 	if (Type == 'b') return;
@@ -102,22 +102,31 @@ void QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
-		cout << "Questions list:\n---------------\n";
 		vector<Question> MCQQuestions;
 		vector<Question> TFQuestions;
 		vector<Question> CompleteQuestions;
 
-		for(Question & CurrentQuetion : QuestionPool){
-			if(CurrentQuetion.Type == "MCQ") MCQQuestions.push_back(CurrentQuetion);
-			else if(CurrentQuetion.Type == "TF") TFQuestions.push_back(CurrentQuetion);
-			else if(CurrentQuetion.Type == "COMPLETE") CompleteQuestions.push_back(CurrentQuetion);
+		for(Question & CurrentQuestion : QuestionPool){
+			if(CurrentQuestion.Type == "MCQ") MCQQuestions.push_back(CurrentQuestion);
+			else if(CurrentQuestion.Type == "TF") TFQuestions.push_back(CurrentQuestion);
+			else if(CurrentQuestion.Type == "COMPLETE") CompleteQuestions.push_back(CurrentQuestion);
 		}
 
-		cout << MakeHeader("MCQ Questions List") << std::endl;
+		cout << MakeHeader("MCQ Questions List (Total: " + std::to_string(MCQQuestions.size()) + " Questions)");
 		for(int i = 0; i < (int) MCQQuestions.size(); i++){
 			DisplayQuestionWithAnswers(MCQQuestions[i], i);
 		}
-		DisplayAllQuestions();
+		
+		cout << MakeHeader("True or False Questions List (Total: " + std::to_string(TFQuestions.size()) + " Questions)");
+		for(int i = 0; i < (int) TFQuestions.size(); i++){
+			DisplayQuestionWithAnswers(TFQuestions[i], i);
+		}
+		
+		cout << MakeHeader("Complete Questions List (Total: " + std::to_string(CompleteQuestions.size()) + " Questions)");
+		for(int i = 0; i < (int) CompleteQuestions.size(); i++){
+			DisplayQuestionWithAnswers(CompleteQuestions[i], i);
+		}
+//		DisplayAllQuestions();
 		return QuestionsMenuHandler();
 
 	}

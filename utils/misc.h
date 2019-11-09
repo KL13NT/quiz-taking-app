@@ -55,7 +55,7 @@ int ctoi(string str){
 }
 
 string MakeHeader(const string &ToPrint){
-	cout << string(10, '-') << '\n' << ToPrint << "\n" << string(10, '-') << '\n';
+	return string(20, '-') + '\n' + ToPrint + "\n" + string(20, '-') + '\n';
 }
 
 #endif

@@ -34,7 +34,7 @@ void ReadFromFile(string FileName) {
 
 		File.close();
 
-		cout << "\n\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
+		cout << "\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
 	}
 
 }

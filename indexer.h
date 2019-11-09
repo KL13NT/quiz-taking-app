@@ -1,8 +1,6 @@
 #ifndef INDEXER_H
 #define INDEXER_H
 
-#include "structures/index.h"
-
 // All function definitions
 void ReadFromFile(string);
 void GetFileNameFromUser();

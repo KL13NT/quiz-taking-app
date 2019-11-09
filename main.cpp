@@ -22,6 +22,9 @@ using std::cin;
 using std::cout;
 
 // Definitions reference
+#include "structures/index.h"
+
+// Function definitions
 #include "indexer.h"
 
 // custom methods

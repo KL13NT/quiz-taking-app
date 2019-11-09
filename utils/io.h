@@ -5,7 +5,7 @@
 string GetUserInput(string Additional = "  "){
   string Input;
 
-  if (Additional != "  ") cout << Additional << ": ";
+  if (Additional != "  ") cout << Additional;
 
   getline(cin, Input);
 

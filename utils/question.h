@@ -117,6 +117,10 @@ bool CreateQuestion(){
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	bool IsList = index > -1;
 	
+	if(IsList) cout << "[" << index + 1 << "] ";
+
+	CurrentQuestion.DisplayQuestion();
+
 	if(CurrentQuestion.Type == "MCQ"){
 			vector<string> Answers = { 
 			CurrentQuestion.CorrectChoice, 
@@ -126,8 +130,6 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 		};
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
-		if(IsList) cout << "[" << index + 1 << "] ";
-    CurrentQuestion.DisplayQuestion();
 		
 		ShuffleAnswers(Answers);
 
@@ -140,10 +142,11 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 			
 			cout << Result;
 		}
+
+		cout << "\n";
 	}
 	else{
-		CurrentQuestion.DisplayQuestion();
-		cout << CurrentQuestion.CorrectChoice << "\n";
+		cout << IndentString("Answer: " + CurrentQuestion.CorrectChoice, 1) << "\n";
 	}
 }
 
