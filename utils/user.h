@@ -40,4 +40,35 @@ void UpdateAccountDetails(){
     UserProfile -> UpdateUserData(firstname, lastname, username, password);
 }
 
+void SwitchAccount(User &CurrentUser){
+    string Answer = StringToLowerCase(GetUserInput("Do you wish to log out?[Y for yes || N for no]\n"));
+    while(bool IsVal = false) {
+        if (Answer == "Y" || Answer == "N") {
+            IsVal = true;
+        }
+        else {
+            IsVal = false;
+            Answer = StringToLowerCase(GetUserInput("We didn't catch that, please enter again"));
+        }
+    }
+    if(Answer == "Y"){
+        cout << "Logged out successfully...\n";
+        Answer = StringToLowerCase(GetUserInput("Do you wish to log in or register a new user?\n"
+                                                "[R for register || L for login]"));
+        while(bool IsVal = false) {
+            if (Answer == "R" || Answer == "L") {
+                IsVal = true;
+            } else {
+                IsVal = false;
+                Answer = StringToLowerCase(GetUserInput("We didn't catch that, please enter again"));
+            }
+        }
+        if(Answer == "R")CreateNewUser();
+        else Login();
+        return MainMenu();
+    }
+    else return MainMenu();
+
+}
+
 #endif
