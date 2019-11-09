@@ -11,6 +11,7 @@ unordered_set<string> QuestionPoolSet; //used for duplicate question detection
 vector<int> QuestionPoolIndices; // filled in main
 vector<int> AnswerIndices = { 0, 1, 2, 3 };
 vector<User> Users;
-User *UserProfile = &Users[0];
+User *UserProfile;
+bool IsLoggedin = false;
 
 #endif

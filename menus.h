@@ -125,7 +125,7 @@ void QuestionsMenu() {
 		for(int i = 0; i < (int) CompleteQuestions.size(); i++){
 			DisplayQuestionWithAnswers(CompleteQuestions[i], i);
 		}
-		
+
 		return QuestionsMenuHandler();
 	}
 
@@ -140,6 +140,8 @@ void AllUsersMenu(){
 	}
 }
 
+void PlayerMenu(){}
+
 void Login(){
 	string Username = GetUserInput("Username");
 	string Password = GetUserInput("Password");
@@ -148,8 +150,8 @@ void Login(){
 		if(Username == CurrentUser.Username && Password == CurrentUser.Password){
 			cout << "User found.\n";
 			UserProfile = &CurrentUser;
-			return AdminMenu();
-//				return User.IsAdmin? AdminMenu(): PlayerMenu();
+
+			return CurrentUser.IsAdmin? AdminMenu(): PlayerMenu();
 		}
 	}
   cout << "User not found. Try again.\n";
@@ -158,5 +160,6 @@ void Login(){
 
 void MainMenu(){
 	if(Users.size() == 0) return CreateNewUser();
-	return Login();
+	else if(Users.size() > 0 && IsLoggedin) return UserProfile -> IsAdmin? AdminMenu(): PlayerMenu();
+	else if(Users.size() > 0 && !IsLoggedin) return Login();
 }

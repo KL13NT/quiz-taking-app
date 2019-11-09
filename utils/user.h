@@ -42,31 +42,15 @@ void UpdateAccountDetails(){
 }
 
 void SwitchAccount(){
-	string Answer = StringToLowerCase(GetUserInput("Do you wish to log out? [Y] or [N]o\n"));
-	
-	while(bool IsVal = false) {
-		if (Answer == "Y" || Answer == "N") {
-				IsVal = true;
-		}
-		else {
-				IsVal = false;
-				Answer = StringToLowerCase(GetUserInput("We didn't catch that, please enter again"));
-		}
+	string Answer = GetUserInput("Do you wish to log out? [Y]es or [N]o");
+
+	while(!(StringIsEqualIgnoreCase(Answer, "Y") || StringIsEqualIgnoreCase(Answer, "N") || StringIsEqualIgnoreCase(Answer, "Yes") || StringIsEqualIgnoreCase(Answer, "No"))) {
+		Answer = StringToLowerCase(GetUserInput("We didn't catch that, please try again.\nDo you wish to log out? [Y]es or [N]o"));
 	}
-	if(Answer == "Y"){
+	
+	if(StringIsEqualIgnoreCase(Answer, "Y") || StringIsEqualIgnoreCase(Answer, "Yes") ){
 		cout << "Logged out successfully...\n";
-		Answer = StringToLowerCase(GetUserInput("Do you wish to log in or register a new user?\n""[R for register || L for login]"));
-		while(bool IsVal = false) {
-			if (Answer == "R" || Answer == "L") {
-				IsVal = true;
-			} else {
-				IsVal = false;
-				Answer = StringToLowerCase(GetUserInput("We didn't catch that, please enter again"));
-			}
-		}
-		if(Answer == "R")CreateNewUser();
-		else Login();
-		return MainMenu();
+		UserProfile = NULL; //Leaving no trace of the logged out user.
 	}
 	else return MainMenu();
 
