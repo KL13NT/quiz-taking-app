@@ -41,14 +41,6 @@ public:
     Choice3 = C3;
     Choice4 = C4;
   }
-
-  void operator=(const MCQQuestion &ToEqual) {
-    Title = ToEqual.Title;
-    CorrectChoice = ToEqual.CorrectChoice;
-    Choice2 = ToEqual.Choice2;
-    Choice3 = ToEqual.Choice3;
-    Choice4 = ToEqual.Choice4;
-  }
 };
 
 class CompleteQuestion : public Question {
@@ -57,11 +49,6 @@ public:
     Title = TitleInput;
     CorrectChoice = CC;
   }
-
-  void operator=(const CompleteQuestion &ToEqual) {
-    Title = ToEqual.Title;
-    CorrectChoice = ToEqual.CorrectChoice;
-  }
 };
 
 class TFQuestion : public Question {
@@ -69,11 +56,6 @@ public:
   TFQuestion(string TitleInput, string CC) : Question(1, "TF") {
     Title = TitleInput;
     CorrectChoice = CC;
-  }
-
-  void operator=(const TFQuestion &ToEqual) {
-    Title = ToEqual.Title;
-    CorrectChoice = ToEqual.CorrectChoice;
   }
 };
 
@@ -93,5 +75,6 @@ public:
 // 		return Username1 == Username2? true: false;
 //   }
 // };
+
 
 #endif

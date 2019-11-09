@@ -35,7 +35,8 @@ int main() {
 	ReadFromFile("exam2_questions.txt");
 
 
-	MainMenu();
+	// MainMenu();
+	AdminMenu();
 
 
 	return 0;

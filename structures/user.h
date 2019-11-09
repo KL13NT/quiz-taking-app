@@ -87,10 +87,12 @@ class User {
 			cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
 			cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
 		}
-		void UpdateYourName(){
-			FirstName = GetUserInput("Please Enter Your New First Name: ");
-			LastName = GetUserInput("Please Enter Your New Last Name: ");
-		}
+
+		//TODO: Move this outside of structures. Structures are pure and shouldn't depend on utils. Move this to Users utilities
+		// void UpdateYourName(){
+		// 	FirstName = GetUserInput("Please Enter Your New First Name: ");
+		// 	LastName = GetUserInput("Please Enter Your New Last Name: ");
+		// }
 };
 
 

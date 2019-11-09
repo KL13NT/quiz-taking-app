@@ -27,10 +27,7 @@ void ShuffleAnswers(vector<string> (&Answers)) {
 }
 
 // Loads a "MCQ" question using an ifstream  
-MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
-	getline(File, Line);
-	string Title = FormatQuestionTitle(Line);
-
+MCQQuestion LoadMCQQuestion(std::ifstream &File, string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
 
@@ -47,10 +44,7 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, std::string &Line){
 }
 
 // Loads a "complete" question using an ifstream  
-CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
-	getline(File, Line);
-	string Title = FormatQuestionTitle(Line);
-	
+CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
 
@@ -58,10 +52,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line){
 }
 
 // Loads a "TF" question using an ifstream  
-TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
-	getline(File, Line);
-	string Title = FormatQuestionTitle(Line);
-	
+TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
 
@@ -69,8 +60,7 @@ TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line){
 }
 
 // Creates a question
-MCQQuestion CreateMCQQuestion(){
-	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
+MCQQuestion CreateMCQQuestion(string Title){
 	string CC = GetUserInput("Enter the correct choice");
 	string C2 = GetUserInput("Enter choice 2");
 	string C3 = GetUserInput("Enter choice 3");
@@ -81,8 +71,7 @@ MCQQuestion CreateMCQQuestion(){
 
 
 // Creates and returns a question
-CompleteQuestion CreateCompleteQuestion(){
-	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
+CompleteQuestion CreateCompleteQuestion(string Title){
 	string CorrectChoice = GetUserInput("Enter the correct choice");
 
 	return CompleteQuestion(Title, CorrectChoice);
@@ -90,8 +79,7 @@ CompleteQuestion CreateCompleteQuestion(){
 
 
 // Creates and returns a question
-TFQuestion CreateTFQuestion(){
-	string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
+TFQuestion CreateTFQuestion(string Title){
 	string CorrectChoice = GetUserInput("Enter the correct choice");
 
 	return TFQuestion(Title, CorrectChoice);
@@ -101,28 +89,34 @@ TFQuestion CreateTFQuestion(){
 bool CreateQuestion(){
 	Question NewQuestion;
 	
-	string UserChoice = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]. Alternatively, you can enter 'cancel' to go back to the main menu."));
+	string QuestionType = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]\nAlternatively, you can enter 'cancel' to go back to the main menu.\nYour Choice"));
 	
-	if(UserChoice ==  "tf") NewQuestion = CreateTFQuestion(); 
-	else if(UserChoice == "complete") NewQuestion = CreateCompleteQuestion();
-	else if(UserChoice == "mcq") NewQuestion = CreateMCQQuestion();
-	else if(UserChoice == "cancel") return true;
-	else{
+	if(QuestionType == "tf" || QuestionType == "mcq" || QuestionType == "complete"){
+		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
+		
+		if(!IsDuplicateQuestion(Title, QuestionPoolSet)){
+			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title));
+			else if(QuestionType == "complete") QuestionPool.push_back(CreateCompleteQuestion(Title));
+			else if(QuestionType == "tf") QuestionPool.push_back(CreateTFQuestion(Title));
+
+			QuestionPoolSet.insert(Title);
+			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+			POOL_QUESTIONS_COUNT += 1;
+			POOL_QUESTIONS_COUNT += 1;
+		}
+		else cout << "\nThis question already exists. Try adding a different question.\n";
+	
+	}
+	else if(QuestionType == "cancel") return true;
+	else {
 		cout << "We didn't catch that, please try again.\n\n";
 		return CreateQuestion();
 	}
-
-	if(!IsDuplicateQuestion(NewQuestion, QuestionPoolSet)){
-		QuestionPool.push_back(NewQuestion);
-		QuestionPoolSet.insert(NewQuestion.Title);
-
-		QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
-		POOL_QUESTIONS_COUNT += 1;
-	}
-	else cout << "\nThis question already exists. Try adding a different question.\n";
 }
 
-void DisplayQuestionWithAnswers(Question &CurrentQuestion) {
+void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
+	bool IsList = index > -1;
+	
 	if(CurrentQuestion.Type == "MCQ"){
 			vector<string> Answers = { 
 			CurrentQuestion.CorrectChoice, 
@@ -132,12 +126,19 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion) {
 		};
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
-		CurrentQuestion.DisplayQuestion();
+		if(IsList) cout << "[" << index + 1 << "] ";
+    CurrentQuestion.DisplayQuestion();
+		
 		ShuffleAnswers(Answers);
 
 		for (int i = 0; i < 4; i++) {
 			bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
-			cout << IsCorrectAnswer? IndentString(("*" + Labels[i] + Answers[i]), 1) : IndentString((Labels[i] + Answers[i]), 1);
+			
+			string Result = IsCorrectAnswer ? 
+				IndentString(("*" + Labels[i] + Answers[i]), 1) : 
+				IndentString((Labels[i] + Answers[i]), 1);
+			
+			cout << Result;
 		}
 	}
 	else{
@@ -149,7 +150,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion) {
 // Displays all questions in the question pool
 void DisplayAllQuestions() {
 	for (Question & CurrentQuestion : QuestionPool) {
-		DisplayQuestionWithAnswers(CurrentQuestion);
+		DisplayQuestionWithAnswers(CurrentQuestion, -1);
 	}
 }
 

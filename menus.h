@@ -103,8 +103,21 @@ void QuestionsMenu() {
 	
 	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
 		cout << "Questions list:\n---------------\n";
+		vector<Question> MCQQuestions;
+		vector<Question> TFQuestions;
+		vector<Question> CompleteQuestions;
 
-//		DisplayAllQuestions();
+		for(Question & CurrentQuetion : QuestionPool){
+			if(CurrentQuetion.Type == "MCQ") MCQQuestions.push_back(CurrentQuetion);
+			else if(CurrentQuetion.Type == "TF") TFQuestions.push_back(CurrentQuetion);
+			else if(CurrentQuetion.Type == "COMPLETE") CompleteQuestions.push_back(CurrentQuetion);
+		}
+
+		cout << MakeHeader("MCQ Questions List") << std::endl;
+		for(int i = 0; i < (int) MCQQuestions.size(); i++){
+			DisplayQuestionWithAnswers(MCQQuestions[i], i);
+		}
+		DisplayAllQuestions();
 		return QuestionsMenuHandler();
 
 	}

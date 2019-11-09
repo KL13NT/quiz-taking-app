@@ -14,8 +14,8 @@ string FormatQuestionTitle(string QuestionTitle){
 
 
 // Checks whether the question is a duplicate
-bool IsDuplicateQuestion(const Question &CurrentQuestion, const unordered_set<string> &QuestionPoolSet){
-  if(QuestionPoolSet.find(CurrentQuestion.Title) != QuestionPoolSet.end()) return true;
+bool IsDuplicateQuestion(const string Title, const unordered_set<string> &QuestionPoolSet){
+  if(QuestionPoolSet.find(Title) != QuestionPoolSet.end()) return true;
   return false;
 }
 
@@ -52,6 +52,10 @@ int ctoi(string str){
 	char input = str[0];
 	if(input >= '1' && input <= '9') return input - '0';
 	else return 0;
+}
+
+string MakeHeader(const string &ToPrint){
+	cout << string(10, '-') << '\n' << ToPrint << "\n" << string(10, '-') << '\n';
 }
 
 #endif
