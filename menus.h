@@ -47,6 +47,9 @@ void AdminMenu() {
 	cout << IndentString("[3] Load questions from file\n", 1);
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
+	cout << IndentString("[5] Update account details\n", 1);
+	cout << IndentString("[7] Switch account\n", 1);
+	cout << IndentString("[8] Exit\n", 1);
 
 	switch (ctoi(GetUserInput("Your choice"))) {
 	case 1:
@@ -64,6 +67,13 @@ void AdminMenu() {
 	case 5:
 		CreateNewUser();
     break;
+	case 6: 
+		UpdateAccountDetails();
+		break;
+	case 7:
+		return SwitchAccount();
+	case 8:
+		return;
 	default:
 		cout << "We didn't quite understand that, try again, perhaps?\n";
 	}

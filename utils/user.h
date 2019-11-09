@@ -39,6 +39,7 @@ void UpdateAccountDetails(){
 	string username = GetUserInput("New username");
 	string password = GetUserInput("New password");
 	UserProfile -> UpdateUserData(firstname, lastname, username, password);
+	cout << "Data updated successfully\n\n";
 }
 
 void SwitchAccount(){
