@@ -40,7 +40,7 @@ void UpdateAccountDetails(){
     UserProfile -> UpdateUserData(firstname, lastname, username, password);
 }
 
-void SwitchAccount(User &CurrentUser){
+void SwitchAccount(){
     string Answer = StringToLowerCase(GetUserInput("Do you wish to log out?[Y for yes || N for no]\n"));
     while(bool IsVal = false) {
         if (Answer == "Y" || Answer == "N") {
