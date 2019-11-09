@@ -33,10 +33,10 @@ void CreateNewUser(){
   }
 }
 void UpdateAccountDetails(){
-    string firstname = GetUserInput("Please enter new firstname: ");
-    string lastname = GetUserInput("Please enter new lastname: ");
-    string username = GetUserInput("Please enter new username: ");
-    string password = GetUserInput("Please enter new password: ");
+    string firstname = GetUserInput("Please enter new firstname");
+    string lastname = GetUserInput("Please enter new lastname");
+    string username = GetUserInput("Please enter new username");
+    string password = GetUserInput("Please enter new password");
     UserProfile -> UpdateUserData(firstname, lastname, username, password);
 }
 

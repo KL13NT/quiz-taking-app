@@ -15,22 +15,27 @@ void ReadFromFile(string FileName) {
 		int LoadedQuestionsCount = 0;
 		
 		while (getline(File, Line)) {
-			string QuestionType = Line;
+      cout << "Loading\n";
+      
+      if(Line == "MCQ" || Line == "TF" || Line == "COMPLETE") {
+        string QuestionType = Line;
 
-			getline(File, Line);
-			string Title = FormatQuestionTitle(Line);
+        getline(File, Line);
+        string Title = FormatQuestionTitle(Line);
 
-			if(!IsDuplicateQuestion(Title, QuestionPoolSet)){
-				
-				if(QuestionType == "MCQ") QuestionPool.push_back(LoadMCQQuestion(File, Line, Title));
-				else if(QuestionType == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line, Title));
-				else if(QuestionType == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line, Title));
+        if(!IsDuplicateQuestion(Title)){
 
-				QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
-        LoadedQuestionsCount += 1;
-        POOL_QUESTIONS_COUNT += 1;
+          if(QuestionType == "MCQ") QuestionPool.push_back(LoadMCQQuestion(File, Line, Title));
+          else if(QuestionType == "COMPLETE") QuestionPool.push_back(LoadCompleteQuestion(File, Line, Title));
+          else if(QuestionType == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line, Title));
+
+          QuestionPoolSet.insert(Title);
+          QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+          LoadedQuestionsCount += 1;
+          POOL_QUESTIONS_COUNT += 1;
+        }
       }
-		}
+    }
 
 		File.close();
 
@@ -43,7 +48,7 @@ void ReadFromFile(string FileName) {
 void GetFileNameFromUser() {
   std::ifstream File;
   
-	string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nEnter the name of the file you wish to load from");
+	string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nFilename");
   File.open(FileName);
 
   if (File.is_open()) {

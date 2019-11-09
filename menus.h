@@ -48,7 +48,7 @@ void AdminMenu() {
 	cout << IndentString("[4] Display all users\n", 1);
 	cout << IndentString("[5] Add a new user\n", 1);
 
-	switch (ctoi(GetUserInput("Your choice: "))) {
+	switch (ctoi(GetUserInput("Your choice"))) {
 	case 1:
 		QuestionsMenu();
 		break;
@@ -76,7 +76,7 @@ void AdminMenu() {
 void QuestionsMenuHandler() {
 	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
 	
-	string UserChoice = GetUserInput("Your Choice:\n");
+	string UserChoice = GetUserInput("Your Choice");
 	char Type = UserChoice[0];
 
 	if (Type == 'b') return;
@@ -101,7 +101,7 @@ void QuestionsMenuHandler() {
 void QuestionsMenu() {
 	cout << "\n\nNumber of questions available: " << POOL_QUESTIONS_COUNT << "\n\n";
 	
-	if (CheckCurrentQuestionPoolSize(1, POOL_QUESTIONS_COUNT)) {
+	if (CheckCurrentQuestionPoolSize(1)) {
 		vector<Question> MCQQuestions;
 		vector<Question> TFQuestions;
 		vector<Question> CompleteQuestions;
@@ -143,8 +143,8 @@ void AllUsersMenu(){
 }
 
 void Login(){
-	string Username = GetUserInput("Username: ");
-	string Password = GetUserInput("Password: ");
+	string Username = GetUserInput("Username");
+	string Password = GetUserInput("Password");
 	
 	for (User & CurrentUser : Users){
 		if(Username == CurrentUser.Username && Password == CurrentUser.Password){

@@ -28,7 +28,7 @@ public:
     return false;
   }
 
-  void DisplayQuestion() { cout << Title << "\n"; }
+  void DisplayQuestion() { cout << Title; }
 };
 
 class MCQQuestion : public Question {

@@ -7,7 +7,7 @@ void GetFileNameFromUser();
 void ShuffleQuestionPool();
 void DisplayAllQuestions();
 void GenerateAfterQuizReport(int);
-void UpdateProfileAfterQuiz(int);
+// void UpdateProfileAfterQuiz(int);
 void CreateNewUser();
 void DisplayUserStatistics(const User &);
 void AdminMenu();
@@ -17,18 +17,18 @@ void QuestionsMenuHandler();
 void AllUsersMenu();
 void Login();
 
-bool CheckCurrentQuestionPoolSize(int, int);
+bool CheckCurrentQuestionPoolSize(int);
 bool CheckAnswerValidity(const Question &, const string &);
 bool CreateQuestion();
 // bool RandomiseAndPrintAnswers(Question);
 bool DeleteQuestion(int);
-bool IsDuplicateQuestion(const string, const unordered_set<string> &);
+bool IsDuplicateQuestion(const string &);
 
 string GetUserInput(string);
 string StringToLowerCase(string);
 string StringToUpperCase(string);
 string IndentString(const string, const int);
-string FormatQuestionTitle(string);
+string FormatQuestionTitle(const string &);
 
 void LoadMCQQuestion(std::ifstream &, string &);
 Question CreateMCQQuestion();

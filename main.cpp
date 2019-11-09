@@ -20,15 +20,16 @@ using std::vector;
 using std::unordered_set;
 using std::cin;
 using std::cout;
+using std::endl;
 
 // Definitions reference
 #include "structures/index.h"
 
 // Function definitions
+#include "globals.h"
 #include "indexer.h"
 
 // custom methods
-#include "globals.h"
 #include "utils/index.h"
 #include "menus.h"
 
@@ -39,7 +40,8 @@ int main() {
 
 
 	// MainMenu();
-	AdminMenu();
+	// AdminMenu();
+	StartNewQuiz();
 
 
 	return 0;

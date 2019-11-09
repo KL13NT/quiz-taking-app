@@ -6,7 +6,6 @@
 #include <random>	//default_random_engine
 #include <algorithm> //shuffle
 
-
 // Shuffles question pool
 void ShuffleQuestionPool() {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -14,16 +13,10 @@ void ShuffleQuestionPool() {
 }
 
 // Shuffles answers
-void ShuffleAnswers(vector<string> (&Answers)) {
-	vector<string> NewAnswers;
-	vector<int> AnswerIndices = { 0, 1, 2, 3 };
+void ShuffleAnswers() {
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
-
-	//REFACTORME: Perhaps use a single loop
-	for (int i = 0; i < 4; i++) NewAnswers.push_back(Answers[AnswerIndices[i]]); // Copies pool away randomly
-	for (int i = 0; i < 4; i++) Answers[i] = NewAnswers[i]; // Copies randomised questions over again
 }
 
 // Loads a "MCQ" question using an ifstream  
@@ -94,7 +87,7 @@ bool CreateQuestion(){
 	if(QuestionType == "tf" || QuestionType == "mcq" || QuestionType == "complete"){
 		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 		
-		if(!IsDuplicateQuestion(Title, QuestionPoolSet)){
+		if(!IsDuplicateQuestion(Title)){
 			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title));
 			else if(QuestionType == "complete") QuestionPool.push_back(CreateCompleteQuestion(Title));
 			else if(QuestionType == "tf") QuestionPool.push_back(CreateTFQuestion(Title));
@@ -112,6 +105,8 @@ bool CreateQuestion(){
 		cout << "We didn't catch that, please try again.\n\n";
 		return CreateQuestion();
 	}
+
+	return true;
 }
 
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
@@ -131,14 +126,14 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
 		
-		ShuffleAnswers(Answers);
+		ShuffleAnswers();
 
 		for (int i = 0; i < 4; i++) {
 			bool IsCorrectAnswer = Answers[i] == CurrentQuestion.CorrectChoice;
 			
 			string Result = IsCorrectAnswer ? 
-				IndentString(("*" + Labels[i] + Answers[i]), 1) : 
-				IndentString((Labels[i] + Answers[i]), 1);
+				IndentString(("*" + Labels[i] + Answers[AnswerIndices[i]]), 1) :
+				IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
 			
 			cout << Result;
 		}
@@ -146,7 +141,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 		cout << "\n";
 	}
 	else{
-		cout << IndentString("Answer: " + CurrentQuestion.CorrectChoice, 1) << "\n";
+		cout << "Answer: " + CurrentQuestion.CorrectChoice << "\n";
 	}
 }
 
