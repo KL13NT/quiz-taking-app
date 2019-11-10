@@ -13,6 +13,6 @@ vector<int> AnswerIndices = { 0, 1, 2, 3 };
 vector<User> Users;
 User *UserProfile;
 bool IsLoggedin = false;
-bool IsFirstRun = false;
+bool IsFirstRun = true;
 
 #endif

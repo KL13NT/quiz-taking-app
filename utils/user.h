@@ -17,6 +17,7 @@ void CreateNewUser(){
 	if(IsFirstRun) {
 		cout << "This is the first run, registering new admin.\n";
 		Type = "admin";
+		IsFirstRun = false;
 	}
 	else Type = StringToLowerCase(GetUserInput("Account Type [admin, player]"));
 
