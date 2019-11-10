@@ -41,6 +41,7 @@ using std::cout;
 
 // Displays administration menu
 void AdminMenu() {
+	cout << UserProfile;
 	cout << MakeHeader("Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.", 50);
 	cout << IndentString("[1] View all questions\n", 1);
 	cout << IndentString("[2] Add new question\n", 1);

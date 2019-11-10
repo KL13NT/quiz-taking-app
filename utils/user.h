@@ -10,8 +10,16 @@
 // }
 
 void CreateNewUser(){
+	string Type;
+	
 	cout << MakeHeader("Register a new user", 30);
-	string Type = StringToLowerCase(GetUserInput("Account Type [admin, player]"));
+	
+	if(IsFirstRun) {
+		cout << "This is the first run, registering new admin.\n";
+		Type = "admin";
+	}
+	else Type = StringToLowerCase(GetUserInput("Account Type [admin, player]"));
+
 	string FirstName = GetUserInput("Firstname");
 	string LastName = GetUserInput("Lastname");
 	string Username = StringToLowerCase(GetUserInput("Username [case-insensitive]"));
