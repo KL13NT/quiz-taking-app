@@ -9,6 +9,14 @@
 // 	if (GetUserInput("Your choice") == 'b') MainMenu();
 // }
 
+bool IsDuplicateUser(string Username){
+	for(User &Curr : Users){
+		if(Curr.Username == Username) return true;
+	}
+
+	return false;
+}
+
 void CreateNewUser(){
 	string Type;
 	
@@ -31,8 +39,12 @@ void CreateNewUser(){
 		FirstName.length() != 0 &&
 		LastName.length() != 0 &&
 		Username.length() != 0 &&
-		Password.length() != 0
+		Password.length() != 0 &&
 		){
+			while(!IsDuplicateUser(Username)) {
+				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one.\nUsername [case-insensitive]"));
+			}
+			
 			Users.push_back(User(FirstName, LastName, Username, Password,  Type == "admin"));
 		}
 	else {
