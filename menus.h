@@ -41,8 +41,7 @@ using std::cout;
 
 // Displays administration menu
 void AdminMenu() {
-	cout << UserProfile;
-	cout << MakeHeader("Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.", 50);
+	cout << MakeHeader(Greeting, 50);
 	cout << IndentString("[1] View all questions\n", 1);
 	cout << IndentString("[2] Add new question\n", 1);
 	cout << IndentString("[3] Load questions from file\n", 1);
@@ -162,8 +161,10 @@ void Login(){
 	for (User & CurrentUser : Users){
 		if(Username == CurrentUser.Username && Password == CurrentUser.Password){
 			cout << "User found.\n";
-			UserProfile = &CurrentUser;
 
+			UserProfile = &CurrentUser;
+			Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.";
+			
 			return CurrentUser.IsAdmin? AdminMenu(): PlayerMenu();
 		}
 	}

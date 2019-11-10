@@ -19,9 +19,9 @@ bool IsDuplicateUser(string Username){
 
 void CreateNewUser(){
 	string Type;
-	
+
 	cout << MakeHeader("Register a new user", 30);
-	
+
 	if(IsFirstRun) {
 		cout << "This is the first run, registering new admin.\n";
 		Type = "admin";
@@ -39,12 +39,12 @@ void CreateNewUser(){
 		FirstName.length() != 0 &&
 		LastName.length() != 0 &&
 		Username.length() != 0 &&
-		Password.length() != 0 &&
+		Password.length() != 0
 		){
-			while(!IsDuplicateUser(Username)) {
+			while(IsDuplicateUser(Username)) {
 				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one.\nUsername [case-insensitive]"));
 			}
-			
+
 			Users.push_back(User(FirstName, LastName, Username, Password,  Type == "admin"));
 		}
 	else {

@@ -63,7 +63,7 @@ class User {
 		}
 
 		bool operator == (const User &ToEqual){
-			return ToEqual.Username == Username? true: false;
+			return ToEqual.Username == Username;
 		}
 		
 		void DisplayInfo(){

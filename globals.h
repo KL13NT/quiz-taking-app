@@ -14,5 +14,6 @@ vector<User> Users;
 User *UserProfile;
 bool IsLoggedin = false;
 bool IsFirstRun = true;
+string Greeting;
 
 #endif
