@@ -30,11 +30,10 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 	return StringToLowerCase(Answer) == StringToLowerCase(CurrentQuestion.CorrectChoice);
 }
 
-
-// // Displays a single question as part of a list
-// void DisplayQuestion(const Question &CurrentQuestion, int QuestionIndex) {
-// 	cout << "[" << QuestionIndex + 1 << "] " << CurrentQuestion.Title << "?\n";
-// }
+string ParseTFAnswer(const string &Answer){
+	if(Answer == "f" || Answer == "false") return "FALSE";
+	else if(Answer == "t" || Answer == "true") return "TRUE";
+}
 
 int ctoi(string str){
 	// std::stringstream output;  
@@ -44,6 +43,17 @@ int ctoi(string str){
 	else return 0;
 }
 
+// Shuffles question pool
+void ShuffleQuestionPool() {
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(QuestionPoolIndices.begin(), QuestionPoolIndices.end(), std::default_random_engine(seed));
+}
+
+// Shuffles answers
+void ShuffleAnswers() {
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
+}
 
 string MakeHeader(const string &ToPrint, int multiplier){
 	return '\n' + string(multiplier, '-') + '\n' + ToPrint + "\n" + string(multiplier, '-') + "\n" ;

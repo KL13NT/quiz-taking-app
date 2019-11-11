@@ -6,17 +6,6 @@
 #include <random>	//default_random_engine
 #include <algorithm> //shuffle
 
-// Shuffles question pool
-void ShuffleQuestionPool() {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(QuestionPoolIndices.begin(), QuestionPoolIndices.end(), std::default_random_engine(seed));
-}
-
-// Shuffles answers
-void ShuffleAnswers() {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
-}
 
 // Loads a "MCQ" question using an ifstream  
 MCQQuestion LoadMCQQuestion(std::ifstream &File, string &Line, string Title){
@@ -46,7 +35,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line, st
 // Loads a "TF" question using an ifstream  
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
-	string CorrectChoice = Line;
+	string CorrectChoice = StringToLowerCase(Line);
 
 	return TFQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT);
 }

@@ -17,11 +17,13 @@ void QuestionsMenuHandler();
 void AllUsersMenu();
 void Login();
 void SwitchAccount();
+void ShuffleQuestionPool();
+void ShuffleAnswers();
+
 
 bool CheckCurrentQuestionPoolSize(int);
 bool CheckAnswerValidity(const Question &, const string &);
 bool CreateQuestion();
-// bool RandomiseAndPrintAnswers(Question);
 bool DeleteQuestion(int);
 bool IsDuplicateQuestion(const string &);
 bool StringIsEqualIgnoreCase(const string &String1, const string &String2);
@@ -34,7 +36,9 @@ string StringToUpperCase(string);
 string IndentString(const string, const int);
 string FormatQuestionTitle(const string &);
 string MakeHeader(const string &ToPrint, int multiplier);
+string ParseTFAnswer(const string &);
 
+// Question creation
 void LoadMCQQuestion(std::ifstream &, string &);
 Question CreateMCQQuestion();
 

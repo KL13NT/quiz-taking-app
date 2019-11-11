@@ -59,8 +59,10 @@ public:
   const static int Weight = 1;
   TFQuestion(string TitleInput, string CC, int IDInput) : Question("TF") {
     Title = TitleInput;
-    CorrectChoice = CC;
     ID = IDInput;
+    
+    if(CC == "f" || CC == "false") CorrectChoice = "FALSE";
+    else if(CC == "t" || CC == "true") CorrectChoice = "TRUE";
   }
 };
 

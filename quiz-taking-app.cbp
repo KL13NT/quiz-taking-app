@@ -32,7 +32,23 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="globals.h" />
+		<Unit filename="indexer.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menus.h" />
+		<Unit filename="structures/index.h" />
+		<Unit filename="structures/log.h" />
+		<Unit filename="structures/question.h" />
+		<Unit filename="structures/quiz.h" />
+		<Unit filename="structures/user.h" />
+		<Unit filename="utils/file.h" />
+		<Unit filename="utils/index.h" />
+		<Unit filename="utils/io.h" />
+		<Unit filename="utils/misc.h" />
+		<Unit filename="utils/question.h" />
+		<Unit filename="utils/quiz.h" />
+		<Unit filename="utils/string.h" />
+		<Unit filename="utils/user.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -84,10 +84,11 @@ bool CheckUserAnswer(const Question &CurrentQuestion){
 				return CheckAnswerValidity(CurrentQuestion, Answers[AnswerIndices[3]]);
 			}
 	}
+	else if(CurrentQuestion.Type == "TF"){
+		return CheckAnswerValidity(CurrentQuestion, ParseTFAnswer(UserAnswer));
+	}
 
 	return CheckAnswerValidity(CurrentQuestion, UserAnswer);
-
-
 }
 
 void QuizDisplayQuestion(Question &CurrentQuestion, int index){
@@ -132,8 +133,14 @@ void StartNewQuiz() {
 
 			bool IsCorrectAnswer = CheckUserAnswer(GeneratedQuestions[i]);
 			
-
-			CorrectAnswers += 1;
+			if(IsCorrectAnswer) {
+				if(GeneratedQuestions[i].Type == "MCQ") MCQScore += 1;
+				else if(GeneratedQuestions[i].Type == "TF") TFScore += 1;
+				else if(GeneratedQuestions[i].Type == "COMPLETE") CompleteScore += 1;
+				
+				CorrectAnswers += 1;
+			}
+			else cout << "Wrong answer\n DEBUGGING\n";
 		}
 
 	}

@@ -39,9 +39,9 @@ int main() {
 	ReadFromFile("exam2_questions.txt");
 
 
-	MainMenu();
+	// MainMenu();
 	// AdminMenu();
-	// StartNewQuiz();
+	StartNewQuiz();
 
 
 	return 0;
