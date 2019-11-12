@@ -3,8 +3,15 @@
 
 //each log represents a quiz
 class Log{
-  private:
+  public:
     bool IsAdminLog = false;
+    int CorrectAnswers = 0;
+    double UserScore = 0;
+
+    vector<Question> QuizQuestions;
+    vector<string> Answers;
+    vector<double> QuestionScores;
+
   public:
     Log(){};
     ~Log(){};
@@ -12,34 +19,21 @@ class Log{
 };
 
 
-//TODO: Possible extra, implement admin log
-// class AdminLog: public Log{
-//   private: 
-//     vector<string> Questions = {};
-//     vector<string> Answers = {};
-// };
-
-
 class PlayerLog: public Log{
-  private:
-    int TotalScore;
-    int UserScore;
-    int CorrectAnswers;
-    vector<Question> QuizQuestions;
-    vector<string> Answers;
-    vector<double> QuestionScores;
-  
   public:
-    PlayerLog(vector<Question> Questions, int TotalScoreInput, int UserScoreInput, vector<string> UserAnswers){
-      TotalScore = TotalScoreInput;
-      QuizQuestions = Questions;
-      UserScore = UserScoreInput;
-      Answers = UserAnswers;
-    }
-
-    DisplayLog(){
+    PlayerLog(Quiz &CurrentQuiz){
+      QuizQuestions = CurrentQuiz.QuizQuestions;
+      UserScore = CurrentQuiz.UserScore;
+      Answers = CurrentQuiz.Answers;
+      QuestionScores = CurrentQuiz.QuestionScores;
+      CorrectAnswers = CurrentQuiz.CorrectAnswers;
+      IsAdminLog = false;
       
     }
+
+    // DisplayLog(){
+
+    // }
 };
 
 

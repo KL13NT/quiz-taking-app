@@ -62,7 +62,7 @@ void AdminMenu() {
 		GetFileNameFromUser();
     break;
 	case 4:
-		AllUsersMenu();
+		DisplayAllUsers();
     break;
 	case 5:
 		CreateNewUser();
@@ -143,7 +143,7 @@ void QuestionsMenu() {
 }
 
 
-void AllUsersMenu(){
+void DisplayAllUsers(){
   cout << MakeHeader("Existing users in the system:", 30);
 
 	for (auto & User : Users) {
@@ -151,7 +151,46 @@ void AllUsersMenu(){
 	}
 }
 
-void PlayerMenu(){}
+void PlayerMenu(){
+	cout << MakeHeader(Greeting, 50);
+	cout << IndentString("[1] Start a new quiz\n", 1);
+	cout << IndentString("[2] Display details of your last quizzes\n", 1);
+	cout << IndentString("[3] Load questions from file\n", 1);
+	cout << IndentString("[4] Display your score statistics\n", 1);
+	cout << IndentString("[5] Display your scores\n", 1);
+	cout << IndentString("[6] Update account details\n", 1);
+	cout << IndentString("[7] Switch account\n", 1);
+	cout << IndentString("[8] Exit\n", 1);
+
+	switch (ctoi(GetUserInput("Your choice"))) {
+	case 1:
+		StartNewQuiz();
+		break;
+	case 2:
+		CreateQuestion();
+    break;
+	case 3:
+		GetFileNameFromUser();
+    break;
+	case 4:
+		UserProfile -> DisplayUserStatistics();
+    break;
+	case 5:
+		// DisplayScores();
+    break;
+	case 6:
+		UpdateAccountDetails();
+		break;
+	case 7:
+		return SwitchAccount();
+	case 8:
+		return;
+	default:
+		cout << "We didn't quite understand that, try again, perhaps?\n";
+	}
+
+	return AdminMenu();
+}
 
 void Login(){
 	cout << MakeHeader("Login", 10);

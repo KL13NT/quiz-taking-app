@@ -1,9 +1,6 @@
 #ifndef QUIZ_UTILS_H
 #define QUIZ_UTILS_H
 
-double MCQCount = 0.4 * QUIZ_QUESTIONS_COUNT;
-double TFCount = 0.4 * QUIZ_QUESTIONS_COUNT;
-double CompleteCount = 0.2 * QUIZ_QUESTIONS_COUNT;
 
 // Generates the after-quiz report
 void GenerateAfterQuizReport(int CorrectAnswers) {
@@ -138,13 +135,18 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 	if(IsCorrectAnswer) CurrentQuiz.CorrectAnswers += 1;
 }
 
+void LogQuizData(Quiz &CurrentQuiz){
+	UserProfile -> UpdateQuizData(CurrentQuiz);
+	
+	PlayerLog CurrentLog(CurrentQuiz);
+	UserProfile -> Logs.push_back(CurrentLog);
+}
 // Starts a new quiz
 void StartNewQuiz() {
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
 		Quiz CurrentQuiz;
 
 		GenerateQuizQuestions(CurrentQuiz);
-		CurrentQuiz.HighestPossibleScore = (MCQCount * 2) + TFCount + (CompleteCount * 3);
 
 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
 			QuizDisplayQuestion(CurrentQuiz.QuizQuestions[i], i);
@@ -164,7 +166,7 @@ void StartNewQuiz() {
 			CalculateQuizScores(CurrentQuiz, IsCorrectAnswer, CurrentQuiz.QuizQuestions[i]);
 		}
 
-		UserProfile -> UpdateQuizData(CurrentQuiz);
+		LogQuizData(CurrentQuiz);
 
 	}
 	else {

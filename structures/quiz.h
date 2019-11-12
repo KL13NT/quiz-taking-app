@@ -19,7 +19,6 @@ public:
   int TFCount = 0;
   int CompleteCount = 0;
   
-  double HighestPossibleScore = 0;
   int UserScore = 0;
   vector<Question> QuizQuestions;
   vector<string> Answers;
