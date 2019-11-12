@@ -8,6 +8,6 @@
 #include "quiz.h"
 #include "user.h"
 #include "misc.h"
-
+#include "log.h"
 
 #endif

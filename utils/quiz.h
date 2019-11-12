@@ -55,6 +55,7 @@ bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 
 // Check whether answer is valid before checking its value
 bool CheckUserAnswer(const Question &CurrentQuestion, string &UserAnswer){
+	// REFACTORME
 	if(CurrentQuestion.Type == "MCQ"){
 		string Answers[4] = {
 			CurrentQuestion.CorrectChoice,
@@ -141,6 +142,26 @@ void LogQuizData(Quiz &CurrentQuiz){
 	PlayerLog CurrentLog(CurrentQuiz);
 	UserProfile -> Logs.push_back(CurrentLog);
 }
+
+string GetMCQChoice(Question &CurrentQuestion, string &UserAnswer){
+	string Answers[4] = {
+		CurrentQuestion.CorrectChoice,
+		CurrentQuestion.Choice2,
+		CurrentQuestion.Choice3,
+		CurrentQuestion.Choice4
+	};
+
+	switch (UserAnswer[0]) {
+		case 'a':
+			return Answers[AnswerIndices[0]];
+		case 'b':
+			return Answers[AnswerIndices[1]];
+		case 'c':
+			return Answers[AnswerIndices[2]];
+		case 'd':
+			return Answers[AnswerIndices[3]];
+	}
+}
 // Starts a new quiz
 void StartNewQuiz() {
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
@@ -159,7 +180,8 @@ void StartNewQuiz() {
 				UserAnswer = StringToLowerCase(GetUserInput("Answer"));
 			}
 
-			CurrentQuiz.Answers.push_back(UserAnswer);
+			// REFACTORME
+			CurrentQuiz.Answers.push_back(CurrentQuiz.QuizQuestions[i].Type == "MCQ"? GetMCQChoice(CurrentQuiz.QuizQuestions[i], UserAnswer): UserAnswer);
 			
 			bool IsCorrectAnswer = CheckUserAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer);
 

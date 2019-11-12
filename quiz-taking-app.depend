@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1573560684 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
+1573571294 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
 	<fstream>
 	<iostream>
 	<string>
@@ -24,17 +24,17 @@
 
 1573569336 d:\workspace\college\oop\quiz-taking-app\structures\quiz.h
 
-1573569763 d:\workspace\college\oop\quiz-taking-app\structures\log.h
+1573572791 d:\workspace\college\oop\quiz-taking-app\structures\log.h
 
-1573569392 d:\workspace\college\oop\quiz-taking-app\structures\user.h
+1573570238 d:\workspace\college\oop\quiz-taking-app\structures\user.h
 	<iostream>
 	<string>
 
 1573569498 d:\workspace\college\oop\quiz-taking-app\globals.h
 
-1573498714 d:\workspace\college\oop\quiz-taking-app\indexer.h
+1573573159 d:\workspace\college\oop\quiz-taking-app\indexer.h
 
-1573254950 d:\workspace\college\oop\quiz-taking-app\utils\index.h
+1573572604 d:\workspace\college\oop\quiz-taking-app\utils\index.h
 	"io.h"
 	"string.h"
 	"question.h"
@@ -42,6 +42,7 @@
 	"quiz.h"
 	"user.h"
 	"misc.h"
+	"log.h"
 
 1573329167 d:\workspace\college\oop\quiz-taking-app\utils\io.h
 
@@ -55,19 +56,21 @@
 	<random>
 	<algorithm>
 
-1573339870 d:\workspace\college\oop\quiz-taking-app\utils\file.h
+1573573006 d:\workspace\college\oop\quiz-taking-app\utils\file.h
 	<fstream>
 	<string>
 
-1573569321 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
+1573574686 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
 
 1573566235 d:\workspace\college\oop\quiz-taking-app\utils\user.h
 
-1573497679 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
+1573573170 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
 	<string>
 	<regex>
 
-1573561183 d:\workspace\college\oop\quiz-taking-app\menus.h
+1573574665 d:\workspace\college\oop\quiz-taking-app\menus.h
 	<sstream>
 	<string>
+
+1573574093 d:\workspace\college\oop\quiz-taking-app\utils\log.h
 

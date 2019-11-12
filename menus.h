@@ -5,39 +5,6 @@
 using std::string;
 using std::cout;
 
-// Displays main menu
-// TODO: remove MainMenu
-//void MainMenu() {
-//	cout << "Welcome " << UserProfile -> FirstName << ", please choose from the following options:\n";
-//	cout << IndentString("[1] Go to administration menu\n", 1);
-//	cout << IndentString("[2] Update your name\n", 1);
-//	cout << IndentString("[3] Start a new quiz\n", 1);
-//	cout << IndentString("[4] Display your scores statistics\n", 1);
-//	cout << IndentString("[5] Display all your scores\n", 1);
-//	cout << IndentString("[6] Exit\n", 1);
-//	//TODO: Fix
-//
-//	switch (GetUserInput("Your choice")[0]) {
-//	case 1:
-//		return AdminMenu();
-//	case 2:
-////		UpdateUserName();
-//		return MainMenu();
-//	case 3:
-////		StartNewQuiz();
-//		return MainMenu();
-//	case 4:
-////		return DisplayUserStatistics(CurrentUser);
-//	case 5:
-////		return DisplayScores();
-//	case 6:
-//		return;
-//	default:
-//		cout << "We didn't quite understand that, try again, perhaps?\n";
-//		return MainMenu();
-//	}
-//}
-
 
 // Displays administration menu
 void AdminMenu() {
@@ -151,45 +118,67 @@ void DisplayAllUsers(){
 	}
 }
 
+void DisplayDetailsOfLastQuizzes(){
+	cout << MakeHeader("Quizzes log", 20);
+	string UserInput = StringToNumbers(GetUserInput("How many quizzes would you like to view?"));
+	int Input = std::stoi(UserInput);
+
+	if(Input > 0) {
+		if((int) UserProfile -> Logs.size() >= Input){
+			cout << MakeHeader("Viewing last " + UserInput + " quizzes", 40);
+			
+			for(int i = 0; i < Input; i++){
+				Log *CurrentLog = &(UserProfile -> Logs[i]);
+				cout << "Your total score in this quiz is: " << CurrentLog -> UserScore << "/" << HighestPossibleScore << "\n";
+				
+				DisplayLog(UserProfile -> Logs[i]);
+			}
+		}
+		else {
+			cout << "Not enough quizzes for your query. The number of available quizzes is: " << (int) UserProfile -> Logs.size() << "\n";
+		}
+	}
+	else {
+		cout << "Couldn't understand your input or the number you entered is too small. Try again?\n";
+		return DisplayDetailsOfLastQuizzes();
+	}
+}
+
 void PlayerMenu(){
 	cout << MakeHeader(Greeting, 50);
 	cout << IndentString("[1] Start a new quiz\n", 1);
 	cout << IndentString("[2] Display details of your last quizzes\n", 1);
-	cout << IndentString("[3] Load questions from file\n", 1);
-	cout << IndentString("[4] Display your score statistics\n", 1);
-	cout << IndentString("[5] Display your scores\n", 1);
-	cout << IndentString("[6] Update account details\n", 1);
-	cout << IndentString("[7] Switch account\n", 1);
-	cout << IndentString("[8] Exit\n", 1);
+	cout << IndentString("[3] Display your score statistics\n", 1);
+	cout << IndentString("[4] Display your scores\n", 1);
+	cout << IndentString("[5] Update account details\n", 1);
+	cout << IndentString("[6] Switch account\n", 1);
+	cout << IndentString("[7] Exit\n", 1);
 
 	switch (ctoi(GetUserInput("Your choice"))) {
 	case 1:
 		StartNewQuiz();
 		break;
 	case 2:
-		CreateQuestion();
+		DisplayDetailsOfLastQuizzes();
     break;
 	case 3:
-		GetFileNameFromUser();
-    break;
-	case 4:
 		UserProfile -> DisplayUserStatistics();
     break;
-	case 5:
+	case 4:
 		// DisplayScores();
     break;
-	case 6:
+	case 5:
 		UpdateAccountDetails();
 		break;
-	case 7:
+	case 6:
 		return SwitchAccount();
-	case 8:
+	case 7:
 		return;
 	default:
 		cout << "We didn't quite understand that, try again, perhaps?\n";
 	}
 
-	return AdminMenu();
+	return PlayerMenu();
 }
 
 void Login(){
@@ -203,9 +192,9 @@ void Login(){
 
 			UserProfile = &CurrentUser;
 			IsLoggedin = true;
-			Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.";
-			
-			return CurrentUser.IsAdmin? AdminMenu(): StartNewQuiz();
+			Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + (UserProfile -> IsAdmin? ". You're an admin.": ". You're a player.");
+
+			return CurrentUser.IsAdmin? AdminMenu(): PlayerMenu();
 		}
 	}
   cout << "User not found. Try again.\n";

@@ -15,8 +15,6 @@ void ReadFromFile(string FileName) {
 		int LoadedQuestionsCount = 0;
 		
 		while (getline(File, Line)) {
-      cout << "Loading\n";
-      
       if(Line == "MCQ" || Line == "TF" || Line == "COMPLETE") {
         string QuestionType = Line;
 

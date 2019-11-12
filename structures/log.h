@@ -7,15 +7,12 @@ class Log{
     bool IsAdminLog = false;
     int CorrectAnswers = 0;
     double UserScore = 0;
-
+    
     vector<Question> QuizQuestions;
     vector<string> Answers;
     vector<double> QuestionScores;
-
-  public:
     Log(){};
     ~Log(){};
-    friend Log ViewLog(const Log &);
 };
 
 
@@ -28,7 +25,6 @@ class PlayerLog: public Log{
       QuestionScores = CurrentQuiz.QuestionScores;
       CorrectAnswers = CurrentQuiz.CorrectAnswers;
       IsAdminLog = false;
-      
     }
 
     // DisplayLog(){

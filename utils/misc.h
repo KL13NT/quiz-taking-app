@@ -12,6 +12,10 @@ string FormatQuestionTitle(const string &QuestionTitle){
 	return std::regex_replace (QuestionTitle, std::regex("\\s?\\?"), "");
 }
 
+// Leaves only numbers
+string StringToNumbers(string StringToReplace){
+	return std::regex_replace (StringToReplace, std::regex("[^0-9]"), "");
+}
 
 // Checks whether the question is a duplicate
 bool IsDuplicateQuestion(const string &Title){
