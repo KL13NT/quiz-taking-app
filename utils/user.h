@@ -25,7 +25,6 @@ void CreateNewUser(){
 	if(IsFirstRun) {
 		cout << "This is the first run, registering new admin.\n";
 		Type = "admin";
-		IsFirstRun = false;
 	}
 	else Type = StringToLowerCase(GetUserInput("Account Type [admin, player]"));
 
@@ -44,7 +43,7 @@ void CreateNewUser(){
 			while(IsDuplicateUser(Username)) {
 				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one.\nUsername [case-insensitive]"));
 			}
-
+			IsFirstRun = false;
 			Users.push_back(User(FirstName, LastName, Username, Password,  Type == "admin"));
 		}
 	else {

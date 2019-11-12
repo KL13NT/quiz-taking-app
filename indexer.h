@@ -1,6 +1,13 @@
 #ifndef INDEXER_H
 #define INDEXER_H
 
+
+class Question;
+class User;
+class CompleteQuestion;
+class TFQuestion;
+class MCQQuestion;
+
 // All function definitions
 void ReadFromFile(string);
 void GetFileNameFromUser();

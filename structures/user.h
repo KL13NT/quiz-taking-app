@@ -12,24 +12,26 @@ class User {
 		string LastName = "";
 		string Username = "";
 		string Password = "";
-		
-		vector<Log> Logs = {};
-		int HighestScore = 0;
-		int LowestScore = 0;
-		int QuizzesTaken = 0;
-		double AvgScore = 0;
 
-		int MCQuestionCount = 0;
-		int TFQuestionCount = 0;
-		int CompleteQuestionCount = 0;
-		double GradePerMCQ = 0;
-		double GradePerTFQuestion = 0;
-		double GradePerCompleteQuestion = 0;
+		// logs
+		vector<Log> Logs = {};
+		int QuizzesTaken = 0;
+		double HighestQuizScore = 0;
+		double LowestQuizScore = 0;
+		double AvgQuizScore = 0;
+
+		// quiz fields
+		int MCQCount = 0;
+		int TFCount = 0;
+		int CompleteCount = 0;
+		double AvgMCQScore = 0;
+		double AvgTFScore = 0;
+		double AvgCompleteScore = 0;
 
 		User(){};
 		~User(){};
 		User(string FirstNameInput, string LastNameInput, string UsernameInput, string PasswordInput, bool IsAdminInput){
-			FirstName = FirstNameInput;	
+			FirstName = FirstNameInput;
 			LastName = LastNameInput;
 			Username = UsernameInput;
 			Password = PasswordInput;
@@ -43,29 +45,10 @@ class User {
 				Password = NewPassword;
 		}
 
-		void operator = (const User &ToEqual){
-			IsAdmin = ToEqual.IsAdmin;
-			FirstName = ToEqual.FirstName;
-			LastName = ToEqual.LastName;
-			Username = ToEqual.Username;
-			Password = ToEqual.Password;
-			Logs = ToEqual.Logs;
-			HighestScore = ToEqual.HighestScore;
-			LowestScore = ToEqual.LowestScore;
-			QuizzesTaken = ToEqual.QuizzesTaken;
-			AvgScore = ToEqual.AvgScore;
-			MCQuestionCount = ToEqual.MCQuestionCount;
-			TFQuestionCount = ToEqual.TFQuestionCount;
-			CompleteQuestionCount = ToEqual.CompleteQuestionCount;
-			GradePerMCQ = ToEqual.GradePerMCQ;
-			GradePerTFQuestion = ToEqual.GradePerTFQuestion;
-			GradePerCompleteQuestion = ToEqual.GradePerCompleteQuestion;
-		}
-
 		bool operator == (const User &ToEqual){
 			return ToEqual.Username == Username;
 		}
-		
+
 		void DisplayInfo(){
 			string IsAdminString = IsAdmin? "Admin\n": "Player\n";
 			cout << "Full Name: " << FirstName << " " << LastName << "\n";
@@ -76,16 +59,44 @@ class User {
 		void DisplayUserStatistics(const User & CurrentUser){
 			cout << "Your score statistics per quiz:" << std::endl;
 			cout << "		-Number of quizzes taken: " << CurrentUser.QuizzesTaken << std::endl;
-			cout << "		-Highest quiz score: " << CurrentUser.HighestScore << std::endl;
-			cout << "		-Lowest quiz score: " << CurrentUser.LowestScore << std::endl;
-			cout << "		-Average quiz score: " << CurrentUser.AvgScore << std::endl;
+			cout << "		-Highest quiz score: " << CurrentUser.HighestQuizScore << std::endl;
+			cout << "		-Lowest quiz score: " << CurrentUser.LowestQuizScore << std::endl;
+			cout << "		-Average quiz score: " << CurrentUser.AvgQuizScore << std::endl;
 			cout << "Your score statistics per question type:" <<std::endl;
-			cout << "		-Number of MC questions: " << CurrentUser.MCQuestionCount << std::endl;
-			cout << "		-Number of complete questions: " << CurrentUser.CompleteQuestionCount << std::endl;
-			cout << "		-Number of T/F questions: " << CurrentUser.TFQuestionCount << std::endl;
-			cout << "		-Average grade for MC questions: " << CurrentUser.GradePerMCQ << std::endl;
-			cout << "		-Average grade for Complete questions: " << CurrentUser.GradePerCompleteQuestion << std::endl;
-			cout << "		-Average grade for T/F questions: " << CurrentUser.GradePerTFQuestion << std::endl;
+			cout << "		-Number of MC questions: " << CurrentUser.MCQCount << std::endl;
+			cout << "		-Number of complete questions: " << CurrentUser.CompleteCount << std::endl;
+			cout << "		-Number of T/F questions: " << CurrentUser.TFCount << std::endl;
+			cout << "		-Average grade for MC questions: " << CurrentUser.AvgMCQScore << std::endl;
+			cout << "		-Average grade for T/F questions: " << CurrentUser.AvgTFScore << std::endl;
+			cout << "		-Average grade for Complete questions: " << CurrentUser.AvgCompleteScore << std::endl;
+		}
+
+		void UpdateQuizData(Quiz CurrentQuiz){
+			// Averages
+			AvgMCQScore = ((AvgMCQScore * MCQCount) + (CurrentQuiz.MCQScore * 2)) / (CurrentQuiz.MCQCount + MCQCount);
+			AvgTFScore = ((AvgTFScore * TFCount) + CurrentQuiz.TFScore) / (CurrentQuiz.TFCount + MCQCount);
+			AvgCompleteScore = ((AvgCompleteScore * CurrentQuiz.CompleteCount) + (CurrentQuiz.CompleteScore * 3)) / (CurrentQuiz.CompleteCount + CompleteCount);
+			AvgQuizScore = ((AvgQuizScore * QuizzesTaken) + CurrentQuiz.UserScore) / (QuizzesTaken + 1);
+
+			// Question Counters
+			MCQCount += CurrentQuiz.MCQCount;
+			TFCount += CurrentQuiz.TFCount;
+			CompleteCount += CurrentQuiz.CompleteCount;
+
+			// Quiz scores
+			HighestQuizScore =
+				CurrentQuiz.CorrectAnswers > HighestQuizScore
+				? CurrentQuiz.CorrectAnswers
+				: HighestQuizScore;
+
+			LowestQuizScore =
+				LowestQuizScore == 0 && QuizzesTaken == 0
+					? CurrentQuiz.CorrectAnswers
+					: CurrentQuiz.CorrectAnswers < LowestQuizScore && LowestQuizScore > 0
+						? CurrentQuiz.CorrectAnswers
+						: LowestQuizScore;
+
+			QuizzesTaken += 1;
 		}
 
 		//TODO: Move this outside of structures. Structures are pure and shouldn't depend on utils. Move this to Users utilities

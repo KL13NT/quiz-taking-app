@@ -30,6 +30,7 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 	return StringToLowerCase(Answer) == StringToLowerCase(CurrentQuestion.CorrectChoice);
 }
 
+
 string ParseTFAnswer(const string &Answer){
 	if(Answer == "f" || Answer == "false") return "FALSE";
 	else if(Answer == "t" || Answer == "true") return "TRUE";

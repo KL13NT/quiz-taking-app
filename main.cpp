@@ -23,11 +23,11 @@ using std::cout;
 using std::endl;
 
 // Definitions reference
-#include "structures/index.h"
+#include "indexer.h"
 
 // Function definitions
+#include "structures/index.h"
 #include "globals.h"
-#include "indexer.h"
 
 // custom methods
 #include "utils/index.h"
@@ -39,9 +39,9 @@ int main() {
 	ReadFromFile("exam2_questions.txt");
 
 
-	// MainMenu();
+	MainMenu();
 	// AdminMenu();
-	StartNewQuiz();
+	// StartNewQuiz();
 
 
 	return 0;

@@ -1,41 +1,43 @@
 #ifndef QUIZ_UTILS_H
 #define QUIZ_UTILS_H
 
+double MCQCount = 0.4 * QUIZ_QUESTIONS_COUNT;
+double TFCount = 0.4 * QUIZ_QUESTIONS_COUNT;
+double CompleteCount = 0.2 * QUIZ_QUESTIONS_COUNT;
+
 // Generates the after-quiz report
 void GenerateAfterQuizReport(int CorrectAnswers) {
 	cout << "You answered " << CorrectAnswers << "/" << QUIZ_QUESTIONS_COUNT << " questions correctly.\n";
 }
 
-
-// Updates user profile
-// void UpdateProfileAfterQuiz(int CorrectAnswers) {
-// 	User NewProfile = UserProfile;
-// 	NewProfile.HighestScore =
-// 		CorrectAnswers > UserProfile.HighestScore
-// 		? CorrectAnswers
-// 		: UserProfile.HighestScore;
-
-// 	NewProfile.LowestScore =
-// 		UserProfile.LowestScore == 0 && UserProfile.QuizzesTakenCount == 0
-// 		? CorrectAnswers
-// 		: CorrectAnswers < UserProfile.LowestScore && UserProfile.LowestScore > 0
-// 		? CorrectAnswers
-// 		: UserProfile.LowestScore;
-
-// 	NewProfile.QuizzesTaken += 1;
-// 	NewProfile.Scores.push_back(CorrectAnswers);
-// 	NewProfile.AvgScore = std::accumulate(NewProfile.Scores.begin(), NewProfile.Scores.end(), 0.0) / (float)NewProfile.Scores.size();
-
-// 	UserProfile = NewProfile;
-// }
-
-
-
-// Generates quiz questions by randomly filling an already created GeneratedQuestions array
-void GenerateQuizQuestions(vector<Question> &GeneratedQuestions) {
+// Generates quiz questions by randomly filling an already created CurrentQuiz.QuizQuestions array
+void GenerateQuizQuestions(Quiz &CurrentQuiz) {
 	ShuffleQuestionPool();
-	for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
-		GeneratedQuestions.push_back(QuestionPool[QuestionPoolIndices[i]]);
+
+	double GeneratedMCQ = 0;
+	double GeneratedTF = 0;
+	double GeneratedComplete = 0;
+
+	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
+		if(GeneratedMCQ < MCQCount || GeneratedTF < TFCount || GeneratedComplete < CompleteCount){
+			bool IsValid = false;
+
+			if(QuestionPool[QuestionPoolIndices[i]].Type == "MCQ" && GeneratedMCQ < MCQCount){
+				IsValid = true;
+				GeneratedMCQ += 1;
+			}
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "TF" && GeneratedTF < TFCount){
+				IsValid = true;
+				GeneratedTF += 1;
+			}
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "COMPLETE" && GeneratedComplete < CompleteCount){
+				IsValid = true;
+				GeneratedComplete += 1;
+			}
+
+			if(IsValid) CurrentQuiz.QuizQuestions.push_back(QuestionPool[QuestionPoolIndices[i]]);
+		}
+		else break;
 	}
 }
 
@@ -55,16 +57,7 @@ bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 }
 
 // Check whether answer is valid before checking its value
-bool CheckUserAnswer(const Question &CurrentQuestion){
-	string UserAnswer = StringToLowerCase(GetUserInput("Answer"));
-
-	// Makes sure input is as it's supposed to be as one of the following: [a, b, c, d, t, f, true, false, string with length bigger than 0]
-	while(!VerifyAnswer(CurrentQuestion, UserAnswer)){
-		cout << "That answer doesn't seem to be valid. Try again.\n";
-		UserAnswer = StringToLowerCase(GetUserInput("Answer"));
-		cout << "\n" << UserAnswer << "\n";
-	}
-
+bool CheckUserAnswer(const Question &CurrentQuestion, string &UserAnswer){
 	if(CurrentQuestion.Type == "MCQ"){
 		string Answers[4] = {
 			CurrentQuestion.CorrectChoice,
@@ -111,37 +104,67 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 		for (int i = 0; i < 4; i++) {
 			cout << IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
 		}
-		
+
 		cout << endl;
 	}
 }
 
+void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &CurrentQuestion){
+	if(CurrentQuestion.Type == "MCQ") {
+		if(IsCorrectAnswer){
+			CurrentQuiz.MCQScore = CurrentQuiz.MCQScore + 2;
+			CurrentQuiz.UserScore += 2;
+		}
+		CurrentQuiz.QuestionScores.push_back(IsCorrectAnswer? 2: 0);
+		CurrentQuiz.MCQCount += 1;
+	}
+	else if(CurrentQuestion.Type == "TF") {
+		if(IsCorrectAnswer){
+			CurrentQuiz.TFScore = CurrentQuiz.TFScore + 1;
+			CurrentQuiz.UserScore += 1;
+		}
+		CurrentQuiz.QuestionScores.push_back(IsCorrectAnswer? 1: 0);
+		CurrentQuiz.TFCount += 1;
+	}
+	else if(CurrentQuestion.Type == "COMPLETE") {
+		if(IsCorrectAnswer){
+			CurrentQuiz.CompleteScore = CurrentQuiz.CompleteScore + 3;
+			CurrentQuiz.UserScore += 3;
+		}
+		CurrentQuiz.QuestionScores.push_back(IsCorrectAnswer? 3: 0);
+		CurrentQuiz.CompleteCount += 1;
+	}
+
+	if(IsCorrectAnswer) CurrentQuiz.CorrectAnswers += 1;
+}
+
 // Starts a new quiz
 void StartNewQuiz() {
-	vector<Question> GeneratedQuestions;
-
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
-		int CorrectAnswers = 0;
-		int MCQScore = 0;
-		int TFScore = 0;
-		int CompleteScore = 0;
-		
-		GenerateQuizQuestions(GeneratedQuestions);
+		Quiz CurrentQuiz;
+
+		GenerateQuizQuestions(CurrentQuiz);
+		CurrentQuiz.HighestPossibleScore = (MCQCount * 2) + TFCount + (CompleteCount * 3);
 
 		for (int i = 0; i < QUIZ_QUESTIONS_COUNT; i++) {
-			QuizDisplayQuestion(GeneratedQuestions[i], i);
+			QuizDisplayQuestion(CurrentQuiz.QuizQuestions[i], i);
 
-			bool IsCorrectAnswer = CheckUserAnswer(GeneratedQuestions[i]);
-			
-			if(IsCorrectAnswer) {
-				if(GeneratedQuestions[i].Type == "MCQ") MCQScore += 1;
-				else if(GeneratedQuestions[i].Type == "TF") TFScore += 1;
-				else if(GeneratedQuestions[i].Type == "COMPLETE") CompleteScore += 1;
-				
-				CorrectAnswers += 1;
+			string UserAnswer = StringToLowerCase(GetUserInput("Answer"));
+			// Makes sure input is as it's supposed to be as one of the following:
+			// [a, b, c, d, t, f, true, false, string with length bigger than 0]
+			while(!VerifyAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer)){
+				cout << "That answer doesn't seem to be valid. Try again.\n";
+				UserAnswer = StringToLowerCase(GetUserInput("Answer"));
 			}
-			else cout << "Wrong answer\n DEBUGGING\n";
+
+			CurrentQuiz.Answers.push_back(UserAnswer);
+			
+			bool IsCorrectAnswer = CheckUserAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer);
+
+			CalculateQuizScores(CurrentQuiz, IsCorrectAnswer, CurrentQuiz.QuizQuestions[i]);
 		}
+
+		UserProfile -> UpdateQuizData(CurrentQuiz);
 
 	}
 	else {

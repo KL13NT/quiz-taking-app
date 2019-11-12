@@ -163,9 +163,10 @@ void Login(){
 			cout << "User found.\n";
 
 			UserProfile = &CurrentUser;
+			IsLoggedin = true;
 			Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + ". You are an admin.";
 			
-			return CurrentUser.IsAdmin? AdminMenu(): PlayerMenu();
+			return CurrentUser.IsAdmin? AdminMenu(): StartNewQuiz();
 		}
 	}
   cout << "User not found. Try again.\n";
@@ -175,7 +176,7 @@ void Login(){
 void MainMenu(){
 	if(Users.size() == 0) {
 		CreateNewUser();
-		MainMenu();
+		return MainMenu();
 	}
 	else if(Users.size() > 0 && IsLoggedin) return UserProfile -> IsAdmin? AdminMenu(): PlayerMenu();
 	else if(Users.size() > 0 && !IsLoggedin) return Login();

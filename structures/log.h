@@ -24,14 +24,21 @@ class PlayerLog: public Log{
   private:
     int TotalScore;
     int UserScore;
+    int CorrectAnswers;
     vector<Question> QuizQuestions;
     vector<string> Answers;
+    vector<double> QuestionScores;
+  
   public:
-    PlayerLog(vector<Question> Questions, int TotalScoreInput, int UserScore, vector<string> Answers){
+    PlayerLog(vector<Question> Questions, int TotalScoreInput, int UserScoreInput, vector<string> UserAnswers){
       TotalScore = TotalScoreInput;
-      UserScore = UserScore;
       QuizQuestions = Questions;
-      Answers = Answers;
+      UserScore = UserScoreInput;
+      Answers = UserAnswers;
+    }
+
+    DisplayLog(){
+      
     }
 };
 

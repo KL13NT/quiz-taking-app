@@ -1,7 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-
+// QUIZ_QUESTIONS_COUNT should be 5 or its multipliers (10, 15, 20)
 const int QUIZ_QUESTIONS_COUNT = 5;
 int POOL_QUESTIONS_COUNT = 0;
 
