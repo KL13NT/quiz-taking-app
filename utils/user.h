@@ -57,8 +57,11 @@ void UpdateAccountDetails(){
 	string lastname = GetUserInput("New lastname");
 	string username = GetUserInput("New username");
 	string password = GetUserInput("New password");
+	
 	UserProfile -> UpdateUserData(firstname, lastname, username, password);
 	cout << "Data updated successfully\n\n";
+	
+	Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + (UserProfile -> IsAdmin? ". You're an admin.": ". You're a player.");
 }
 
 
