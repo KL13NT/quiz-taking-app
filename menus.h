@@ -58,7 +58,7 @@ void QuestionsMenuHandler() {
 
 	if (Type == 'b') return;
 	else if (Type == 'd') {
-		int QuestionIndex = std::stoi(UserChoice.substr(2));
+		int QuestionIndex = std::stoi(StringToNumbers(UserChoice.substr(2)));
 
 		while(!(POOL_QUESTIONS_COUNT >= QuestionIndex)){
 			QuestionIndex = std::stoi(GetUserInput("No question with this ID exists. Try again.\nYour choice").substr(2));
@@ -120,7 +120,10 @@ void DisplayAllUsers(){
 
 void DisplayDetailsOfLastQuizzes(){
 	cout << MakeHeader("Quizzes log", 20);
-	string UserInput = StringToNumbers(GetUserInput("How many quizzes would you like to view?"));
+	string UserInput = StringToNumbers(GetUserInput("How many quizzes would you like to view?\nNumber"));
+	
+	while(UserInput.length() == 0) return DisplayDetailsOfLastQuizzes();
+
 	int Input = std::stoi(UserInput);
 
 	if(Input > 0) {

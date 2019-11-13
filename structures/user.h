@@ -57,12 +57,12 @@ class User {
 		}
 
 		void DisplayUserStatistics(){
-			cout << IndentString("Your score statistics per quiz: ", 1) << std::endl;
+			cout << MakeHeader("Score Statistics", 30);
 			cout << IndentString("-Number of quizzes taken: ", 1) << QuizzesTaken << std::endl;
 			cout << IndentString("-Highest quiz score: ", 1) << HighestQuizScore << std::endl;
 			cout << IndentString("-Lowest quiz score: ", 1) << LowestQuizScore << std::endl;
 			cout << IndentString("-Average quiz score: ", 1) << AvgQuizScore << std::endl;
-			cout << IndentString("Your score statistics per question type:", 1) <<std::endl;
+			cout << MakeHeader("Your score statistics per question type", 40);
 			cout << IndentString("-Number of MC questions: ", 1) << MCQCount << std::endl;
 			cout << IndentString("-Number of complete questions: ", 1) << CompleteCount << std::endl;
 			cout << IndentString("-Number of T/F questions: ", 1) << TFCount << std::endl;
@@ -98,22 +98,6 @@ class User {
 
 			QuizzesTaken += 1;
 		}
-
-		//TODO: Move this outside of structures. Structures are pure and shouldn't depend on utils. Move this to Users utilities
-		// void UpdateYourName(){
-		// 	FirstName = GetUserInput("Please Enter Your New First Name: ");
-		// 	LastName = GetUserInput("Please Enter Your New Last Name: ");
-		// }
 };
-
-
-// Displays user scores
-//void DisplayScores() {
-//	for (int i = 0; i < UserProfile.QuizzesTakenCount; i++) cout << "Quiz [" << i + 1 << "] >> " << UserProfile.Scores[i] << "/" << QUIZ_QUESTIONS_COUNT << "\n";
-//
-//	cout << "\nEnter [b] to go back to the main menu\nEnter [e] to exit\n";
-//	if (GetUserInput("Your choice") == "b") MainMenu();
-//}
-
 
 #endif
