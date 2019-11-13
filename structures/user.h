@@ -38,7 +38,7 @@ class User {
 			IsAdmin = IsAdminInput;
 		}
 
-		void UpdateUserData(std::string NewFirstname, std::string NewLastname, std::string NewUsername, std::string NewPassword){
+		void UpdateUserData(string NewFirstname, string NewLastname, string NewUsername, string NewPassword){
 				FirstName = NewFirstname;
 				LastName = NewLastname;
 				Username = NewUsername;
@@ -58,17 +58,17 @@ class User {
 
 		void DisplayUserStatistics(){
 			cout << MakeHeader("Score Statistics", 30);
-			cout << IndentString("-Number of quizzes taken: ", 1) << QuizzesTaken << std::endl;
-			cout << IndentString("-Highest quiz score: ", 1) << HighestQuizScore << std::endl;
-			cout << IndentString("-Lowest quiz score: ", 1) << LowestQuizScore << std::endl;
-			cout << IndentString("-Average quiz score: ", 1) << AvgQuizScore << std::endl;
+			cout << IndentString("-Number of quizzes taken: ", 1) << QuizzesTaken << endl;
+			cout << IndentString("-Highest quiz score: ", 1) << HighestQuizScore << endl;
+			cout << IndentString("-Lowest quiz score: ", 1) << LowestQuizScore << endl;
+			cout << IndentString("-Average quiz score: ", 1) << AvgQuizScore << endl;
 			cout << MakeHeader("Your score statistics per question type", 40);
-			cout << IndentString("-Number of MC questions: ", 1) << MCQCount << std::endl;
-			cout << IndentString("-Number of complete questions: ", 1) << CompleteCount << std::endl;
-			cout << IndentString("-Number of T/F questions: ", 1) << TFCount << std::endl;
-			cout << IndentString("-Average grade for MC questions: ", 1) << AvgMCQScore << std::endl;
-			cout << IndentString("-Average grade for T/F questions: ", 1) << AvgTFScore << std::endl;
-			cout << IndentString("-Average grade for Complete questions: ", 1) << AvgCompleteScore << std::endl;
+			cout << IndentString("-Number of MC questions: ", 1) << MCQCount << endl;
+			cout << IndentString("-Number of complete questions: ", 1) << CompleteCount << endl;
+			cout << IndentString("-Number of T/F questions: ", 1) << TFCount << endl;
+			cout << IndentString("-Average grade for MC questions: ", 1) << AvgMCQScore << "/2\n";
+			cout << IndentString("-Average grade for T/F questions: ", 1) << AvgTFScore << "/1\n";
+			cout << IndentString("-Average grade for Complete questions: ", 1) << AvgCompleteScore << "/3\n";
 		}
 
 		void UpdateQuizData(Quiz CurrentQuiz){
