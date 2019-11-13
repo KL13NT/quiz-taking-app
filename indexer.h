@@ -36,7 +36,7 @@ void SwitchAccount();
 void ShuffleQuestionPool();
 void ShuffleAnswers();
 void DisplayAllUsers();
-
+void DisplayScores();
 
 bool CheckCurrentQuestionPoolSize(int);
 bool CheckAnswerValidity(const Question &, const string &);

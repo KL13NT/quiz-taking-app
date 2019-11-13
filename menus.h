@@ -126,11 +126,11 @@ void DisplayDetailsOfLastQuizzes(){
 	if(Input > 0) {
 		if((int) UserProfile -> Logs.size() >= Input){
 			cout << MakeHeader("Viewing last " + UserInput + " quizzes", 40);
-			
+
 			for(int i = 0; i < Input; i++){
 				Log *CurrentLog = &(UserProfile -> Logs[i]);
 				cout << "Your total score in this quiz is: " << CurrentLog -> UserScore << "/" << HighestPossibleScore << "\n";
-				
+
 				DisplayLog(UserProfile -> Logs[i]);
 			}
 		}
@@ -165,7 +165,7 @@ void PlayerMenu(){
 		UserProfile -> DisplayUserStatistics();
     break;
 	case 4:
-		// DisplayScores();
+		DisplayScores();
     break;
 	case 5:
 		UpdateAccountDetails();
@@ -199,6 +199,26 @@ void Login(){
 	}
   cout << "User not found. Try again.\n";
   return Login();
+}
+
+void DisplayScores(){
+	const int QuizzesTaken = UserProfile -> QuizzesTaken;
+	const vector<Log> Logs = UserProfile -> Logs;
+	const string IsPlural = QuizzesTaken == 1? " quiz.\n" : " quizzes.\n";
+
+	cout << MakeHeader("Scores", 20);
+	cout << "The total number of quizzes you took is: " << QuizzesTaken << IsPlural;
+	
+	if((int) Logs.size() == 0) {
+		cout << "You haven't taken any quizzes yet. Go try out a quiz and try again.\n";
+		return;
+	}
+
+	for(int i = 0; i < (int) (Logs).size(); i++){
+		cout << "Quiz " << i + 1 << "\n";
+		cout << IndentString("Correct answers: ", 1) << Logs[i].CorrectAnswers << "\n";
+		cout << IndentString("Your score: ", 1) << Logs[i].UserScore << "/" << HighestPossibleScore << "\n";
+	}
 }
 
 void MainMenu(){

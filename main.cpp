@@ -12,8 +12,7 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unordered_set> 
-#include <numeric> //accumulate
+#include <unordered_set>
 
 using std::string;
 using std::vector;
@@ -25,12 +24,16 @@ using std::endl;
 // Definitions reference
 #include "indexer.h"
 
-// Function definitions
+// Structures
 #include "structures/index.h"
+
+// Globals
 #include "globals.h"
 
-// custom methods
+// Utilities and methods
 #include "utils/index.h"
+
+// Menus
 #include "menus.h"
 
 
@@ -40,8 +43,6 @@ int main() {
 
 
 	MainMenu();
-	// AdminMenu();
-	// StartNewQuiz();
 
 
 	return 0;
