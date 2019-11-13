@@ -119,26 +119,28 @@ void DisplayAllUsers(){
 }
 
 void DisplayDetailsOfLastQuizzes(){
+	vector<Log> Logs = UserProfile -> Logs;
+
 	cout << MakeHeader("Quizzes log", 20);
 	string UserInput = StringToNumbers(GetUserInput("How many quizzes would you like to view?\nNumber"));
-	
+
 	while(UserInput.length() == 0) return DisplayDetailsOfLastQuizzes();
 
 	int Input = std::stoi(UserInput);
 
 	if(Input > 0) {
-		if((int) UserProfile -> Logs.size() >= Input){
+		if((int) Logs.size() >= Input){
 			cout << MakeHeader("Viewing last " + UserInput + " quizzes", 40);
 
-			for(int i = 0; i < Input; i++){
-				Log *CurrentLog = &(UserProfile -> Logs[i]);
+			for(int i = (int) Logs.size() - 1; i > (((int) Logs.size() - 1) - Input); i--){
+				Log *CurrentLog = &(Logs[i]);
 				cout << "Your total score in this quiz is: " << CurrentLog -> UserScore << "/" << HighestPossibleScore << "\n";
 
-				DisplayLog(UserProfile -> Logs[i]);
+				DisplayLog(Logs[i]);
 			}
 		}
 		else {
-			cout << "Not enough quizzes for your query. The number of available quizzes is: " << (int) UserProfile -> Logs.size() << "\n";
+			cout << "Not enough quizzes for your query. The number of available quizzes is: " << (int) Logs.size() << "\n";
 		}
 	}
 	else {
@@ -211,7 +213,7 @@ void DisplayScores(){
 
 	cout << MakeHeader("Scores", 20);
 	cout << "The total number of quizzes you took is: " << QuizzesTaken << IsPlural;
-	
+
 	if((int) Logs.size() == 0) {
 		cout << "You haven't taken any quizzes yet. Go try out a quiz and try again.\n";
 		return;

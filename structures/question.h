@@ -8,7 +8,7 @@ using std::string;
 
 class Question {
 public:
-  const static int Weight = 1;
+  int Weight = 0;
   string Title = "";
   string Type = "";
   string CorrectChoice = "";
@@ -33,7 +33,7 @@ public:
 
 class MCQQuestion : public Question {
 public:
-  const static int Weight = 2;
+  int Weight = 2;
   MCQQuestion(string TitleInput, string CC, string C2, string C3, string C4, int IDInput): Question("MCQ") {
     Title = TitleInput;
     CorrectChoice = CC;
@@ -46,7 +46,7 @@ public:
 
 class CompleteQuestion : public Question {
 public:
-  const static int Weight = 3;
+  int Weight = 3;
   CompleteQuestion(string TitleInput, string CC, int IDInput) : Question("COMPLETE") {
     Title = TitleInput;
     CorrectChoice = CC;
@@ -56,7 +56,7 @@ public:
 
 class TFQuestion : public Question {
 public:
-  const static int Weight = 1;
+  int Weight = 1;
   TFQuestion(string TitleInput, string CC, int IDInput) : Question("TF") {
     Title = TitleInput;
     ID = IDInput;
