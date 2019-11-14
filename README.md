@@ -17,13 +17,18 @@ A quiz app with the following features:
 ## Contents
 
 -   [Prerequisites](#Prerequisites)
+
 -   [Behaviour](#Behaviour)
     -   [Structure](#Structure)
     -   [How it all comes together](#How-it-all-comes-together)
+
 -   [Development Environment](#Development-Environment)
     -   [Testing](#Testing)
+
 -   [V2](#V2)
+
 -   [Contributing](#Contributing)
+
 -   [Contributors](#Contributors)
 
 ## Prerequisites
@@ -66,7 +71,8 @@ Utilities:
 
 ## V2
 
-> In development
+> In development 
+
 
 > Version 2.0.0 is underway. This will include whole new structure and an enhanced, performant search algorithm. It'll also include a collection of new features such as multiple users with different account types. 
 
