@@ -1,4 +1,5 @@
 # quiz-taking-app
+
 A quiz app with the following features: 
 - Load questions from file
 - Add question using the program
@@ -8,29 +9,34 @@ A quiz app with the following features:
 - Error handling
 - Ability to see all scores and score statistics
 
-# Contents
+## Contents
 - [Prerequisites](#Prerequisites)
+
 - [Behaviour](#Behaviour)
   - [Structure](#Structure)
   - [How it all comes together](#How-it-all-comes-together)
+
 - [Development Environment](#Development-Environment)
   - [Testing](#Testing)
+
 - [V2](#V2)
 - [Contributing](#Contributing)
 - [Contributors](#Contributors)
 
-# Prerequisites
+## Prerequisites
 Compiler: A GNU-based compiler
 Compiler lang support: C++11
 
-# Behaviour
+## Behaviour
 > This section describes how the program operates and how its structure comes together.
-  ## Structure
-  ## How it all comes together
+  
+### Structure
 
-# Development Environment
-  - Codacy: For code style analysis
-  - Testing: We're still searching for a testing framework/platform to use. 
+### How it all comes together
+
+## Development Environment
+- Codacy: For code style analysis
+- Testing: We're still searching for a testing framework/platform to use. 
 
 ## V2
 > In development
@@ -44,6 +50,6 @@ Any addition or improvement is welcome. We're by no means experts at C++ and hav
 
 [@shaarawy962](https://github.com/shaarawy962)
 
-[@AmrSamy19](https://github.com/AmrSamy19]
+[@AmrSamy19](https://github.com/AmrSamy19)
 
 Omar Mostafa
