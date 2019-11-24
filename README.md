@@ -71,9 +71,8 @@ Utilities:
 
 ## V2
 
-> In development 
-
-
+> In development
+>
 > Version 2.0.0 is underway. This will include whole new structure and an enhanced, performant search algorithm. It'll also include a collection of new features such as multiple users with different account types. 
 
 ## Contributing
