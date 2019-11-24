@@ -26,6 +26,7 @@ string FormatQuestionTitle(const string &);
 string MakeHeader(const string &ToPrint, int multiplier);
 string ParseTFAnswer(const string &);
 string StringToNumbers(string);
+string GetMCQChoice(const Question &, string &);
 
 // All function definitions
 void ReadFromFile(string);

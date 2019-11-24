@@ -1,6 +1,8 @@
 #ifndef MISC_H
 #define MISC_H
 
+// All functions in this file are included in the indexer
+
 #include <string>
 #include <regex>
 

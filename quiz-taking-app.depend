@@ -33,16 +33,15 @@
 
 1574594422 d:\workspace\college\oop\quiz-taking-app\globals.h
 
-1574615696 d:\workspace\college\oop\quiz-taking-app\indexer.h
+1574618360 d:\workspace\college\oop\quiz-taking-app\indexer.h
 
-1574594163 d:\workspace\college\oop\quiz-taking-app\utils\index.h
+1574618982 d:\workspace\college\oop\quiz-taking-app\utils\index.h
 	"io.h"
 	"string.h"
 	"question.h"
 	"file.h"
 	"quiz.h"
 	"user.h"
-	"misc.h"
 	"log.h"
 
 1574594163 d:\workspace\college\oop\quiz-taking-app\utils\io.h
@@ -61,11 +60,11 @@
 	<fstream>
 	<string>
 
-1574615679 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
+1574618616 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
 
 1574594163 d:\workspace\college\oop\quiz-taking-app\utils\user.h
 
-1574615679 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
+1574616441 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
 	<string>
 	<regex>
 
@@ -397,7 +396,7 @@
 	"catch.hpp"
 	"../utils/io.h"
 
-1574615474 d:\workspace\college\oop\quiz-taking-app\tests\misc.test.cpp
+1574618626 d:\workspace\college\oop\quiz-taking-app\tests\misc.test.cpp
 	<string>
 	<iostream>
 	"catch.hpp"
@@ -475,4 +474,8 @@
 1574091938 c:\users\tito5\quiz-taking-app\menus.h
 	<sstream>
 	<string>
+
+1574618810 d:\workspace\college\oop\quiz-taking-app\utils\misc.cpp
+	<string>
+	<regex>
 
