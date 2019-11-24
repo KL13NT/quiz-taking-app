@@ -122,6 +122,14 @@ void DisplayDetailsOfLastQuizzes(){
 	vector<Log> Logs = UserProfile -> Logs;
 
 	cout << MakeHeader("Quizzes log", 20);
+
+	// To avoid taking input when there are no quizzes at all
+	if((int) Logs.size() == 0) {
+		cout << "No available quizzes found for this account. Try starting a new quiz.\n";
+		return;
+	}
+
+	cout << "Number of available quizzes: " << (int) Logs.size() << "\n\n";
 	string UserInput = StringToNumbers(GetUserInput("How many quizzes would you like to view?\nNumber"));
 
 	while(UserInput.length() == 0) return DisplayDetailsOfLastQuizzes();

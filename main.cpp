@@ -39,11 +39,11 @@ using std::endl;
 
 
 int main() {
+	cout << MakeHeader("Welcome to Quizzy", 20);
+
 	ReadFromFile("exam2_questions.txt");
 
-
 	MainMenu();
-
 
 	return 0;
 }
