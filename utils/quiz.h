@@ -11,25 +11,25 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 void GenerateQuizQuestions(Quiz &CurrentQuiz) {
 	ShuffleQuestionPool();
 
-	double GeneratedMCQ = 0;
-	double GeneratedTF = 0;
-	double GeneratedComplete = 0;
+	double GeneratedMCQCount = 0;
+	double GeneratedTFCount = 0;
+	double GeneratedCompleteCount = 0;
 
 	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-		if(GeneratedMCQ < MCQCount || GeneratedTF < TFCount || GeneratedComplete < CompleteCount){
+		if(GeneratedMCQCount < MCQCount || GeneratedTFCount < TFCount || GeneratedCompleteCount < CompleteCount){
 			bool IsValid = false;
 
-			if(QuestionPool[QuestionPoolIndices[i]].Type == "MCQ" && GeneratedMCQ < MCQCount){
+			if(QuestionPool[QuestionPoolIndices[i]].Type == "MCQ" && GeneratedMCQCount < MCQCount){
 				IsValid = true;
-				GeneratedMCQ += 1;
+				GeneratedMCQCount += 1;
 			}
-			else if(QuestionPool[QuestionPoolIndices[i]].Type == "TF" && GeneratedTF < TFCount){
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "TF" && GeneratedTFCount < TFCount){
 				IsValid = true;
-				GeneratedTF += 1;
+				GeneratedTFCount += 1;
 			}
-			else if(QuestionPool[QuestionPoolIndices[i]].Type == "COMPLETE" && GeneratedComplete < CompleteCount){
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "COMPLETE" && GeneratedCompleteCount < CompleteCount){
 				IsValid = true;
-				GeneratedComplete += 1;
+				GeneratedCompleteCount += 1;
 			}
 
 			if(IsValid) CurrentQuiz.QuizQuestions.push_back(QuestionPool[QuestionPoolIndices[i]]);

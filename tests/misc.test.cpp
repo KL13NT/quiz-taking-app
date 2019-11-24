@@ -203,3 +203,17 @@ SCENARIO( "MakeHeader" ){
     }
   }
 }
+
+SCENARIO( "StringIsEqual/IgnoreCase" ){
+  string Test1Upper = "TEST1";
+  string Test1Lower = "test1";
+  string Test1Diff = "different";
+
+  WHEN("passing two identical strings but different in case to StringIsEqualIgnoreCase"){
+    THEN("should return true"){
+      REQUIRE(StringIsEqualIgnoreCase(Test1Upper, Test1Lower) == true);
+    }
+  }
+  // WHEN("passing two identical strings ")
+  //   THEN("should ")REQUIRE(StringIsEqualIgnoreCase(Test1Upper) == StringIsEqualIgnoreCase(Test1Lower));
+}
