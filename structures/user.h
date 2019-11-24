@@ -73,9 +73,9 @@ class User {
 
 		void UpdateQuizData(Quiz CurrentQuiz){
 			// Averages
-			AvgMCQScore = ((AvgMCQScore * MCQCount) + (CurrentQuiz.MCQScore * 2)) / (CurrentQuiz.MCQCount + MCQCount);
-			AvgTFScore = ((AvgTFScore * TFCount) + CurrentQuiz.TFScore) / (CurrentQuiz.TFCount + MCQCount);
-			AvgCompleteScore = ((AvgCompleteScore * CurrentQuiz.CompleteCount) + (CurrentQuiz.CompleteScore * 3)) / (CurrentQuiz.CompleteCount + CompleteCount);
+			AvgMCQScore = ((AvgMCQScore * MCQCount) + (CurrentQuiz.MCQScore)) / (CurrentQuiz.MCQCount + MCQCount);
+			AvgTFScore = ((AvgTFScore * TFCount) + (CurrentQuiz.TFScore)) / (CurrentQuiz.TFCount + MCQCount);
+			AvgCompleteScore = ((AvgCompleteScore * CurrentQuiz.CompleteCount) + (CurrentQuiz.CompleteScore)) / (CurrentQuiz.CompleteCount + CompleteCount);
 			AvgQuizScore = ((AvgQuizScore * QuizzesTaken) + CurrentQuiz.UserScore) / (QuizzesTaken + 1);
 
 			// Question Counters

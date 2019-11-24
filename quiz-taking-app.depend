@@ -402,3 +402,77 @@
 	<iostream>
 	"catch.hpp"
 
+1574091938 source:c:\users\tito5\quiz-taking-app\main.cpp
+	<fstream>
+	<iostream>
+	<string>
+	<vector>
+	<unordered_set>
+	"indexer.h"
+	"structures/index.h"
+	"globals.h"
+	"utils/index.h"
+	"menus.h"
+
+1574091938 c:\users\tito5\quiz-taking-app\indexer.h
+
+1574091939 c:\users\tito5\quiz-taking-app\structures\index.h
+	"question.h"
+	"quiz.h"
+	"log.h"
+	"user.h"
+
+1574597593 c:\users\tito5\quiz-taking-app\structures\question.h
+	<fstream>
+	<string>
+
+1574091939 c:\users\tito5\quiz-taking-app\structures\quiz.h
+
+1574091939 c:\users\tito5\quiz-taking-app\structures\log.h
+
+1574596602 c:\users\tito5\quiz-taking-app\structures\user.h
+	<iostream>
+	<string>
+
+1574091938 c:\users\tito5\quiz-taking-app\globals.h
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\index.h
+	"io.h"
+	"string.h"
+	"question.h"
+	"file.h"
+	"quiz.h"
+	"user.h"
+	"misc.h"
+	"log.h"
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\io.h
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\string.h
+	<string>
+	<cctype>
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\question.h
+	<ctime>
+	<chrono>
+	<random>
+	<algorithm>
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\file.h
+	<fstream>
+	<string>
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\quiz.h
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\user.h
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\misc.h
+	<string>
+	<regex>
+
+1574091939 c:\users\tito5\quiz-taking-app\utils\log.h
+
+1574091938 c:\users\tito5\quiz-taking-app\menus.h
+	<sstream>
+	<string>
+
