@@ -37,28 +37,28 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 // Parses [f | t | false | true] to their respective uppercase string
 string ParseTFAnswer(const string &Answer){
 	if(Answer == "f" || Answer == "false") return "FALSE";
-	else if(Answer == "t" || Answer == "true") return "TRUE";
+	return "TRUE";
 }
 
 // Converts a character into an integer ranging from 1 to 9. Used for menus
-int ctoi(string InputString){
+int ctoi(const string &InputString){
 	if(InputString.length() > 0){
 		char Input = InputString[0];
-		
+
 		if(Input >= '0' && Input <= '9') return Input - '0';
-	} 
-	
+	}
+
 	return -1;
 }
 
 // Shuffles question pool
-void ShuffleQuestionPool() {
+void ShuffleQuestionPoolIndices() {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(QuestionPoolIndices.begin(), QuestionPoolIndices.end(), std::default_random_engine(seed));
 }
 
 // Shuffles answers
-void ShuffleAnswers() {
+void ShuffleAnswerIndices() {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
 }
@@ -83,10 +83,10 @@ bool VerifyChoice(string &Type, string &CorrectChoice){
 	bool IsValid = false;
 
 	if(Type == "tf") {
-		IsValid = 
-			StringIsEqualIgnoreCase("true", CorrectChoice) 
-			|| StringIsEqualIgnoreCase("t", CorrectChoice)  
-			|| StringIsEqualIgnoreCase("false", CorrectChoice) 
+		IsValid =
+			StringIsEqualIgnoreCase("true", CorrectChoice)
+			|| StringIsEqualIgnoreCase("t", CorrectChoice)
+			|| StringIsEqualIgnoreCase("false", CorrectChoice)
 			|| StringIsEqualIgnoreCase("f", CorrectChoice);
 	}
 	else IsValid = CorrectChoice.length() > 0;

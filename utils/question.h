@@ -7,7 +7,7 @@
 #include <algorithm> //shuffle
 
 
-// Loads a "MCQ" question using an ifstream  
+// Loads a "MCQ" question using an ifstream
 MCQQuestion LoadMCQQuestion(std::ifstream &File, string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
@@ -24,7 +24,7 @@ MCQQuestion LoadMCQQuestion(std::ifstream &File, string &Line, string Title){
 	return MCQQuestion(Title, CorrectChoice, Choice2, Choice3, Choice4, POOL_QUESTIONS_COUNT);
 }
 
-// Loads a "complete" question using an ifstream  
+// Loads a "complete" question using an ifstream
 CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = Line;
@@ -32,7 +32,7 @@ CompleteQuestion LoadCompleteQuestion(std::ifstream &File, std::string &Line, st
 	return CompleteQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT);
 }
 
-// Loads a "TF" question using an ifstream  
+// Loads a "TF" question using an ifstream
 TFQuestion LoadTFQuestion(std::ifstream &File, std::string &Line, string Title){
 	getline(File, Line);
 	string CorrectChoice = StringToLowerCase(Line);
@@ -45,7 +45,7 @@ MCQQuestion CreateMCQQuestion(string Title, string CC){
 	string C2 = GetUserInput("Enter choice 2");
 	string C3 = GetUserInput("Enter choice 3");
 	string C4 = GetUserInput("Enter choice 4");
-	
+
 	return MCQQuestion(Title, CC, C2, C3, C4, POOL_QUESTIONS_COUNT);
 }
 
@@ -53,15 +53,15 @@ MCQQuestion CreateMCQQuestion(string Title, string CC){
 // Question creation menu
 bool CreateQuestion(){
 	Question NewQuestion;
-	
+
 	string QuestionType = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]\nAlternatively, you can enter 'cancel' to go back to the main menu.\nYour Choice"));
-	
+
 	if(QuestionType == "tf" || QuestionType == "mcq" || QuestionType == "complete"){
 		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
 
 		if(!IsDuplicateQuestion(Title)){
 			string CorrectChoice;
-			
+
 			do {
 				CorrectChoice = GetUserInput("Enter correct choice");
 			}
@@ -70,7 +70,7 @@ bool CreateQuestion(){
 			if(QuestionType == "mcq") QuestionPool.push_back(CreateMCQQuestion(Title, CorrectChoice));
 			else if(QuestionType == "complete") QuestionPool.push_back(CompleteQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT));
 			else if(QuestionType == "tf") QuestionPool.push_back(TFQuestion(Title, CorrectChoice, POOL_QUESTIONS_COUNT));
-			
+
 			cout << "\nQuestion added successfully.\n\n";
 
 			QuestionPoolSet.insert(Title);
@@ -79,7 +79,7 @@ bool CreateQuestion(){
 			POOL_QUESTIONS_COUNT += 1;
 		}
 		else cout << "\nThis question already exists. Try adding a different question.\n";
-	
+
 	}
 	else if(QuestionType == "cancel") return true;
 	else {
@@ -91,28 +91,27 @@ bool CreateQuestion(){
 }
 
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
-	bool IsList = index > -1;
 	cout << "[" << (index + 1) << "] (ID: " << CurrentQuestion.ID << ") " << CurrentQuestion.Title << "\n";
 
 	if(CurrentQuestion.Type == "MCQ"){
-			vector<string> Answers = { 
-			CurrentQuestion.CorrectChoice, 
-			CurrentQuestion.Choice2, 
-			CurrentQuestion.Choice3, 
-			CurrentQuestion.Choice4 
+			vector<string> Answers = {
+			CurrentQuestion.CorrectChoice,
+			CurrentQuestion.Choice2,
+			CurrentQuestion.Choice3,
+			CurrentQuestion.Choice4
 		};
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
-		
-		ShuffleAnswers();
+
+		ShuffleAnswerIndices();
 
 		for (int i = 0; i < 4; i++) {
 			bool IsCorrectAnswer = Answers[AnswerIndices[i]] == CurrentQuestion.CorrectChoice;
-			
-			string Result = IsCorrectAnswer ? 
+
+			string Result = IsCorrectAnswer ?
 				IndentString(("*" + Labels[i] + Answers[AnswerIndices[i]]), 1) :
 				IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
-			
+
 			cout << Result;
 		}
 
@@ -124,7 +123,7 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 }
 
 
-bool DeleteQuestion(int QuestionIndex){
+void DeleteQuestion(int QuestionIndex){
 	std::cout << "\nDeleted the following question: \"" << QuestionPool[QuestionIndex].Title << "\"\n\n";
 
 	std::vector<Question>::iterator it = QuestionPool.begin();
@@ -132,13 +131,13 @@ bool DeleteQuestion(int QuestionIndex){
 
 	std::advance(it, QuestionIndex);
 	std::advance(rit, QuestionIndex);
-	
+
 	QuestionPoolSet.erase(QuestionPool[QuestionIndex].Title);
 	QuestionPool.erase(it);
 	QuestionPoolIndices.erase(rit);
-	
+
 	POOL_QUESTIONS_COUNT -= 1;
-	
+
 	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
 		QuestionPoolIndices[i] = i;
 	}

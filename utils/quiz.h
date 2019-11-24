@@ -9,7 +9,7 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 
 // Generates quiz questions by randomly filling an already created CurrentQuiz.QuizQuestions array
 void GenerateQuizQuestions(Quiz &CurrentQuiz) {
-	ShuffleQuestionPool();
+	ShuffleQuestionPoolIndices();
 
 	double GeneratedMCQCount = 0;
 	double GeneratedTFCount = 0;
@@ -97,7 +97,7 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 	if(CurrentQuestion.Type == "MCQ"){
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
-		ShuffleAnswers();
+		ShuffleAnswerIndices();
 
 		for (int i = 0; i < 4; i++) {
 			cout << IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
@@ -138,7 +138,7 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 
 void LogQuizData(Quiz &CurrentQuiz){
 	UserProfile -> UpdateQuizData(CurrentQuiz);
-	
+
 	PlayerLog CurrentLog(CurrentQuiz);
 	UserProfile -> Logs.push_back(CurrentLog);
 }
@@ -182,7 +182,7 @@ void StartNewQuiz() {
 
 			// REFACTORME
 			CurrentQuiz.Answers.push_back(CurrentQuiz.QuizQuestions[i].Type == "MCQ"? GetMCQChoice(CurrentQuiz.QuizQuestions[i], UserAnswer): UserAnswer);
-			
+
 			bool IsCorrectAnswer = CheckUserAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer);
 
 			CalculateQuizScores(CurrentQuiz, IsCorrectAnswer, CurrentQuiz.QuizQuestions[i]);

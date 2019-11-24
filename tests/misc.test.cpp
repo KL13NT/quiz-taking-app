@@ -145,7 +145,7 @@ SCENARIO( "ctoi" ){
   }
 }
 
-SCENARIO( "ShuffleQuestionPool/ShuffleAnswers" ){
+SCENARIO( "ShuffleQuestionPoolIndices/ShuffleAnswerIndices" ){
   for(int i = 0; i < 10; i ++){ //preparing indices for test
     QuestionPoolIndices.push_back(i);
   }
@@ -155,9 +155,9 @@ SCENARIO( "ShuffleQuestionPool/ShuffleAnswers" ){
   
 
   GIVEN("QuestionPool vector"){
-    WHEN("calling ShuffleQuestionPool"){
+    WHEN("calling ShuffleQuestionPoolIndices"){
       THEN("should make comparison to original pool false"){
-        ShuffleQuestionPool();
+        ShuffleQuestionPoolIndices();
         
         bool Identical = true;
 
@@ -172,9 +172,9 @@ SCENARIO( "ShuffleQuestionPool/ShuffleAnswers" ){
   }
 
   GIVEN("Answers array"){
-    WHEN("calling ShuffleAnswers"){
+    WHEN("calling ShuffleAnswerIndices"){
       THEN("should return shuffled array"){
-        ShuffleAnswers();
+        ShuffleAnswerIndices();
         bool Identical = true;
 
         for(int i = 0; i < (int) QuestionPoolIndices.size(); i++){
@@ -205,15 +205,37 @@ SCENARIO( "MakeHeader" ){
 }
 
 SCENARIO( "StringIsEqual/IgnoreCase" ){
-  string Test1Upper = "TEST1";
-  string Test1Lower = "test1";
-  string Test1Diff = "different";
+  string TestUpper = "TEST1";
+  string TestLower = "test1";
+  string TestDiff = "different";
 
   WHEN("passing two identical strings but different in case to StringIsEqualIgnoreCase"){
     THEN("should return true"){
-      REQUIRE(StringIsEqualIgnoreCase(Test1Upper, Test1Lower) == true);
+      REQUIRE(StringIsEqualIgnoreCase(TestUpper, TestLower) == true);
     }
   }
-  // WHEN("passing two identical strings ")
-  //   THEN("should ")REQUIRE(StringIsEqualIgnoreCase(Test1Upper) == StringIsEqualIgnoreCase(Test1Lower));
+  WHEN("passing two identical strings but different in case to StringIsEqual"){
+    THEN("should return false"){
+      REQUIRE(StringIsEqual(TestUpper, TestLower) == false);
+    }
+  }
+  WHEN("passing two identical strings with identical case to StringIsEqual"){
+    THEN("should return false"){
+      REQUIRE(StringIsEqual(TestUpper, TestLower) == false);
+    }
+  }
+  WHEN("passing two different strings to StringIsEqualIgnoreCase"){
+    THEN("should return false"){
+      REQUIRE(StringIsEqualIgnoreCase(TestUpper, TestDiff) == false);
+    }
+  }
+  WHEN("passing two different strings to StringIsEqual"){
+    THEN("should return false"){
+      REQUIRE(StringIsEqual(TestUpper, TestDiff) == false);
+    }
+  }
+}
+
+SCENARIO( "VerifyAnswer" ){
+
 }

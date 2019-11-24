@@ -8,6 +8,16 @@ class CompleteQuestion;
 class TFQuestion;
 class MCQQuestion;
 
+int ctoi(const string &);
+
+bool CreateQuestion();
+bool IsDuplicateQuestion(const string &);
+bool CheckCurrentQuestionPoolSize(int);
+bool CheckAnswerValidity(const Question &, const string &);
+bool StringIsEqualIgnoreCase(const string &String1, const string &String2);
+bool StringIsEqual(const string &String1, const string &String2);
+bool VerifyChoice(string &Type, string &CorrectChoice);
+
 string GetUserInput(string);
 string StringToLowerCase(string);
 string StringToUpperCase(string);
@@ -15,15 +25,15 @@ string IndentString(const string, const int);
 string FormatQuestionTitle(const string &);
 string MakeHeader(const string &ToPrint, int multiplier);
 string ParseTFAnswer(const string &);
-string StringToNumber(string);
+string StringToNumbers(string);
 
 // All function definitions
 void ReadFromFile(string);
 void GetFileNameFromUser();
-void ShuffleQuestionPool();
+void ShuffleQuestionPoolIndices();
+void ShuffleAnswerIndices();
 void DisplayAllQuestions();
 void GenerateAfterQuizReport(int);
-// void UpdateProfileAfterQuiz(int);
 void CreateNewUser();
 void DisplayUserStatistics(const User &);
 void AdminMenu();
@@ -32,20 +42,11 @@ void QuestionsMenu();
 void QuestionsMenuHandler();
 void AllUsersMenu();
 void Login();
+void DeleteQuestion(int);
 void SwitchAccount();
-void ShuffleQuestionPool();
-void ShuffleAnswers();
 void DisplayAllUsers();
 void DisplayScores();
 
-bool CheckCurrentQuestionPoolSize(int);
-bool CheckAnswerValidity(const Question &, const string &);
-bool CreateQuestion();
-bool DeleteQuestion(int);
-bool IsDuplicateQuestion(const string &);
-bool StringIsEqualIgnoreCase(const string &String1, const string &String2);
-bool StringIsEqual(const string &String1, const string &String2);
-bool VerifyChoice(string &Type, string &CorrectChoice);
 
 // Question creation
 void LoadMCQQuestion(std::ifstream &, string &);

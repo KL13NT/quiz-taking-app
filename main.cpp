@@ -10,7 +10,7 @@ Original Repo: https://github.com/KL13NT/quiz-taking-app
 
 
 // Uncomment this line to go into testing mode
-// #define IS_TESTING
+#define IS_TESTING
 
 #include <fstream>
 #include <iostream>

@@ -7,7 +7,6 @@
 
 string StringToLowerCase(string StringToChange){
   int i = 0;
-  char curr;
   string ResultingString = StringToChange;
 
   while (StringToChange[i]){
