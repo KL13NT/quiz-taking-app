@@ -33,8 +33,8 @@ public:
 
 class MCQQuestion : public Question {
 public:
-  int Weight = 2;
   MCQQuestion(string TitleInput, string CC, string C2, string C3, string C4, int IDInput): Question("MCQ") {
+    Weight = 2;
     Title = TitleInput;
     CorrectChoice = CC;
     Choice2 = C2;
@@ -46,8 +46,8 @@ public:
 
 class CompleteQuestion : public Question {
 public:
-  int Weight = 3;
   CompleteQuestion(string TitleInput, string CC, int IDInput) : Question("COMPLETE") {
+    Weight = 3;
     Title = TitleInput;
     CorrectChoice = CC;
     ID = IDInput;
@@ -56,8 +56,8 @@ public:
 
 class TFQuestion : public Question {
 public:
-  int Weight = 1;
   TFQuestion(string TitleInput, string CC, int IDInput) : Question("TF") {
+    Weight = 1;
     Title = TitleInput;
     ID = IDInput;
     
