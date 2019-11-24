@@ -1,4 +1,5 @@
 .idea
+.vscode
 cmake-build-debug
 CMakeLists.txt
 **.cbp
@@ -6,3 +7,4 @@ CMakeLists.txt
 **.layout
 bin
 obj
+.obj
