@@ -1,6 +1,8 @@
 #ifndef MISC_H
 #define MISC_H
 
+// All functions in this file are included in the indexer
+
 #include <string>
 #include <regex>
 
@@ -9,7 +11,7 @@ using std::string;
 
 // Makes sure question titles match the form
 string FormatQuestionTitle(const string &QuestionTitle){
-	return std::regex_replace (QuestionTitle, std::regex("\\s?\\?"), "");
+	return std::regex_replace (QuestionTitle, std::regex("(!*)(\\s?\\?)(!*)"), "");
 }
 
 // Leaves only numbers
@@ -34,34 +36,38 @@ bool CheckAnswerValidity(const Question &CurrentQuestion, const string &Answer) 
 	return StringToLowerCase(Answer) == StringToLowerCase(CurrentQuestion.CorrectChoice);
 }
 
-
+// Parses [f | t | false | true] to their respective uppercase string
 string ParseTFAnswer(const string &Answer){
 	if(Answer == "f" || Answer == "false") return "FALSE";
-	else if(Answer == "t" || Answer == "true") return "TRUE";
+	return "TRUE";
 }
 
-int ctoi(string str){
-	// std::stringstream output;  
-	// output << str[0];
-	char input = str[0];
-	if(input >= '1' && input <= '9') return input - '0';
-	else return 0;
+// Converts a character into an integer ranging from 1 to 9. Used for menus
+int ctoi(const string &InputString){
+	if(InputString.length() > 0){
+		char Input = InputString[0];
+
+		if(Input >= '0' && Input <= '9') return Input - '0';
+	}
+
+	return -1;
 }
 
 // Shuffles question pool
-void ShuffleQuestionPool() {
+void ShuffleQuestionPoolIndices() {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(QuestionPoolIndices.begin(), QuestionPoolIndices.end(), std::default_random_engine(seed));
 }
 
 // Shuffles answers
-void ShuffleAnswers() {
+void ShuffleAnswerIndices() {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(AnswerIndices.begin(), AnswerIndices.end(), std::default_random_engine(seed));
 }
 
-string MakeHeader(const string &ToPrint, int multiplier){
-	return '\n' + string(multiplier, '-') + '\n' + ToPrint + "\n" + string(multiplier, '-') + "\n" ;
+string MakeHeader(const string &ToPrint, int Multiplier){
+	int OutMultiplier = Multiplier == 0? 20: Multiplier;
+	return '\n' + string(OutMultiplier, '-') + '\n' + ToPrint + "\n" + string(OutMultiplier, '-') + "\n" ;
 }
 
 // Determines whether two strings are equal, case-insensitive
@@ -79,10 +85,10 @@ bool VerifyChoice(string &Type, string &CorrectChoice){
 	bool IsValid = false;
 
 	if(Type == "tf") {
-		IsValid = 
-			StringIsEqualIgnoreCase("true", CorrectChoice) 
-			|| StringIsEqualIgnoreCase("t", CorrectChoice)  
-			|| StringIsEqualIgnoreCase("false", CorrectChoice) 
+		IsValid =
+			StringIsEqualIgnoreCase("true", CorrectChoice)
+			|| StringIsEqualIgnoreCase("t", CorrectChoice)
+			|| StringIsEqualIgnoreCase("false", CorrectChoice)
 			|| StringIsEqualIgnoreCase("f", CorrectChoice);
 	}
 	else IsValid = CorrectChoice.length() > 0;

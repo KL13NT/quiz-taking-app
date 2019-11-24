@@ -9,27 +9,27 @@ void GenerateAfterQuizReport(int CorrectAnswers) {
 
 // Generates quiz questions by randomly filling an already created CurrentQuiz.QuizQuestions array
 void GenerateQuizQuestions(Quiz &CurrentQuiz) {
-	ShuffleQuestionPool();
+	ShuffleQuestionPoolIndices();
 
-	double GeneratedMCQ = 0;
-	double GeneratedTF = 0;
-	double GeneratedComplete = 0;
+	double GeneratedMCQCount = 0;
+	double GeneratedTFCount = 0;
+	double GeneratedCompleteCount = 0;
 
 	for (int i = 0; i < POOL_QUESTIONS_COUNT; i++) {
-		if(GeneratedMCQ < MCQCount || GeneratedTF < TFCount || GeneratedComplete < CompleteCount){
+		if(GeneratedMCQCount < MCQCount || GeneratedTFCount < TFCount || GeneratedCompleteCount < CompleteCount){
 			bool IsValid = false;
 
-			if(QuestionPool[QuestionPoolIndices[i]].Type == "MCQ" && GeneratedMCQ < MCQCount){
+			if(QuestionPool[QuestionPoolIndices[i]].Type == "MCQ" && GeneratedMCQCount < MCQCount){
 				IsValid = true;
-				GeneratedMCQ += 1;
+				GeneratedMCQCount += 1;
 			}
-			else if(QuestionPool[QuestionPoolIndices[i]].Type == "TF" && GeneratedTF < TFCount){
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "TF" && GeneratedTFCount < TFCount){
 				IsValid = true;
-				GeneratedTF += 1;
+				GeneratedTFCount += 1;
 			}
-			else if(QuestionPool[QuestionPoolIndices[i]].Type == "COMPLETE" && GeneratedComplete < CompleteCount){
+			else if(QuestionPool[QuestionPoolIndices[i]].Type == "COMPLETE" && GeneratedCompleteCount < CompleteCount){
 				IsValid = true;
-				GeneratedComplete += 1;
+				GeneratedCompleteCount += 1;
 			}
 
 			if(IsValid) CurrentQuiz.QuizQuestions.push_back(QuestionPool[QuestionPoolIndices[i]]);
@@ -55,25 +55,8 @@ bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 
 // Check whether answer is valid before checking its value
 bool CheckUserAnswer(const Question &CurrentQuestion, string &UserAnswer){
-	// REFACTORME
 	if(CurrentQuestion.Type == "MCQ"){
-		string Answers[4] = {
-			CurrentQuestion.CorrectChoice,
-			CurrentQuestion.Choice2,
-			CurrentQuestion.Choice3,
-			CurrentQuestion.Choice4
-		};
-
-		switch (UserAnswer[0]) {
-			case 'a':
-				return CheckAnswerValidity(CurrentQuestion, Answers[AnswerIndices[0]]);
-			case 'b':
-				return CheckAnswerValidity(CurrentQuestion, Answers[AnswerIndices[1]]);
-			case 'c':
-				return CheckAnswerValidity(CurrentQuestion, Answers[AnswerIndices[2]]);
-			case 'd':
-				return CheckAnswerValidity(CurrentQuestion, Answers[AnswerIndices[3]]);
-			}
+		return CheckAnswerValidity(CurrentQuestion, GetMCQChoice(CurrentQuestion, UserAnswer));
 	}
 	else if(CurrentQuestion.Type == "TF"){
 		return CheckAnswerValidity(CurrentQuestion, ParseTFAnswer(UserAnswer));
@@ -82,6 +65,28 @@ bool CheckUserAnswer(const Question &CurrentQuestion, string &UserAnswer){
 	return CheckAnswerValidity(CurrentQuestion, UserAnswer);
 }
 
+// Translates MCQ user choice [a, b, c, d] into their respective choice strings
+string GetMCQChoice(const Question &CurrentQuestion, string &UserAnswer){
+	string Answers[4] = {
+		CurrentQuestion.CorrectChoice,
+		CurrentQuestion.Choice2,
+		CurrentQuestion.Choice3,
+		CurrentQuestion.Choice4
+	};
+
+	switch (UserAnswer[0]) {
+		case 'a':
+			return Answers[AnswerIndices[0]];
+		case 'b':
+			return Answers[AnswerIndices[1]];
+		case 'c':
+			return Answers[AnswerIndices[2]];
+		case 'd':
+			return Answers[AnswerIndices[3]];
+	}
+}
+
+// Display a question as part of a quiz
 void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 	string Answers[4] = {
 		CurrentQuestion.CorrectChoice,
@@ -97,7 +102,7 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 	if(CurrentQuestion.Type == "MCQ"){
 		string Labels[] = { "[a] ", "[b] ", "[c] ", "[d] " };
 
-		ShuffleAnswers();
+		ShuffleAnswerIndices();
 
 		for (int i = 0; i < 4; i++) {
 			cout << IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
@@ -106,6 +111,7 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 		cout << endl;
 	}
 }
+
 
 void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &CurrentQuestion){
 	if(CurrentQuestion.Type == "MCQ") {
@@ -138,30 +144,12 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 
 void LogQuizData(Quiz &CurrentQuiz){
 	UserProfile -> UpdateQuizData(CurrentQuiz);
-	
+
 	PlayerLog CurrentLog(CurrentQuiz);
 	UserProfile -> Logs.push_back(CurrentLog);
 }
 
-string GetMCQChoice(Question &CurrentQuestion, string &UserAnswer){
-	string Answers[4] = {
-		CurrentQuestion.CorrectChoice,
-		CurrentQuestion.Choice2,
-		CurrentQuestion.Choice3,
-		CurrentQuestion.Choice4
-	};
 
-	switch (UserAnswer[0]) {
-		case 'a':
-			return Answers[AnswerIndices[0]];
-		case 'b':
-			return Answers[AnswerIndices[1]];
-		case 'c':
-			return Answers[AnswerIndices[2]];
-		case 'd':
-			return Answers[AnswerIndices[3]];
-	}
-}
 // Starts a new quiz
 void StartNewQuiz() {
 	if (CheckCurrentQuestionPoolSize(QUIZ_QUESTIONS_COUNT)) {
@@ -180,9 +168,8 @@ void StartNewQuiz() {
 				UserAnswer = StringToLowerCase(GetUserInput("Answer"));
 			}
 
-			// REFACTORME
 			CurrentQuiz.Answers.push_back(CurrentQuiz.QuizQuestions[i].Type == "MCQ"? GetMCQChoice(CurrentQuiz.QuizQuestions[i], UserAnswer): UserAnswer);
-			
+
 			bool IsCorrectAnswer = CheckUserAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer);
 
 			CalculateQuizScores(CurrentQuiz, IsCorrectAnswer, CurrentQuiz.QuizQuestions[i]);

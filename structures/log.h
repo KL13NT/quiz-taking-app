@@ -26,10 +26,6 @@ class PlayerLog: public Log{
       CorrectAnswers = CurrentQuiz.CorrectAnswers;
       IsAdminLog = false;
     }
-
-    // DisplayLog(){
-
-    // }
 };
 
 

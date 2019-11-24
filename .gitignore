@@ -1,3 +1,10 @@
 .idea
+.vscode
 cmake-build-debug
-**.txt
+CMakeLists.txt
+**.cbp
+**.depend
+**.layout
+bin
+obj
+.obj
