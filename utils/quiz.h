@@ -41,6 +41,7 @@ void GenerateQuizQuestions(Quiz &CurrentQuiz) {
 bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 
 	if(CurrentQuestion.Type == "MCQ") {
+		if(Answer.length() > 1) return false;
     if(Answer[0] == 'a' || Answer[0] == 'b' || Answer[0] == 'c' || Answer[0] == 'd' ) return true;
   }
 
