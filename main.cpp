@@ -8,6 +8,10 @@ Members:
 Original Repo: https://github.com/KL13NT/quiz-taking-app
 */
 
+
+// Uncomment this line to go into testing mode
+#define IS_TESTING
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -37,6 +41,14 @@ using std::endl;
 #include "menus.h"
 
 
+// Testing
+#ifdef IS_TESTING
+
+#include "tests/test-main.cpp"
+#include "tests/test-index.h"
+
+
+#else 
 
 int main() {
 	ReadFromFile("exam2_questions.txt");
@@ -47,3 +59,6 @@ int main() {
 
 	return 0;
 }
+
+
+#endif

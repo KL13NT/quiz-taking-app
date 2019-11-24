@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1573633377 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
+1574526876 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
 	<fstream>
 	<iostream>
 	<string>
@@ -10,6 +10,8 @@
 	"globals.h"
 	"utils/index.h"
 	"menus.h"
+	"tests/test-main.cpp"
+	"tests/test-index.h"
 
 1573300678 d:\workspace\college\oop\quiz-taking-app\structures\index.h
 	"question.h"
@@ -17,7 +19,7 @@
 	"log.h"
 	"user.h"
 
-1573498438 d:\workspace\college\oop\quiz-taking-app\structures\question.h
+1573635502 d:\workspace\college\oop\quiz-taking-app\structures\question.h
 	<fstream>
 	<string>
 
@@ -29,11 +31,11 @@
 	<iostream>
 	<string>
 
-1573569498 d:\workspace\college\oop\quiz-taking-app\globals.h
+1574591752 d:\workspace\college\oop\quiz-taking-app\globals.h
 
 1573634215 d:\workspace\college\oop\quiz-taking-app\indexer.h
 
-1573572604 d:\workspace\college\oop\quiz-taking-app\utils\index.h
+1574447947 d:\workspace\college\oop\quiz-taking-app\utils\index.h
 	"io.h"
 	"string.h"
 	"question.h"
@@ -43,33 +45,360 @@
 	"misc.h"
 	"log.h"
 
-1573329167 d:\workspace\college\oop\quiz-taking-app\utils\io.h
+1574517155 d:\workspace\college\oop\quiz-taking-app\utils\io.h
 
-1573329088 d:\workspace\college\oop\quiz-taking-app\utils\string.h
+1574447982 d:\workspace\college\oop\quiz-taking-app\utils\string.h
 	<string>
 	<cctype>
 
-1573496908 d:\workspace\college\oop\quiz-taking-app\utils\question.h
+1574526808 d:\workspace\college\oop\quiz-taking-app\utils\question.h
 	<ctime>
 	<chrono>
 	<random>
 	<algorithm>
 
-1573573006 d:\workspace\college\oop\quiz-taking-app\utils\file.h
+1574447953 d:\workspace\college\oop\quiz-taking-app\utils\file.h
 	<fstream>
 	<string>
 
-1573574686 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
+1574447977 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
 
-1573574923 d:\workspace\college\oop\quiz-taking-app\utils\user.h
+1574447986 d:\workspace\college\oop\quiz-taking-app\utils\user.h
 
-1573573170 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
+1574592854 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
 	<string>
 	<regex>
 
-1573635392 d:\workspace\college\oop\quiz-taking-app\menus.h
+1574586311 d:\workspace\college\oop\quiz-taking-app\menus.h
 	<sstream>
 	<string>
 
-1573574812 d:\workspace\college\oop\quiz-taking-app\utils\log.h
+1574447964 d:\workspace\college\oop\quiz-taking-app\utils\log.h
+
+1574523185 source:d:\workspace\college\oop\quiz-taking-app\tests\test-main.cpp
+	"catch.hpp"
+
+1574462918 d:\workspace\college\oop\quiz-taking-app\tests\catch.hpp
+	<TargetConditionals.h>
+	<ciso646>
+	<iosfwd>
+	<string>
+	<cstdint>
+	<vector>
+	<cstddef>
+	<string>
+	<iosfwd>
+	<cassert>
+	<type_traits>
+	<vector>
+	<cstddef>
+	<type_traits>
+	<string>
+	<iosfwd>
+	<cstddef>
+	<ostream>
+	<vector>
+	<string_view>
+	<utility>
+	<optional>
+	<tuple>
+	<variant>
+	<ctime>
+	<ratio>
+	<chrono>
+	<iosfwd>
+	<string>
+	<chrono>
+	<string>
+	<vector>
+	<cstddef>
+	<string>
+	<cstdint>
+	<string>
+	<string>
+	<memory>
+	<exception>
+	<string>
+	<vector>
+	<type_traits>
+	<string>
+	<iosfwd>
+	<vector>
+	<string>
+	<vector>
+	<functional>
+	<string>
+	<string>
+	<algorithm>
+	<memory>
+	<exception>
+	<memory>
+	<vector>
+	<cassert>
+	<utility>
+	<exception>
+	<memory>
+	<iosfwd>
+	<string>
+	<vector>
+	<memory>
+	<cstdint>
+	<random>
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<memory>
+	<vector>
+	<string>
+	<string>
+	<string>
+	<iosfwd>
+	<map>
+	<set>
+	<memory>
+	<algorithm>
+	<algorithm>
+	<cstring>
+	<cfloat>
+	<cstdio>
+	<cassert>
+	<memory>
+	<ostream>
+	<vector>
+	<chrono>
+	<ratio>
+	<atomic>
+	<type_traits>
+	<utility>
+	<cassert>
+	<type_traits>
+	<utility>
+	<memory>
+	<type_traits>
+	<utility>
+	<tuple>
+	<type_traits>
+	<utility>
+	<utility>
+	<type_traits>
+	<algorithm>
+	<algorithm>
+	<functional>
+	<vector>
+	<numeric>
+	<tuple>
+	<cmath>
+	<utility>
+	<cstddef>
+	<algorithm>
+	<iterator>
+	<tuple>
+	<vector>
+	<cmath>
+	<algorithm>
+	<vector>
+	<string>
+	<iterator>
+	<algorithm>
+	<iterator>
+	<vector>
+	<algorithm>
+	<functional>
+	<string>
+	<vector>
+	<cmath>
+	<type_traits>
+	<string>
+	<vector>
+	<memory>
+	<cassert>
+	<random>
+	<future>
+	<cmath>
+	<limits>
+	<signal.h>
+	<AfxWin.h>
+	<windows.h>
+	<signal.h>
+	<string>
+	<optional>
+	<cassert>
+	<ostream>
+	<sstream>
+	<vector>
+	<cctype>
+	<string>
+	<memory>
+	<set>
+	<algorithm>
+	<fstream>
+	<ctime>
+	<cstring>
+	<ostream>
+	<sstream>
+	<unistd.h>
+	<string>
+	<android/log.h>
+	<assert.h>
+	<stdbool.h>
+	<sys/types.h>
+	<unistd.h>
+	<cstddef>
+	<ostream>
+	<sys/sysctl.h>
+	<fstream>
+	<string>
+	<stdexcept>
+	<vector>
+	<memory>
+	<map>
+	<cassert>
+	<cerrno>
+	<vector>
+	<string>
+	<memory>
+	<limits>
+	<set>
+	<crtdbg.h>
+	<set>
+	<limits>
+	<algorithm>
+	<iomanip>
+	<string>
+	<algorithm>
+	<cmath>
+	<cstdlib>
+	<cstdint>
+	<cstring>
+	<sstream>
+	<type_traits>
+	<iomanip>
+	<limits>
+	<regex>
+	<cassert>
+	<stack>
+	<cstdio>
+	<iosfwd>
+	<string>
+	<cstdio>
+	<cstring>
+	<fstream>
+	<sstream>
+	<stdexcept>
+	<io.h>
+	<unistd.h>
+	<cmath>
+	<vector>
+	<set>
+	<algorithm>
+	<ios>
+	<map>
+	<string>
+	<map>
+	<vector>
+	<exception>
+	<cassert>
+	<algorithm>
+	<sstream>
+	<memory>
+	<iosfwd>
+	<cstdlib>
+	<iomanip>
+	<set>
+	<iterator>
+	<vector>
+	<cstdio>
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	<memory>
+	<algorithm>
+	<ostream>
+	<cstring>
+	<cctype>
+	<vector>
+	<algorithm>
+	<ostream>
+	<cstring>
+	<cstdint>
+	<sstream>
+	<cctype>
+	<exception>
+	<algorithm>
+	<sstream>
+	<sstream>
+	<algorithm>
+	<cassert>
+	<stdexcept>
+	<memory>
+	<sstream>
+	<algorithm>
+	<string>
+	<vector>
+	<memory>
+	<chrono>
+	<cmath>
+	<iomanip>
+	<cstddef>
+	<exception>
+	<ostream>
+	<iomanip>
+	<type_traits>
+	<cstring>
+	<cfloat>
+	<cstdio>
+	<cassert>
+	<memory>
+	<cfloat>
+	<cstdio>
+	<cassert>
+	<sstream>
+	<ctime>
+	<algorithm>
+	<cassert>
+
+1574516980 source:d:\workspace\college\oop\quiz-taking-app\tests\string.cpp
+	<string>
+	"catch.hpp"
+	"../utils/string.h"
+
+1574523185 d:\workspace\college\oop\quiz-taking-app\tests\test-main.cpp
+	"catch.hpp"
+
+1574516980 d:\workspace\college\oop\quiz-taking-app\tests\string.cpp
+	<string>
+	"catch.hpp"
+	"../utils/string.h"
+
+1574513309 d:\workspace\college\oop\quiz-taking-app\tests\test-main.h
+	"catch.hpp"
+	"string.h"
+
+1574513290 d:\workspace\college\oop\quiz-taking-app\tests\string.h
+	<string>
+	"catch.hpp"
+	"../utils/string.h"
+
+1574513939 d:\workspace\college\oop\quiz-taking-app\tests\test-index.cpp
+	"string.cpp"
+
+1574525986 d:\workspace\college\oop\quiz-taking-app\tests\test-index.h
+	"misc.test.cpp"
+
+1574523978 d:\workspace\college\oop\quiz-taking-app\tests\io.test.cpp
+	<string>
+	<iostream>
+	"catch.hpp"
+	"../utils/io.h"
+
+1574593855 d:\workspace\college\oop\quiz-taking-app\tests\misc.test.cpp
+	<string>
+	<iostream>
+	"catch.hpp"
 

@@ -92,8 +92,7 @@ bool CreateQuestion(){
 
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	bool IsList = index > -1;
-	
-	if(IsList) cout << "[" << index + 1 << "] (ID: " << CurrentQuestion.ID << ") " << CurrentQuestion.Title << "\n";
+	cout << "[" << (index + 1) << "] (ID: " << CurrentQuestion.ID << ") " << CurrentQuestion.Title << "\n";
 
 	if(CurrentQuestion.Type == "MCQ"){
 			vector<string> Answers = { 
