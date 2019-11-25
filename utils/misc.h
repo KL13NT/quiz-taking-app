@@ -5,6 +5,7 @@
 
 #include <string>
 #include <regex>
+#include <algorithm> //shuffle
 
 using std::string;
 

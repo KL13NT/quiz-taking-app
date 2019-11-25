@@ -4,7 +4,6 @@
 #include <ctime>
 #include <chrono> //system_clock
 #include <random>	//default_random_engine
-#include <algorithm> //shuffle
 
 
 // Loads a "MCQ" question using an ifstream
