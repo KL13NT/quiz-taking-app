@@ -27,9 +27,9 @@ After login you'll be faced with the main menu respective to your account type:
   - Display your score statistics 
   - Display your scores
 - Shared
-  Update user data
-  Switch account
-  Exit
+  - Update user data
+  - Switch account
+  - Exit
 
 ## Scores & Limitations
 User score is based on weights according to the following:
