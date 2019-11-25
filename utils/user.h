@@ -53,12 +53,20 @@ void CreateNewUser(){
 }
 
 void UpdateAccountDetails(){
-	string firstname = GetUserInput("New firstname");
-	string lastname = GetUserInput("New lastname");
-	string username = GetUserInput("New username");
-	string password = GetUserInput("New password");
+	cout << MakeHeader("Update account details", 30);
 	
-	UserProfile -> UpdateUserData(firstname, lastname, username, password);
+	string FirstName = GetUserInput("New firstname");
+	string LastName = GetUserInput("New lastname");
+	
+	string Username = GetUserInput("New username");
+	string Password = GetUserInput("New password");
+
+	if(IsDuplicateUser(Username)){
+		cout << "An account with this username already exists, try using a different one.\n";
+		return UpdateAccountDetails();
+	}
+	
+	UserProfile -> UpdateUserData(FirstName, LastName, Username, Password);
 	cout << "Data updated successfully\n\n";
 	
 	Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + (UserProfile -> IsAdmin? ". You're an admin.": ". You're a player.");

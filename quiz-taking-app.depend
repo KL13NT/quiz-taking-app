@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1574612014 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
+1574626067 source:d:\workspace\college\oop\quiz-taking-app\main.cpp
 	<fstream>
 	<iostream>
 	<string>
@@ -10,8 +10,6 @@
 	"globals.h"
 	"utils/index.h"
 	"menus.h"
-	"tests/test-main.cpp"
-	"tests/test-index.h"
 
 1574594163 d:\workspace\college\oop\quiz-taking-app\structures\index.h
 	"question.h"
@@ -19,56 +17,57 @@
 	"log.h"
 	"user.h"
 
-1574611864 d:\workspace\college\oop\quiz-taking-app\structures\question.h
+1574625597 d:\workspace\college\oop\quiz-taking-app\structures\question.h
 	<fstream>
 	<string>
 
 1574594163 d:\workspace\college\oop\quiz-taking-app\structures\quiz.h
 
-1574611968 d:\workspace\college\oop\quiz-taking-app\structures\log.h
+1574625597 d:\workspace\college\oop\quiz-taking-app\structures\log.h
 
-1574611864 d:\workspace\college\oop\quiz-taking-app\structures\user.h
+1574714255 d:\workspace\college\oop\quiz-taking-app\structures\user.h
 	<iostream>
 	<string>
 
-1574594422 d:\workspace\college\oop\quiz-taking-app\globals.h
+1574625597 d:\workspace\college\oop\quiz-taking-app\globals.h
 
-1574618360 d:\workspace\college\oop\quiz-taking-app\indexer.h
+1574626170 d:\workspace\college\oop\quiz-taking-app\indexer.h
 
-1574618982 d:\workspace\college\oop\quiz-taking-app\utils\index.h
+1574619129 d:\workspace\college\oop\quiz-taking-app\utils\index.h
 	"io.h"
 	"string.h"
 	"question.h"
 	"file.h"
 	"quiz.h"
 	"user.h"
+	"misc.h"
 	"log.h"
 
-1574594163 d:\workspace\college\oop\quiz-taking-app\utils\io.h
+1574625597 d:\workspace\college\oop\quiz-taking-app\utils\io.h
 
-1574615515 d:\workspace\college\oop\quiz-taking-app\utils\string.h
+1574625597 d:\workspace\college\oop\quiz-taking-app\utils\string.h
 	<string>
 	<cctype>
 
-1574615679 d:\workspace\college\oop\quiz-taking-app\utils\question.h
+1574700491 d:\workspace\college\oop\quiz-taking-app\utils\question.h
 	<ctime>
 	<chrono>
 	<random>
-	<algorithm>
 
 1574594163 d:\workspace\college\oop\quiz-taking-app\utils\file.h
 	<fstream>
 	<string>
 
-1574618616 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
+1574626174 d:\workspace\college\oop\quiz-taking-app\utils\quiz.h
 
-1574594163 d:\workspace\college\oop\quiz-taking-app\utils\user.h
+1574714838 d:\workspace\college\oop\quiz-taking-app\utils\user.h
 
-1574616441 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
+1574700503 d:\workspace\college\oop\quiz-taking-app\utils\misc.h
 	<string>
 	<regex>
+	<algorithm>
 
-1574594162 d:\workspace\college\oop\quiz-taking-app\menus.h
+1574625643 d:\workspace\college\oop\quiz-taking-app\menus.h
 	<sstream>
 	<string>
 

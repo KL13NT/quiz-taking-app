@@ -39,10 +39,10 @@ class User {
 		}
 
 		void UpdateUserData(string NewFirstname, string NewLastname, string NewUsername, string NewPassword){
-				FirstName = NewFirstname;
-				LastName = NewLastname;
-				Username = NewUsername;
-				Password = NewPassword;
+			FirstName = NewFirstname;
+			LastName = NewLastname;
+			Username = NewUsername;
+			Password = NewPassword;
 		}
 
 		bool operator == (const User &ToEqual){
