@@ -37,7 +37,7 @@ void GenerateQuizQuestions(Quiz &CurrentQuiz) {
 		else break;
 	}
 }
-
+// Check whether answer's value is valid
 bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 
 	if(CurrentQuestion.Type == "MCQ") {
@@ -143,7 +143,7 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 	if(IsCorrectAnswer) CurrentQuiz.CorrectAnswers += 1;
 }
 
-void LogQuizData(Quiz &CurrentQuiz){
+void SaveQuizData(Quiz &CurrentQuiz){
 	Users[LoggedinUserID].UpdateQuizData(CurrentQuiz);
 
 	PlayerLog CurrentLog(CurrentQuiz);
@@ -162,8 +162,7 @@ void StartNewQuiz() {
 			QuizDisplayQuestion(CurrentQuiz.QuizQuestions[i], i);
 
 			string UserAnswer = StringToLowerCase(GetUserInput("Answer"));
-			// Makes sure input is as it's supposed to be as one of the following:
-			// [a, b, c, d, t, f, true, false, string with length bigger than 0]
+
 			while(!VerifyAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer)){
 				cout << "That answer doesn't seem to be valid. Try again.\n";
 				UserAnswer = StringToLowerCase(GetUserInput("Answer"));
@@ -176,7 +175,7 @@ void StartNewQuiz() {
 			CalculateQuizScores(CurrentQuiz, IsCorrectAnswer, CurrentQuiz.QuizQuestions[i]);
 		}
 
-		LogQuizData(CurrentQuiz);
+		SaveQuizData(CurrentQuiz);
 
 	}
 	else {
