@@ -119,7 +119,7 @@ void DisplayAllUsers(){
 }
 
 void DisplayDetailsOfLastQuizzes(){
-	vector<Log> Logs = UserProfile -> Logs;
+	vector<Log> Logs = Users[LoggedinUserID].Logs;
 
 	cout << MakeHeader("Quizzes log", 20);
 
@@ -175,7 +175,7 @@ void PlayerMenu(){
 		DisplayDetailsOfLastQuizzes();
     break;
 	case 3:
-		UserProfile -> DisplayUserStatistics();
+		Users[LoggedinUserID].DisplayUserStatistics();
     break;
 	case 4:
 		DisplayScores();
@@ -199,15 +199,15 @@ void Login(){
 	string Username = GetUserInput("Username");
 	string Password = GetUserInput("Password");
 
-	for (User & CurrentUser : Users){
-		if(Username == CurrentUser.Username && Password == CurrentUser.Password){
+	for (int i = 0; i < (int) Users.size(); i++){
+		if(Username == Users[i].Username && Password == Users[i].Password){
 			cout << "User found.\n";
 
-			UserProfile = &CurrentUser;
 			IsLoggedin = true;
-			Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + (UserProfile -> IsAdmin? ". You're an admin.": ". You're a player.");
+			LoggedinUserID = i;
+			UpdateGreeting();
 
-			return CurrentUser.IsAdmin? AdminMenu(): PlayerMenu();
+			return Users[i].IsAdmin? AdminMenu(): PlayerMenu();
 		}
 	}
   cout << "User not found. Try again.\n";
@@ -215,8 +215,8 @@ void Login(){
 }
 
 void DisplayScores(){
-	const int QuizzesTaken = UserProfile -> QuizzesTaken;
-	const vector<Log> Logs = UserProfile -> Logs;
+	const int QuizzesTaken = Users[LoggedinUserID].QuizzesTaken;
+	const vector<Log> Logs = Users[LoggedinUserID].Logs;
 	const string IsPlural = QuizzesTaken == 1? " quiz.\n" : " quizzes.\n";
 
 	cout << MakeHeader("Scores", 20);
@@ -239,7 +239,7 @@ void MainMenu(){
 		CreateNewUser();
 		return MainMenu();
 	}
-	else if(Users.size() > 0 && IsLoggedin) return UserProfile -> IsAdmin? AdminMenu(): PlayerMenu();
+	else if(Users.size() > 0 && IsLoggedin) return Users[LoggedinUserID].IsAdmin? AdminMenu(): PlayerMenu();
 	else if(Users.size() > 0 && !IsLoggedin) return Login();
 }
 
@@ -252,9 +252,8 @@ void SwitchAccount(){
 
 	if(StringIsEqualIgnoreCase(Answer, "Y") || StringIsEqualIgnoreCase(Answer, "Yes") ){
 		cout << "Logged out successfully...\n";
-		UserProfile = NULL; //Leaving no trace of the logged out user.
 		IsLoggedin = false;
-
+        LoggedinUserID = -1;
 		return MainMenu();
 	}
 

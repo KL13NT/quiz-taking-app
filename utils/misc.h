@@ -5,6 +5,7 @@
 
 #include <string>
 #include <regex>
+#include <algorithm> //shuffle
 
 using std::string;
 
@@ -97,6 +98,10 @@ bool VerifyChoice(string &Type, string &CorrectChoice){
 	else if(Type == "complete" && IsValid == false) cout << "\nComplete question answers should be a string of more than 0 characters.\n";
 
 	return IsValid;
+}
+
+void UpdateGreeting(){
+	Greeting = "Hello, " + Users[LoggedinUserID].FirstName + " " + Users[LoggedinUserID].LastName + (Users[LoggedinUserID].IsAdmin? ". You're an admin.": ". You're a player.");
 }
 
 #endif

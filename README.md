@@ -1,4 +1,4 @@
-# quiz-taking-app
+# Quizzy
 
 A quiz app with the following features: 
 
@@ -13,6 +13,8 @@ A quiz app with the following features:
 -   Load different question types from file
 -   Create different question types from the menu as an admin
 -   View all questions and delete them based on question ID as an admin
+
+For the full technical documenation refer to [Documentation](./Documentation.md).
 
 ## Contents
 

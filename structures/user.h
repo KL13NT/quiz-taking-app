@@ -38,12 +38,7 @@ class User {
 			IsAdmin = IsAdminInput;
 		}
 
-		void UpdateUserData(string NewFirstname, string NewLastname, string NewUsername, string NewPassword){
-				FirstName = NewFirstname;
-				LastName = NewLastname;
-				Username = NewUsername;
-				Password = NewPassword;
-		}
+		friend void UpdateUserData(User &, string NewFirstname, string NewLastname, string NewUsername, string NewPassword);
 
 		bool operator == (const User &ToEqual){
 			return ToEqual.Username == Username;
@@ -99,5 +94,13 @@ class User {
 			QuizzesTaken += 1;
 		}
 };
+
+
+void UpdateUserData(User &Curr, string NewFirstname, string NewLastname, string NewUsername, string NewPassword){
+	Curr.FirstName = NewFirstname;
+	Curr.LastName = NewLastname;
+	Curr.Username = NewUsername;
+	Curr.Password = NewPassword;
+}
 
 #endif

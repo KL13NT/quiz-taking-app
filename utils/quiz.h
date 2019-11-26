@@ -144,10 +144,10 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 }
 
 void LogQuizData(Quiz &CurrentQuiz){
-	UserProfile -> UpdateQuizData(CurrentQuiz);
+	Users[LoggedinUserID].UpdateQuizData(CurrentQuiz);
 
 	PlayerLog CurrentLog(CurrentQuiz);
-	UserProfile -> Logs.push_back(CurrentLog);
+	Users[LoggedinUserID].Logs.push_back(CurrentLog);
 }
 
 

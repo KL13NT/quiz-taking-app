@@ -47,7 +47,7 @@ void DeleteQuestion(int);
 void SwitchAccount();
 void DisplayAllUsers();
 void DisplayScores();
-
+void UpdateGreeting();
 
 // Question creation
 void LoadMCQQuestion(std::ifstream &, string &);
