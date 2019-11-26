@@ -100,4 +100,8 @@ bool VerifyChoice(string &Type, string &CorrectChoice){
 	return IsValid;
 }
 
+void UpdateGreeting(){
+	Greeting = "Hello, " + Users[LoggedinUserID].FirstName + " " + Users[LoggedinUserID].LastName + (Users[LoggedinUserID].IsAdmin? ". You're an admin.": ". You're a player.");
+}
+
 #endif

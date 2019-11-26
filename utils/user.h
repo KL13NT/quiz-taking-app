@@ -40,8 +40,9 @@ void CreateNewUser(){
 		Username.length() != 0 &&
 		Password.length() != 0
 		){
-			while(IsDuplicateUser(Username)) {
-				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one.\nUsername [case-insensitive]"));
+			if(IsDuplicateUser(Username)) {
+				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one."));
+				return CreateNewUser();
 			}
 			IsFirstRun = false;
 			Users.push_back(User(FirstName, LastName, Username, Password,  Type == "admin"));
@@ -61,15 +62,19 @@ void UpdateAccountDetails(){
 	string Username = GetUserInput("New username");
 	string Password = GetUserInput("New password");
 
+	if(FirstName.length() == 0 || LastName.length() == 0 || Username.length() == 0 || Password.length() == 0){
+		cout << "Input cannot be empty. Try again\n";
+		return UpdateAccountDetails();
+	}
 	if(IsDuplicateUser(Username)){
 		cout << "An account with this username already exists, try using a different one.\n";
 		return UpdateAccountDetails();
 	}
 	
-	UserProfile -> UpdateUserData(FirstName, LastName, Username, Password);
+	UpdateUserData(Users[LoggedinUserID], FirstName, LastName, Username, Password);
 	cout << "Data updated successfully\n\n";
 	
-	Greeting = "Hello, " + UserProfile -> FirstName + " " + UserProfile -> LastName + (UserProfile -> IsAdmin? ". You're an admin.": ". You're a player.");
+	UpdateGreeting();
 }
 
 
