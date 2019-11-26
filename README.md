@@ -70,13 +70,11 @@ Refer to the [Documentation](./Documentation.md).
 ## Development Environment
 
 -   Codacy: For code style analysis
--   Testing: We're still searching for a testing framework/platform to use. 
+-   Testing: Catch2
 
 ## V2
 
-> In development
->
-> Version 2.0.0 is underway. This will include whole new structure and an enhanced, performant search algorithm. It'll also include a collection of new features such as multiple users with different account types. 
+> Is finally out!
 
 ## Contributing
 
