@@ -97,7 +97,7 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 	};
 
 	string Type = CurrentQuestion.Type == "MCQ"? "[Choose one]" : CurrentQuestion.Type == "TF"? "[T]rue | [F]alse": "[Complete]";
-	cout << "[" << index + 1 << "]" << CurrentQuestion.Title << "\t" << Type << endl;
+	cout << "[" << index + 1 << "]" << CurrentQuestion.Title << "\t" << Type << "\n";
 
 
 	if(CurrentQuestion.Type == "MCQ"){
@@ -109,7 +109,7 @@ void QuizDisplayQuestion(Question &CurrentQuestion, int index){
 			cout << IndentString((Labels[i] + Answers[AnswerIndices[i]]), 1);
 		}
 
-		cout << endl;
+		cout << "\n";
 	}
 }
 
