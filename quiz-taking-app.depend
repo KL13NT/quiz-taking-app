@@ -478,3 +478,77 @@
 	<string>
 	<regex>
 
+1574629806 source:c:\users\mhsha\quiz-taking-app\main.cpp
+	<fstream>
+	<iostream>
+	<string>
+	<vector>
+	<unordered_set>
+	"indexer.h"
+	"structures/index.h"
+	"globals.h"
+	"utils/index.h"
+	"menus.h"
+
+1574772362 c:\users\mhsha\quiz-taking-app\indexer.h
+
+1573557446 c:\users\mhsha\quiz-taking-app\structures\index.h
+	"question.h"
+	"quiz.h"
+	"log.h"
+	"user.h"
+
+1574616220 c:\users\mhsha\quiz-taking-app\structures\question.h
+	<fstream>
+	<string>
+
+1574616220 c:\users\mhsha\quiz-taking-app\structures\quiz.h
+
+1574806560 c:\users\mhsha\quiz-taking-app\structures\log.h
+
+1574772362 c:\users\mhsha\quiz-taking-app\structures\user.h
+	<iostream>
+	<string>
+
+1574772362 c:\users\mhsha\quiz-taking-app\globals.h
+
+1574616220 c:\users\mhsha\quiz-taking-app\utils\index.h
+	"io.h"
+	"string.h"
+	"question.h"
+	"file.h"
+	"quiz.h"
+	"user.h"
+	"misc.h"
+	"log.h"
+
+1574621280 c:\users\mhsha\quiz-taking-app\utils\io.h
+
+1574621280 c:\users\mhsha\quiz-taking-app\utils\string.h
+	<string>
+	<cctype>
+
+1574806484 c:\users\mhsha\quiz-taking-app\utils\question.h
+	<ctime>
+	<chrono>
+	<random>
+
+1574616220 c:\users\mhsha\quiz-taking-app\utils\file.h
+	<fstream>
+	<string>
+
+1574806761 c:\users\mhsha\quiz-taking-app\utils\quiz.h
+
+1574804331 c:\users\mhsha\quiz-taking-app\utils\user.h
+
+1574772362 c:\users\mhsha\quiz-taking-app\utils\misc.h
+	<string>
+	<regex>
+	<algorithm>
+
+1574616220 c:\users\mhsha\quiz-taking-app\utils\log.h
+
+1574772362 c:\users\mhsha\quiz-taking-app\menus.h
+	<sstream>
+	<string>
+

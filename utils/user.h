@@ -2,12 +2,6 @@
 #define USER_UTILS_H
 
 
-// Displays user score statistics
-// void DisplayStatistics() {
-// 	LoggedInUser.DisplayUserStatistics();
-
-// 	if (GetUserInput("Your choice") == 'b') MainMenu();
-// }
 
 bool IsDuplicateUser(string Username){
 	for(User &Curr : Users){
@@ -41,7 +35,7 @@ void CreateNewUser(){
 		Password.length() != 0
 		){
 			if(IsDuplicateUser(Username)) {
-				Username = StringToLowerCase(GetUserInput("A user with this username already exists.\nTry another one."));
+				cout << "A user with this username already exists. Try another one.\n";
 				return CreateNewUser();
 			}
 			IsFirstRun = false;

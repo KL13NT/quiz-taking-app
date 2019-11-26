@@ -125,15 +125,15 @@ void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 void DeleteQuestion(int QuestionIndex){
 	std::cout << "\nDeleted the following question: \"" << QuestionPool[QuestionIndex].Title << "\"\n\n";
 
-	std::vector<Question>::iterator it = QuestionPool.begin();
-	std::vector<int>::iterator rit = QuestionPoolIndices.begin();
+	std::vector<Question>::iterator PoolIterator = QuestionPool.begin();
+	std::vector<int>::iterator IndiciesIterator = QuestionPoolIndices.begin();
 
-	std::advance(it, QuestionIndex);
-	std::advance(rit, QuestionIndex);
+	std::advance(PoolIterator, QuestionIndex);
+	std::advance(IndiciesIterator, QuestionIndex);
 
 	QuestionPoolSet.erase(QuestionPool[QuestionIndex].Title);
-	QuestionPool.erase(it);
-	QuestionPoolIndices.erase(rit);
+	QuestionPool.erase(PoolIterator);
+	QuestionPoolIndices.erase(IndiciesIterator);
 
 	POOL_QUESTIONS_COUNT -= 1;
 

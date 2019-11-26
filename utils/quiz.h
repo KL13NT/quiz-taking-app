@@ -2,10 +2,6 @@
 #define QUIZ_UTILS_H
 
 
-// Generates the after-quiz report
-void GenerateAfterQuizReport(int CorrectAnswers) {
-	cout << "You answered " << CorrectAnswers << "/" << QUIZ_QUESTIONS_COUNT << " questions correctly.\n";
-}
 
 // Generates quiz questions by randomly filling an already created CurrentQuiz.QuizQuestions array
 void GenerateQuizQuestions(Quiz &CurrentQuiz) {
@@ -167,8 +163,11 @@ void StartNewQuiz() {
 				cout << "That answer doesn't seem to be valid. Try again.\n";
 				UserAnswer = StringToLowerCase(GetUserInput("Answer"));
 			}
+			bool IsMCQ = CurrentQuiz.QuizQuestions[i].Type == "MCQ";
 
-			CurrentQuiz.Answers.push_back(CurrentQuiz.QuizQuestions[i].Type == "MCQ"? GetMCQChoice(CurrentQuiz.QuizQuestions[i], UserAnswer): UserAnswer);
+			string FinalAnswer = IsMCQ ? GetMCQChoice(CurrentQuiz.QuizQuestions[i], UserAnswer) : UserAnswer;
+
+			CurrentQuiz.Answers.push_back(FinalAnswer);
 
 			bool IsCorrectAnswer = CheckUserAnswer(CurrentQuiz.QuizQuestions[i], UserAnswer);
 
@@ -176,6 +175,8 @@ void StartNewQuiz() {
 		}
 
 		SaveQuizData(CurrentQuiz);
+
+		cout << "You answered " << CurrentQuiz.CorrectAnswers << "/" << QUIZ_QUESTIONS_COUNT << " correctly.\n";
 
 	}
 	else {

@@ -26,6 +26,7 @@ class PlayerLog: public Log{
       CorrectAnswers = CurrentQuiz.CorrectAnswers;
       IsAdminLog = false;
     }
+	friend void DisplayLog(Log & CurrentLog);
 };
 
 
