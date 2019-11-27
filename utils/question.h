@@ -50,7 +50,7 @@ MCQQuestion CreateMCQQuestion(string Title, string CC){
 
 
 // Question creation menu
-bool CreateQuestion(){
+void CreateQuestion(){
 	Question NewQuestion;
 
 	string QuestionType = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]\nAlternatively, you can enter 'cancel' to go back to the main menu.\nYour Choice"));
@@ -80,14 +80,13 @@ bool CreateQuestion(){
 		else cout << "\nThis question already exists. Try adding a different question.\n";
 
 	}
-	else if(QuestionType == "cancel") return true;
+	else if(QuestionType == "cancel") return;
 	else {
 		cout << "We didn't catch that, please try again.\n\n";
 		return CreateQuestion();
 	}
-
-	return true;
 }
+
 
 void DisplayQuestionWithAnswers(Question &CurrentQuestion, int index) {
 	cout << "[" << (index + 1) << "] (ID: " << CurrentQuestion.ID << ") " << CurrentQuestion.Title << "\n";

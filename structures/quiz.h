@@ -2,12 +2,6 @@
 #define QUIZ_H
 
 
-// class Answer{
-//   string Answer = "";
-//   bool IsCorrect = false;
-// }
-
-
 class Quiz {
 public:
   int CorrectAnswers = 0;

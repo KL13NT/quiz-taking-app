@@ -81,7 +81,7 @@ bool StringIsEqual(const string &String1, const string &String2){
 	return String1 == String2;
 }
 
-// Verifies if question answers are adequate
+// Verifies if question answers are adequate while creating questions
 bool VerifyChoice(string &Type, string &CorrectChoice){
 	bool IsValid = false;
 

@@ -33,7 +33,7 @@ void GenerateQuizQuestions(Quiz &CurrentQuiz) {
 		else break;
 	}
 }
-// Check whether answer's value is valid
+// Check whether answer's *value* is valid
 bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 
 	if(CurrentQuestion.Type == "MCQ") {
@@ -50,7 +50,7 @@ bool VerifyAnswer(const Question &CurrentQuestion, string &Answer){
 	return false;
 }
 
-// Check whether answer is valid before checking its value
+// Check whether answer is correct based on question type
 bool CheckUserAnswer(const Question &CurrentQuestion, string &UserAnswer){
 	if(CurrentQuestion.Type == "MCQ"){
 		return CheckAnswerValidity(CurrentQuestion, GetMCQChoice(CurrentQuestion, UserAnswer));
@@ -138,6 +138,7 @@ void CalculateQuizScores(Quiz &CurrentQuiz, bool IsCorrectAnswer, Question &Curr
 
 	if(IsCorrectAnswer) CurrentQuiz.CorrectAnswers += 1;
 }
+
 
 void SaveQuizData(Quiz &CurrentQuiz){
 	Users[LoggedinUserID].UpdateQuizData(CurrentQuiz);
