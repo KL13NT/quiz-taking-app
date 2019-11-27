@@ -62,7 +62,7 @@ During quizzes, and depending on the type of question, a specific answer scheme 
 -   TF: `t`, `f`, `true`, or `false`
 -   Complete: input should have a `length` > `0`
 
-If `VerifyAnswer` returns true, the user's answer is then taken to `CheckUserAnswer` which check whether the answer is correct. The result is then forwarded to `CalculateQuizScores` which also gets passed the `Quiz` object and recalculates its values. 
+If `VerifyAnswer` returns true, the user's answer is then taken to `CheckUserAnswer` which checks whether the answer is correct. The result is then forwarded to `CalculateQuizScores` which also gets passed the `Quiz` object and recalculates its statistical values. 
 
 ## Important Algorithms
 
@@ -74,42 +74,44 @@ There are a few algorithms that need to be understood in this program. Those inc
 
 #### Assumptions
 
-Let's assume we have a vector containing all the questions, called `QuestionPool`, we'll refer to it by just `Pool` from now on. Suppose that each question is just a string containing the question itself.
+Let's assume we have a vector containing all the questions, called `QuestionPool`, we'll refer to it by just `Pool` from now on. Suppose that each question is just a `string` containing the question itself.
 
 > In the real thing, `Pool` is a vector of `Question` objects.
 
-Now let's assume we're adding 10 questions to the `Pool` that already exist. It's logical to not want duplicate questions in the system. Let's assume that those 10 questions already exist as the _last_ 10 questions in the `Pool` and that we have a million questions in the `Pool`. 
+Now let's assume we're adding 10 questions to the `Pool` and that those 10 questions already exist. It's logical to not want duplicate questions in the system. Let's assume that those 10 questions already exist as the _last_ 10 questions in the `Pool` and that we have a million questions in the `Pool`. 
 
 #### Problem
 
 The most straightforward solution would be to loop through all of the `Pool`. Our loop will have to iterate over all the questions just to prove that we shouldn't add these questions again. 
 
-> Note that elements are added in O(n) time in arrays and the like. And searching the array for existence of a question has a time complexity of O(n) as well.
+> Note that elements are added in O(n) time in arrays and the like. And searching the array for existence of a question could have a time complexity of O(n) as well.
 
-We would have to iterate a million times per question just to prove that. (this number _could_ increase to 2 million times if questions are not duplicates). We'd end up doing _up to_ 20 million iterations to add just 10 questions. This is **_SLOW_**.
+We possibly would have to iterate a million times per question just to prove that it already exists. (this number _could_ increase to 2 million times if questions are not duplicates). We'd end up doing _up to_ 20 million iterations to add just 10 questions. This is **_SLOW_**.
 
 #### Solution
 
-Instead of using that slow algorithm, we can utilise `unordered_set`s. In arrays, adding elements to an array happens with a complexity of O(n), while in `unordered_set` it only takes O(1) time. Insertion also costs O(1) instead of O(n). This means that to check whether those 10 questions exist you'd need exactly 10 look-ups. And if there not duplicate, you'd need 10 look-ups, and 10 insertions, without the need to `iterate` over those million questions. 
+Instead of using that slow algorithm, we can utilise `unordered_set`s. In arrays, adding elements happens with a complexity of O(n), while in `unordered_set` it only takes O(1) time. Searching for elements also costs O(1) instead of O(n). This means that to check whether those 10 questions exist you'd need exactly 10 look-ups. And if they're not duplicates, you'd need 10 look-ups, and 10 insertions, without the need to `iterate` over those million questions. 
 
 ### Randomisation
 
-Now regarding the randomising functions. This algorithm is used to randomise the `Pool` and MCQ answers.
+Now regarding the randomising functions. This algorithm is used to randomise the `Pool` and MCQ `answers`.
 
 #### Problem
 
-Imagine a vector of a million `Question` objects, which is quite complex. The most basic form of shuffling would be to generate a random integer and use it as an index in a loop. The downside to this approach though is it's relies heavily on chance which isn't inefficient. Randomising a million questions based on chance _will_ at some point give duplicates, which will make the algorithm even slower because it'll have to recover from the duplicated number somehow, either be going back one iteration in the loop or some other way inefficient way. 
+Imagine a vector of a million `Question` objects, which is quite complex. The most basic form of shuffling would be to generate a random integer and use it as an index inside a loop. The downside to this approach though is that it relies heavily on `chance` which is inefficient. Randomising a million questions based on chance _will_ at some point give duplicates, which will make the algorithm even slower because it'll have to recover from the duplicated random number somehow, either be going back one iteration (i.e. `i--`) in the loop or some other inefficient way. 
 
 #### Solution
 
 Let's assume that you have an array of integers. Those integers represent the indices of questions in the `Pool`. They're numbered from 0 to `n - 1` where `n` is the number of questions present in the `Pool`. This array will be called `PoolIndices`.  
 
-Considering the fact that we have all indices for our `Pool`, instead of shuffling the main `Pool` and working complex data such as strings or our custom `Question` objects, we can shuffle an array of simple fixed-length integers. Those integers will be shuffled using `<algorithm>`'s `shuffle` and using the `default_random_engine`. 
+Considering the fact that we have all indices for our `Pool`, instead of shuffling the main `Pool` and working with complex data such as strings or our custom `Question` objects, we can shuffle an array of simple integers. Those integers will be shuffled using `<algorithm>`'s `shuffle` and the `default_random_engine`. 
 
-`shuffle` is going to shuffle the array of indices `PoolIndices`. We can then use those indices to map (redirect) our question selection through it, going to random questions every time. Too obscure to understand? Let's consider the following example. Assume we want the question at index `0` in the `Pool`, after shuffling `PoolIndices`. Let's also assume we have 5 questions. So `PoolIndices` is going to look like `[0, 1, 2, 3, 4]` before shuffling. Assume that after the shuffling, it looks like this `[4, 2, 0, 3, 1]`. Now let's represent `Pool` by indices as `[0, 1, 2, 3, 4]`.
+> You don't need to know much about the `default_random_engine`. You just need to know how `shuffle` works.
 
-    Grab question at index [0]
-    [4, 2, 0, 3, 1] // index [0] here refers to integer `4`.
+`shuffle` is going to shuffle the array of indices `PoolIndices`. We can then use those indices to map (redirect) our question selection through it, going to random questions every time. Too obscure to understand? Let's consider the following example. Assume we want the question at index `0` in the `Pool` after shuffling `PoolIndices`. Let's also assume we have 5 questions. So `PoolIndices` is going to look like `[0, 1, 2, 3, 4]` before shuffling. Assume that after the shuffling, it looks like this `[4, 2, 0, 3, 1]`. Now let's represent `Pool` by indices as `[0, 1, 2, 3, 4]`.
+
+    Grab question at index [0] from `PoolIndices`
+    [4, 2, 0, 3, 1] // index [0] from `PoolIndices` refers to integer `4`.
     Using `4` as index [4] to access the Pool: 
     [0, 1, 2, 3, 4] // 4 is the last question in the Pool
 
