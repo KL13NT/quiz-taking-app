@@ -75,7 +75,6 @@ void CreateQuestion(){
 			QuestionPoolSet.insert(Title);
 			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
 			POOL_QUESTIONS_COUNT += 1;
-			POOL_QUESTIONS_COUNT += 1;
 		}
 		else cout << "\nThis question already exists. Try adding a different question.\n";
 

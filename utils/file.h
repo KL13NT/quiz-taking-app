@@ -13,7 +13,7 @@ void ReadFromFile(string FileName) {
 
 	if (File.is_open()) {
 		int LoadedQuestionsCount = 0;
-		
+
 		while (getline(File, Line)) {
       if(Line == "MCQ" || Line == "TF" || Line == "COMPLETE") {
         string QuestionType = Line;
@@ -36,17 +36,17 @@ void ReadFromFile(string FileName) {
       }
     }
 
-		File.close();
 
-		cout << "\nLoaded " << LoadedQuestionsCount << " questions successfully.\n\n";
+		cout << "\nLoaded " << LoadedQuestionsCount << " questions successfully.\n" << endl;
 	}
+		File.close();
 
 }
 
 
 void GetFileNameFromUser() {
   std::ifstream File;
-  
+
 	string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nFilename");
   File.open(FileName);
 
@@ -56,7 +56,7 @@ void GetFileNameFromUser() {
     cout << "\nFile found, loading questions\n";
     return ReadFromFile(FileName);
   }
-  
+
 	cout << "\nFile not found, verify that you placed the file containing the questions in the same folder as this program and try again\n\n";
   return GetFileNameFromUser();
 }
