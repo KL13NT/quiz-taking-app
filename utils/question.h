@@ -74,7 +74,10 @@ void CreateQuestion(){
 
 			QuestionPoolSet.insert(Title);
 			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+			QuestionIDs.insert(LAST_QUESTION_ID);
+
 			POOL_QUESTIONS_COUNT += 1;
+			LAST_QUESTION_ID += 1;
 		}
 		else cout << "\nThis question already exists. Try adding a different question.\n";
 
@@ -132,6 +135,7 @@ void DeleteQuestion(int QuestionIndex){
 	QuestionPoolSet.erase(QuestionPool[QuestionIndex].Title);
 	QuestionPool.erase(PoolIterator);
 	QuestionPoolIndices.erase(IndiciesIterator);
+	QuestionIDs.erase(QuestionIndex);
 
 	POOL_QUESTIONS_COUNT -= 1;
 

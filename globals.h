@@ -15,6 +15,7 @@ bool IsFirstRun = true;
 bool IsLoggedin = false;
 int LoggedinUserID = -1;
 int POOL_QUESTIONS_COUNT = 0;
+int LAST_QUESTION_ID = 0;
 string Greeting;
 
 // Storage
@@ -23,6 +24,6 @@ vector<int> AnswerIndices = { 0, 1, 2, 3 };
 vector<User> Users;
 vector<Question> QuestionPool;
 unordered_set<string> QuestionPoolSet; //used for duplicate question detection
-
+unordered_set<int> QuestionIDs;
 
 #endif

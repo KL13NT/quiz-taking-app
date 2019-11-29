@@ -51,19 +51,19 @@ void AdminMenu() {
 
 // Handles questions menu interactions
 void QuestionsMenuHandler() {
-	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\n\n";
+	cout << string(15, '-') << "\nEnter [d] without the brackets followed by the question ID to delete a question (Example: d 2)\nEnter [b] to go back to the main menu\nKeep in mind that negative numbers are taken as positive.\n\n";
 
 	string UserChoice = GetUserInput("Your Choice");
 	char Type = UserChoice[0];
 
-	if (Type == 'b') return;
-	else if (Type == 'd') {
+	if (Type == 'b' && UserChoice.length() == 1) return;
+	else if (Type == 'd' && UserChoice.length() > 2) {
 		int QuestionIndex = std::stoi(StringToNumbers(UserChoice.substr(2)));
 
-		while(!(POOL_QUESTIONS_COUNT >= QuestionIndex)){
-			QuestionIndex = std::stoi(GetUserInput("No question with this ID exists. Try again.\nYour choice").substr(2));
+		if(QuestionIDs.find(QuestionIndex) == QuestionIDs.end()){
+			cout << "No question with this ID exists. Try again.\n\n";
+			return QuestionsMenuHandler();
 		}
-
 
 		DeleteQuestion(QuestionIndex);
 	}

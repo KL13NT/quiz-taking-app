@@ -30,8 +30,11 @@ void ReadFromFile(string FileName) {
 
           QuestionPoolSet.insert(Title);
           QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
+          QuestionIDs.insert(LAST_QUESTION_ID);
+
           LoadedQuestionsCount += 1;
           POOL_QUESTIONS_COUNT += 1;
+          LAST_QUESTION_ID += 1;
         }
       }
     }
