@@ -50,7 +50,9 @@ void ReadFromFile(string FileName) {
 void GetFileNameFromUser() {
   std::ifstream File;
 
-	string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nFilename");
+  cout << MakeHeader("Load questions from file", 30);
+
+  string FileName = GetUserInput("\nPlace the file in the same folder as this program exe\nFilename");
   File.open(FileName);
 
   if (File.is_open()) {
