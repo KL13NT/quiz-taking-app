@@ -58,6 +58,12 @@ void QuestionsMenuHandler() {
 
 	if (Type == 'b' && UserChoice.length() == 1) return;
 	else if (Type == 'd' && UserChoice.length() > 2) {
+		
+		if(StringToNumbers(UserChoice.substr(2)).length() == 0){
+			cout << "Unexpected input. Try again.\n";
+			return QuestionsMenuHandler();
+		}
+
 		int QuestionIndex = std::stoi(StringToNumbers(UserChoice.substr(2)));
 
 		if(QuestionIDs.find(QuestionIndex) == QuestionIDs.end()){
