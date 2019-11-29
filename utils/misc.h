@@ -22,7 +22,7 @@ string StringToNumbers(string StringToReplace){
 
 // Checks whether the question is a duplicate
 bool IsDuplicateQuestion(const string &Title){
-  return QuestionPoolSet.find(Title) != QuestionPoolSet.end();
+  return QuestionPoolTitles.find(StringToLowerCase(Title)) != QuestionPoolTitles.end();
 }
 
 
@@ -88,13 +88,11 @@ bool VerifyChoice(string &Type, string &CorrectChoice){
 	if(Type == "tf") {
 		IsValid =
 			StringIsEqualIgnoreCase("true", CorrectChoice)
-			|| StringIsEqualIgnoreCase("t", CorrectChoice)
-			|| StringIsEqualIgnoreCase("false", CorrectChoice)
-			|| StringIsEqualIgnoreCase("f", CorrectChoice);
+			|| StringIsEqualIgnoreCase("false", CorrectChoice);
 	}
 	else IsValid = CorrectChoice.length() > 0;
 
-	if(Type == "tf" && IsValid == false) cout << "\nTF question answers should be one of: [T]rue, [F]alse.\n";
+	if(Type == "tf" && IsValid == false) cout << "\nTF question answers should be one of: True, False.\n";
 	else if(Type == "complete" && IsValid == false) cout << "\nComplete question answers should be a string of more than 0 characters.\n";
 
 	return IsValid;

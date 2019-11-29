@@ -51,12 +51,15 @@ MCQQuestion CreateMCQQuestion(string Title, string CC){
 
 // Question creation menu
 void CreateQuestion(){
-	Question NewQuestion;
-
 	string QuestionType = StringToLowerCase(GetUserInput("Enter the type of question you'd like to change: [TF/Complete/MCQ]\nAlternatively, you can enter 'cancel' to go back to the main menu.\nYour Choice"));
 
 	if(QuestionType == "tf" || QuestionType == "mcq" || QuestionType == "complete"){
-		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + '?';
+		string Title = FormatQuestionTitle(GetUserInput("Enter Question without the question mark")) + "?";
+
+		if(Title.length() == 0) {
+			cout << "Question should be of length > 1\n\n";
+			return CreateQuestion();
+		}
 
 		if(!IsDuplicateQuestion(Title)){
 			string CorrectChoice;
@@ -72,7 +75,7 @@ void CreateQuestion(){
 
 			cout << "\nQuestion added successfully.\n\n";
 
-			QuestionPoolSet.insert(Title);
+			QuestionPoolTitles.insert(Title);
 			QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
 			QuestionIDs.insert(LAST_QUESTION_ID);
 
@@ -132,7 +135,7 @@ void DeleteQuestion(int QuestionIndex){
 	std::advance(PoolIterator, QuestionIndex);
 	std::advance(IndiciesIterator, QuestionIndex);
 
-	QuestionPoolSet.erase(QuestionPool[QuestionIndex].Title);
+	QuestionPoolTitles.erase(StringToLowerCase(QuestionPool[QuestionIndex].Title));
 	QuestionPool.erase(PoolIterator);
 	QuestionPoolIndices.erase(IndiciesIterator);
 	QuestionIDs.erase(QuestionIndex);

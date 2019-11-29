@@ -23,7 +23,7 @@ vector<int> QuestionPoolIndices; // filled in main
 vector<int> AnswerIndices = { 0, 1, 2, 3 };
 vector<User> Users;
 vector<Question> QuestionPool;
-unordered_set<string> QuestionPoolSet; //used for duplicate question detection
+unordered_set<string> QuestionPoolTitles; //used for duplicate question detection
 unordered_set<int> QuestionIDs;
 
 #endif

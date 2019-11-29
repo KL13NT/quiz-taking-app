@@ -28,7 +28,7 @@ void ReadFromFile(string FileName) {
           else if(QuestionType == "TF") QuestionPool.push_back(LoadTFQuestion(File, Line, Title));
 
 
-          QuestionPoolSet.insert(Title);
+          QuestionPoolTitles.insert(StringToLowerCase(Title));
           QuestionPoolIndices.push_back(POOL_QUESTIONS_COUNT);
           QuestionIDs.insert(LAST_QUESTION_ID);
 
